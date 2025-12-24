@@ -1,0 +1,9 @@
+.env
+cmd/temp/
+pkg/.DS_Store
+badger.db/
+env/
+__pycache__
+.idea
+cache.db
+venv

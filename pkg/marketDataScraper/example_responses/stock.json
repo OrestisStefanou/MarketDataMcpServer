@@ -1,0 +1,3420 @@
+{
+    "type": "data",
+    "nodes": [
+        {
+            "type": "skip"
+        },
+        {
+            "type": "data",
+            "data": [
+                {
+                    "info": 1
+                },
+                {
+                    "type": 2,
+                    "subtype": 3,
+                    "symbol": 4,
+                    "ticker": 5,
+                    "name": 6,
+                    "nameFull": 7,
+                    "titleName": 6,
+                    "exchange": 8,
+                    "baseurl": 9,
+                    "quote": 10,
+                    "state": 31,
+                    "archived": 12,
+                    "notice": 32,
+                    "ipoDate": 33,
+                    "cik": 34,
+                    "id": 35,
+                    "curr": 36,
+                    "stream": 38,
+                    "uid": 5,
+                    "template": 39,
+                    "interval": 40,
+                    "ble": 32,
+                    "features": 41
+                },
+                "stocks",
+                "stock",
+                "abnb",
+                "ABNB",
+                "Airbnb",
+                "Airbnb, Inc.",
+                "NASDAQ",
+                "/stocks/abnb",
+                {
+                    "c": 11,
+                    "e": 12,
+                    "h": 13,
+                    "l": 14,
+                    "o": 15,
+                    "p": 16,
+                    "u": 17,
+                    "v": 18,
+                    "cl": 19,
+                    "cp": 20,
+                    "ex": 8,
+                    "mc": 21,
+                    "ms": 22,
+                    "pd": 16,
+                    "td": 23,
+                    "ts": 24,
+                    "cdr": 25,
+                    "ets": 26,
+                    "exp": 27,
+                    "fms": 22,
+                    "h52": 28,
+                    "l52": 29,
+                    "uid": 5,
+                    "days": 26,
+                    "expTS": 30,
+                    "symbol": 4
+                },
+                -0.38,
+                false,
+                134.73,
+                130.37,
+                134.71,
+                134.39,
+                "Mar 7, 2025, 4:00 PM EST",
+                5607783,
+                134.77,
+                -0.28,
+                75440172130,
+                "closed",
+                "2025-03-07",
+                1741381200000,
+                -1,
+                0,
+                1741598100000,
+                170.1,
+                110.38,
+                1741397367474,
+                "normal",
+                null,
+                "2020-12-10",
+                "0001559720",
+                56653,
+                {
+                    "main": 37,
+                    "price": 37,
+                    "dividend": 37,
+                    "financial": 37
+                },
+                "USD",
+                true,
+                "Standard",
+                5000,
+                {
+                    "chart": 38,
+                    "history": 38,
+                    "metrics": 38,
+                    "revenue": 38,
+                    "dividend": 38,
+                    "forecast": 38,
+                    "employees": 38,
+                    "financials": 38,
+                    "market_cap": 38
+                }
+            ],
+            "uses": {
+                "params": [
+                    "symbol"
+                ]
+            }
+        },
+        {
+            "type": "data",
+            "data": [
+                {
+                    "marketCap": 1,
+                    "revenue": 2,
+                    "revenue_type": 3,
+                    "netIncome": 4,
+                    "sharesOut": 5,
+                    "eps": 6,
+                    "peRatio": 7,
+                    "forwardPE": 8,
+                    "dividend": 9,
+                    "exDividendDate": 9,
+                    "beta": 10,
+                    "analysts": 11,
+                    "target": 12,
+                    "earningsDate": 13,
+                    "description": 14,
+                    "infoTable": 15,
+                    "financialIntro": 40,
+                    "financialChart": 41,
+                    "analystIntro": 62,
+                    "analystTarget": 63,
+                    "analystChart": 67,
+                    "news": 72,
+                    "chart": 257,
+                    "changes": 1343,
+                    "source": 1346
+                },
+                "83.50B",
+                "11.10B",
+                "ttm",
+                "2.65B",
+                "621.34M",
+                "4.11",
+                "32.69",
+                "30.99",
+                "n/a",
+                "1.11",
+                "Hold",
+                "147.26 (+9.58%)",
+                "May 7, 2025",
+                "Airbnb, Inc., together with its subsidiaries, operates a platform that enables hosts to offer stays and experiences to guests worldwide. Its marketplace connects hosts and guests online or through mobile devices to book spaces and experiences. It also offers gift cards. The company was formerly known as AirBed & Breakfast, Inc. and changed its name to Airbnb, Inc. in November 2010. Airbnb, Inc. was founded in 2007 and is headquartered in San Francisco, California.",
+                [
+                    16,
+                    20,
+                    24,
+                    27,
+                    31,
+                    34,
+                    37
+                ],
+                {
+                    "t": 17,
+                    "v": 18,
+                    "u": 19
+                },
+                "Industry",
+                "Travel Services",
+                "stocks/industry/travel-services",
+                {
+                    "t": 21,
+                    "v": 22,
+                    "u": 23
+                },
+                "Sector",
+                "Consumer Discretionary",
+                "stocks/sector/consumer-discretionary",
+                {
+                    "t": 25,
+                    "v": 26
+                },
+                "IPO Date",
+                "Dec 10, 2020",
+                {
+                    "t": 28,
+                    "v": 29,
+                    "u": 30
+                },
+                "Employees",
+                "7,300",
+                "stocks/abnb/employees",
+                {
+                    "t": 32,
+                    "v": 33
+                },
+                "Stock Exchange",
+                "NASDAQ",
+                {
+                    "t": 35,
+                    "v": 36
+                },
+                "Ticker Symbol",
+                "ABNB",
+                {
+                    "t": 38,
+                    "v": 39,
+                    "eu": 39
+                },
+                "Website",
+                "https://www.airbnb.com",
+                "In 2024, Airbnb's revenue was $11.10 billion, an increase of 11.95% compared to the previous year's $9.92 billion. Earnings were $2.65 billion, a decrease of -44.74%.",
+                [
+                    42,
+                    46,
+                    50,
+                    54,
+                    58
+                ],
+                {
+                    "year": 43,
+                    "revenue": 44,
+                    "earnings": 45
+                },
+                2020,
+                3378000000,
+                -4585000000,
+                {
+                    "year": 47,
+                    "revenue": 48,
+                    "earnings": 49
+                },
+                2021,
+                5992000000,
+                -352000000,
+                {
+                    "year": 51,
+                    "revenue": 52,
+                    "earnings": 53
+                },
+                2022,
+                8399000000,
+                1893000000,
+                {
+                    "year": 55,
+                    "revenue": 56,
+                    "earnings": 57
+                },
+                2023,
+                9917000000,
+                4792000000,
+                {
+                    "year": 59,
+                    "revenue": 60,
+                    "earnings": 61
+                },
+                2024,
+                11102000000,
+                2648000000,
+                "According to 31 analysts, the average rating for ABNB stock is \"Hold.\" The 12-month stock price forecast is $147.26, which is an increase of 9.58% from the latest price.",
+                {
+                    "target": 64,
+                    "change": 65,
+                    "changeWord": 66
+                },
+                "$147.26",
+                "9.58%",
+                "upside",
+                {
+                    "strongBuy": 68,
+                    "buy": 68,
+                    "hold": 69,
+                    "sell": 70,
+                    "strongSell": 71
+                },
+                5,
+                17,
+                4,
+                0,
+                {
+                    "exp": 73,
+                    "data": 74
+                },
+                "1741522448181",
+                [
+                    75,
+                    84,
+                    93,
+                    103,
+                    111,
+                    118,
+                    125,
+                    132,
+                    144,
+                    151,
+                    158,
+                    164,
+                    171,
+                    178,
+                    185,
+                    191,
+                    197,
+                    204,
+                    211,
+                    217,
+                    224,
+                    230,
+                    236,
+                    244,
+                    250
+                ],
+                {
+                    "url": 76,
+                    "img": 77,
+                    "title": 78,
+                    "text": 79,
+                    "source": 80,
+                    "type": 81,
+                    "time": 82,
+                    "ago": 83
+                },
+                "JCgwnf82LdQ",
+                "https://cdn.snapi.dev/images/v1/a/5/c/abn16-2665056-2935073.jpg",
+                "Airbnb surges after upbeat quarter, plan to become 'Amazon' of travel and living",
+                "To get the latest market news check out finance.yahoo.com Airbnb (ABNB) stock surged as much as 15% on Friday following better-than-expected quarterly results. The company also laid out plans to expan...",
+                "Yahoo Finance",
+                "Video",
+                "Feb 25, 2025, 6:43 PM EST",
+                "11 days ago",
+                {
+                    "url": 85,
+                    "img": 86,
+                    "title": 87,
+                    "text": 88,
+                    "source": 89,
+                    "type": 90,
+                    "time": 91,
+                    "ago": 92
+                },
+                "https://www.geekwire.com/2025/airbnb-pushes-back-on-new-bill-that-would-tax-short-term-rentals-to-fund-housing-in-washington/",
+                "https://cdn.snapi.dev/images/v1/b/d/e/abn19-2653481-2921900.jpg",
+                "Airbnb pushes back on new bill that would tax short-term rentals to fund housing in Washington",
+                "Opponents rallied at the Washington State Capitol in Olympia on Tuesday to voice their displeasure for a bill being considered by the legislature that would impose a 6% tax on short-term rental bookin...",
+                "GeekWire",
+                "Article",
+                "Feb 19, 2025, 10:28 AM EST",
+                "17 days ago",
+                {
+                    "url": 94,
+                    "img": 95,
+                    "title": 96,
+                    "text": 97,
+                    "source": 98,
+                    "type": 81,
+                    "tickers": 99,
+                    "time": 101,
+                    "ago": 102
+                },
+                "WEoxM5O807Q",
+                "https://cdn.snapi.dev/images/v1/b/m/u/abn6-2694947-2916834.jpg",
+                "\"Macro Tailwinds\" for ABNB & DKNG Earnings",
+                "Alonso Munoz reacts to overnight earnings reports from Airbnb (ABNB) and DraftKings (DKNG). He says ABNB “crushed earnings” and sees “macro tailwinds” behind it.",
+                "Schwab Network",
+                [
+                    100
+                ],
+                "$DKNG",
+                "Feb 17, 2025, 10:00 AM EST",
+                "19 days ago",
+                {
+                    "url": 104,
+                    "img": 105,
+                    "title": 106,
+                    "text": 107,
+                    "source": 108,
+                    "type": 90,
+                    "time": 109,
+                    "ago": 110
+                },
+                "https://stockanalysis.com/out/news?url=https://seekingalpha.com/article/4758899-airbnb-q4-accelerating-nights-booked-growth",
+                "https://cdn.snapi.dev/images/v1/n/y/r/abn13-2672847-2916265.jpg",
+                "Airbnb Q4: Accelerating Nights Booked Growth",
+                "I reiterate a 'Strong Buy' rating on Airbnb with a one-year target price of $202 per share, following a 19% stock price surge since November 2024. ABNB's Q4 results showed 12% revenue growth and 15% g...",
+                "Seeking Alpha",
+                "Feb 16, 2025, 10:19 PM EST",
+                "20 days ago",
+                {
+                    "url": 112,
+                    "img": 113,
+                    "title": 114,
+                    "text": 115,
+                    "source": 108,
+                    "type": 90,
+                    "time": 116,
+                    "ago": 117
+                },
+                "https://stockanalysis.com/out/news?url=https://seekingalpha.com/article/4758662-thank-you-airbnb-and-farewell-rating-downgrade",
+                "https://cdn.snapi.dev/images/v1/g/6/8/abn2-2707443-2915177.jpg",
+                "Thank You, Airbnb, And Farewell (Rating Downgrade)",
+                "I have been bullish on Airbnb since its IPO due to its strong network effects, lean capital structure, and ability to generate free cash flow. Airbnb just released its Q4 earnings and offered a first ...",
+                "Feb 14, 2025, 7:05 PM EST",
+                "22 days ago",
+                {
+                    "url": 119,
+                    "img": 120,
+                    "title": 121,
+                    "text": 122,
+                    "source": 123,
+                    "type": 90,
+                    "time": 124,
+                    "ago": 117
+                },
+                "https://www.investopedia.com/s-and-p-500-gains-and-losses-today-airbnb-stock-soars-as-profits-bookings-top-estimates-11680060",
+                "https://cdn.snapi.dev/images/v1/h/y/s/abn6-2694947-2915061.jpg",
+                "S&P 500 Gains and Losses Today: Airbnb Stock Soars as Profits, Bookings Top Estimates",
+                "Major U.S. equities indexes were mixed to wrap up a week of trading that spotlighted inflation updates and evolving trade policies.",
+                "Investopedia",
+                "Feb 14, 2025, 5:24 PM EST",
+                {
+                    "url": 126,
+                    "img": 127,
+                    "title": 128,
+                    "text": 129,
+                    "source": 130,
+                    "type": 81,
+                    "time": 131,
+                    "ago": 117
+                },
+                "cIaw9eFt814",
+                "https://cdn.snapi.dev/images/v1/i/y/q/abn17-2657915-2915001.jpg",
+                "AirBnb Shares Close Up for Best Day Since 2020 | Closing Bell",
+                "Comprehensive cross-platform coverage of the U.S. market close on Bloomberg Television, Bloomberg Radio, and YouTube with Romaine Bostick, Scarlet Fu, Carol Massar and Tim Stenovec.",
+                "Bloomberg Markets and Finance",
+                "Feb 14, 2025, 4:31 PM EST",
+                {
+                    "url": 133,
+                    "img": 134,
+                    "title": 135,
+                    "text": 136,
+                    "source": 137,
+                    "type": 90,
+                    "tickers": 138,
+                    "time": 143,
+                    "ago": 117
+                },
+                "https://www.kiplinger.com/investing/stocks/stock-market-today-its-mostly-onward-and-upward-for-equities",
+                "https://cdn.snapi.dev/images/v1/m/h/g/data-internet40-2915019.jpg",
+                "Stock Market Today: It's Mostly Onward and Upward for Equities",
+                "The major U.S. equity indexes were mixed Friday but closed an eventful week for earnings and data modestly higher.",
+                "Kiplinger",
+                [
+                    139,
+                    140,
+                    141,
+                    142
+                ],
+                "$BA",
+                "$COIN",
+                "$NVDA",
+                "$ROKU",
+                "Feb 14, 2025, 4:08 PM EST",
+                {
+                    "url": 145,
+                    "img": 146,
+                    "title": 147,
+                    "text": 148,
+                    "source": 149,
+                    "type": 90,
+                    "time": 150,
+                    "ago": 117
+                },
+                "https://www.cnbc.com/2025/02/14/airbnb-shares-pop-most-on-record-after-q4-earnings-beat.html",
+                "https://cdn.snapi.dev/images/v1/y/l/f/abn7-2689189-2914465.jpg",
+                "Airbnb pops 14%, heads for record rally on earnings beat",
+                "Airbnb shares popped 14% and were on pace for their best day on better-than-expected fourth-quarter earnings. The online rental platform offered light guidance for the current quarter and said it bene...",
+                "CNBC",
+                "Feb 14, 2025, 12:18 PM EST",
+                {
+                    "url": 152,
+                    "img": 153,
+                    "title": 154,
+                    "text": 155,
+                    "source": 156,
+                    "type": 90,
+                    "time": 157,
+                    "ago": 117
+                },
+                "https://www.benzinga.com/25/02/43736004/airbnb-posts-strong-q4-global-expansion-strategy-to-lend-upside-to-growth-rates-analysts-say?utm_source=snapi",
+                "https://cdn.snapi.dev/images/v1/k/y/v/abn10-2684855-2914355.jpg",
+                "Airbnb Posts Strong Q4: Global Expansion Strategy To Lend Upside To Growth Rates, Analysts Say",
+                "Shares of Airbnb Inc ABNB were climbing in early trading on Friday, after the company reported upbeat fourth-quarter results.",
+                "Benzinga",
+                "Feb 14, 2025, 11:17 AM EST",
+                {
+                    "url": 159,
+                    "img": 160,
+                    "title": 161,
+                    "text": 162,
+                    "source": 137,
+                    "type": 90,
+                    "time": 163,
+                    "ago": 117
+                },
+                "https://www.kiplinger.com/investing/stocks/airbnb-stock-soars-after-revenue-earnings-top-expectations",
+                "https://cdn.snapi.dev/images/v1/d/b/a/abn10-2684855-2914671.jpg",
+                "Airbnb Stock Soars After Revenue, Earnings Top Expectations",
+                "Airbnb stock soared Friday after the homestay and experiences platform beat fourth-quarter revenue and earnings expectations. Here's what you need to know.",
+                "Feb 14, 2025, 11:04 AM EST",
+                {
+                    "url": 165,
+                    "img": 166,
+                    "title": 167,
+                    "text": 168,
+                    "source": 169,
+                    "type": 90,
+                    "time": 170,
+                    "ago": 117
+                },
+                "https://www.barrons.com/articles/airbnb-earnings-stock-price-amazon-404c1674",
+                "https://cdn.snapi.dev/images/v1/u/x/4/bank40-2913668.jpg",
+                "Airbnb Stock Surges After Earnings Beat. It Wants to Be the Amazon of Travel.",
+                "The short-term rental company plans to launch several new businesses over the next five years.",
+                "Barrons",
+                "Feb 14, 2025, 8:24 AM EST",
+                {
+                    "url": 172,
+                    "img": 173,
+                    "title": 174,
+                    "text": 175,
+                    "source": 108,
+                    "type": 90,
+                    "time": 176,
+                    "ago": 177
+                },
+                "https://stockanalysis.com/out/news?url=https://seekingalpha.com/article/4758368-airbnb-q4-earnings-inflection-point-here",
+                "https://cdn.snapi.dev/images/v1/6/v/l/abn16-2665056-2913250.jpg",
+                "Airbnb Q4 Earnings: Inflection Point Is Here",
+                "Airbnb's shares surged 14% after earnings, reflecting a fair valuation at 20x forward free cash flow with 12% y/y growth expected in 2025. Heavy investments and over 500 new features aim to enhance th...",
+                "Feb 14, 2025, 3:57 AM EST",
+                "23 days ago",
+                {
+                    "url": 179,
+                    "img": 180,
+                    "title": 181,
+                    "text": 182,
+                    "source": 183,
+                    "type": 90,
+                    "time": 184,
+                    "ago": 177
+                },
+                "https://www.pymnts.com/earnings/2025/airbnb-overhauls-mobile-app-to-be-similar-to-amazon/?utm_source=snapi",
+                "https://cdn.snapi.dev/images/v1/5/a/z/abn1-2706757-2913048.jpg",
+                "Airbnb Overhauls Mobile App to Be ‘Similar to Amazon'",
+                "Airbnb is accessed by about 1.6 billion devices per year, according to CEO Brian Chesky, “but we're not a frequently used app.” To address this, the company is investing in refining its mobile app, st...",
+                "PYMNTS",
+                "Feb 13, 2025, 8:54 PM EST",
+                {
+                    "url": 186,
+                    "img": 187,
+                    "title": 188,
+                    "text": 189,
+                    "source": 108,
+                    "type": 90,
+                    "time": 190,
+                    "ago": 177
+                },
+                "https://stockanalysis.com/out/news?url=https://seekingalpha.com/article/4758247-airbnb-inc-abnb-q4-2024-earnings-call-transcript",
+                "https://cdn.snapi.dev/images/v1/0/h/h/transcript2-2913007.jpg",
+                "Airbnb, Inc. (ABNB) Q4 2024 Earnings Call Transcript",
+                "Airbnb, Inc. (NASDAQ:ABNB) Q4 2024 Earnings Conference Call February 13, 2025 4:30 PM ET Company Participants Angela Yang - Director, Investor Relations Brian Chesky - Co-Founder & Chief Executive Of...",
+                "Feb 13, 2025, 8:05 PM EST",
+                {
+                    "url": 192,
+                    "img": 193,
+                    "title": 194,
+                    "text": 195,
+                    "source": 123,
+                    "type": 90,
+                    "time": 196,
+                    "ago": 177
+                },
+                "https://www.investopedia.com/airbnb-swings-to-bigger-than-expected-profit-sending-stock-soaring-11679664",
+                "https://cdn.snapi.dev/images/v1/f/v/3/abn18-2654401-2912885.jpg",
+                "Airbnb Swings to Bigger-Than-Expected Profit, Sending Stock Soaring",
+                "Airbnb (ABNB) swung to a bigger-than-expected profit in the fourth quarter, sending shares soaring in extended trading Thursday.",
+                "Feb 13, 2025, 6:55 PM EST",
+                {
+                    "url": 198,
+                    "img": 199,
+                    "title": 200,
+                    "text": 201,
+                    "source": 202,
+                    "type": 81,
+                    "time": 203,
+                    "ago": 177
+                },
+                "DnC_7zpVVDw",
+                "https://cdn.snapi.dev/images/v1/g/o/y/abn15-2665671-2912668.jpg",
+                "Airbnb pops more than 10% after Q4 beat",
+                "CNBC's Julia Boorstin joins 'Closing Bell Overtime' to talk Airbnb earnings.",
+                "CNBC Television",
+                "Feb 13, 2025, 4:50 PM EST",
+                {
+                    "url": 205,
+                    "img": 206,
+                    "title": 207,
+                    "text": 208,
+                    "source": 209,
+                    "type": 90,
+                    "time": 210,
+                    "ago": 177
+                },
+                "https://www.marketwatch.com/story/airbnb-sales-forecast-just-misses-expectations-but-shares-rally-7e7cfff4",
+                "https://cdn.snapi.dev/images/v1/r/z/f/abn7-2689189-2912456.jpg",
+                "Airbnb sales forecast just misses expectations, but shares rally",
+                "Airbnb Inc. on Thursday forecast first-quarter sales that came up a bit shy of Wall Street's expectations, but the vacation-rental platform said it expects to continue to build on strides it made last...",
+                "Market Watch",
+                "Feb 13, 2025, 4:25 PM EST",
+                {
+                    "url": 212,
+                    "img": 213,
+                    "title": 214,
+                    "text": 215,
+                    "source": 149,
+                    "type": 90,
+                    "time": 216,
+                    "ago": 177
+                },
+                "https://www.cnbc.com/2025/02/13/airbnb-abnb-q4-earnings-2024.html",
+                "https://cdn.snapi.dev/images/v1/s/c/k/abn2-2707443-2912466.jpg",
+                "Airbnb shares pop 15% on better-than-expected earnings and revenue",
+                "Airbnb reported fourth-quarter earnings on Thursday that beat analysts' estimates. The company issued soft guidance.",
+                "Feb 13, 2025, 4:22 PM EST",
+                {
+                    "url": 218,
+                    "img": 219,
+                    "title": 220,
+                    "text": 221,
+                    "source": 222,
+                    "type": 90,
+                    "time": 223,
+                    "ago": 177
+                },
+                "https://www.prnewswire.com/news-releases/airbnb-announces-fourth-quarter-and-full-year-2024-results-302370264.html",
+                "https://cdn.snapi.dev/images/v1/p/p/x/press16-2912351.jpg",
+                "Airbnb Announces Fourth Quarter and Full Year 2024 Results",
+                "SAN FRANCISCO , Feb. 13, 2025 /PRNewswire/ -- Airbnb, Inc. (NASDAQ: ABNB) has posted a shareholder letter containing its fourth quarter and full year 2024 financial results on its Investor Relations w...",
+                "PRNewsWire",
+                "Feb 13, 2025, 4:03 PM EST",
+                {
+                    "url": 225,
+                    "img": 226,
+                    "title": 227,
+                    "text": 228,
+                    "source": 156,
+                    "type": 90,
+                    "time": 229,
+                    "ago": 177
+                },
+                "https://www.benzinga.com/general/travel/25/02/43703553/airbnb-stock-is-rallying-will-q4-earnings-keep-the-momentum-alive?utm_source=snapi",
+                "https://cdn.snapi.dev/images/v1/6/m/m/abn15-2665671-2911863.jpg",
+                "Airbnb Stock Is Rallying – Will Q4 Earnings Keep The Momentum Alive?",
+                "Airbnb Inc ABNB will be reporting its fourth-quarter earnings on Thursday. Wall Street expects 58 cents in EPS and $2.42 billion in revenues as the company reports after market hours.",
+                "Feb 13, 2025, 12:24 PM EST",
+                {
+                    "url": 231,
+                    "img": 232,
+                    "title": 233,
+                    "text": 234,
+                    "source": 156,
+                    "type": 90,
+                    "time": 235,
+                    "ago": 177
+                },
+                "https://www.benzinga.com/analyst-ratings/price-target/25/02/43697228/airbnb-earnings-are-imminent-these-most-accurate-analysts-revise-forecasts-ahead-of-?utm_source=snapi",
+                "https://cdn.snapi.dev/images/v1/p/r/y/abn20-2652965-2911254.jpg",
+                "Airbnb Earnings Are Imminent; These Most Accurate Analysts Revise Forecasts Ahead Of Earnings Call",
+                "Airbnb, Inc. ABNB will release its fourth-quarter financial results after the closing bell on Thursday, Feb. 13.",
+                "Feb 13, 2025, 10:11 AM EST",
+                {
+                    "url": 237,
+                    "img": 238,
+                    "title": 239,
+                    "text": 240,
+                    "source": 241,
+                    "type": 90,
+                    "time": 242,
+                    "ago": 243
+                },
+                "https://invezz.com/news/2025/02/08/airbnb-stock-price-analysis-bullish-patterns-are-forming/?utm_source=snapi",
+                "https://cdn.snapi.dev/images/v1/2/o/g/abn14-2667969-2901057.jpg",
+                "Airbnb stock price analysis: bullish patterns are forming",
+                "Airbnb stock price has price has remained in a tight range in the past three months as concerns about its business remained. It was trading at $135 on Friday, down by over 20% from its highest swing i...",
+                "Invezz",
+                "Feb 8, 2025, 3:34 PM EST",
+                "4 weeks ago",
+                {
+                    "url": 245,
+                    "img": 246,
+                    "title": 247,
+                    "text": 248,
+                    "source": 108,
+                    "type": 90,
+                    "time": 249,
+                    "ago": 243
+                },
+                "https://stockanalysis.com/out/news?url=https://seekingalpha.com/article/4755964-airbnb-stock-beaten-down-buy-before-experiences-brings-it-back",
+                "https://cdn.snapi.dev/images/v1/8/q/7/abn2-2707443-2898978.jpg",
+                "Airbnb Is Beaten Down, Buy Before Experiences Brings It Back",
+                "Despite a negative analyst outlook for consumer discretionary spending, TSA data would suggest travel volumes improved in the 2024-2025 winter season. Airbnb is planning to re-release Experiences acro...",
+                "Feb 7, 2025, 7:29 AM EST",
+                {
+                    "url": 251,
+                    "img": 252,
+                    "title": 253,
+                    "text": 254,
+                    "source": 255,
+                    "type": 90,
+                    "time": 256,
+                    "ago": 243
+                },
+                "https://www.businesswire.com/news/home/20250204844950/en/CIBC-Launches-10-New-U.S.-Market-CDRs-on-Cboe-Canada/",
+                "https://cdn.snapi.dev/images/v1/a/5/a/press20-2890610.jpg",
+                "CIBC Launches 10 New U.S. Market CDRs on Cboe Canada",
+                "TORONTO--(BUSINESS WIRE)---- $ABNB #Cboe--With today's launch, CIBC's suite of CDRs now features a total of 80 CDR tickers representing leading public companies in both U.S. and German markets.",
+                "Business Wire",
+                "Feb 4, 2025, 10:00 AM EST",
+                {
+                    "expiration": 258,
+                    "data": 259
+                },
+                1741617000000,
+                [
+                    260,
+                    264,
+                    267,
+                    270,
+                    273,
+                    276,
+                    279,
+                    282,
+                    285,
+                    288,
+                    291,
+                    294,
+                    297,
+                    300,
+                    303,
+                    306,
+                    309,
+                    312,
+                    315,
+                    318,
+                    321,
+                    324,
+                    327,
+                    330,
+                    333,
+                    336,
+                    339,
+                    342,
+                    345,
+                    348,
+                    351,
+                    353,
+                    356,
+                    359,
+                    362,
+                    365,
+                    368,
+                    371,
+                    374,
+                    377,
+                    380,
+                    383,
+                    386,
+                    389,
+                    392,
+                    395,
+                    398,
+                    401,
+                    404,
+                    407,
+                    409,
+                    412,
+                    415,
+                    418,
+                    421,
+                    424,
+                    427,
+                    430,
+                    432,
+                    435,
+                    438,
+                    441,
+                    444,
+                    447,
+                    450,
+                    453,
+                    456,
+                    459,
+                    462,
+                    465,
+                    468,
+                    471,
+                    474,
+                    477,
+                    480,
+                    483,
+                    485,
+                    488,
+                    491,
+                    494,
+                    497,
+                    500,
+                    503,
+                    506,
+                    509,
+                    512,
+                    515,
+                    518,
+                    521,
+                    524,
+                    527,
+                    530,
+                    533,
+                    536,
+                    539,
+                    542,
+                    544,
+                    547,
+                    550,
+                    553,
+                    556,
+                    559,
+                    562,
+                    565,
+                    567,
+                    570,
+                    572,
+                    575,
+                    578,
+                    580,
+                    583,
+                    585,
+                    588,
+                    591,
+                    594,
+                    597,
+                    600,
+                    603,
+                    606,
+                    609,
+                    611,
+                    614,
+                    617,
+                    620,
+                    623,
+                    626,
+                    629,
+                    631,
+                    634,
+                    637,
+                    640,
+                    643,
+                    646,
+                    649,
+                    652,
+                    655,
+                    658,
+                    661,
+                    664,
+                    667,
+                    670,
+                    673,
+                    676,
+                    679,
+                    682,
+                    685,
+                    688,
+                    691,
+                    693,
+                    696,
+                    699,
+                    702,
+                    705,
+                    708,
+                    711,
+                    714,
+                    717,
+                    720,
+                    723,
+                    725,
+                    728,
+                    731,
+                    733,
+                    736,
+                    739,
+                    741,
+                    743,
+                    746,
+                    749,
+                    752,
+                    755,
+                    758,
+                    760,
+                    763,
+                    766,
+                    769,
+                    771,
+                    774,
+                    777,
+                    780,
+                    783,
+                    786,
+                    788,
+                    791,
+                    794,
+                    796,
+                    799,
+                    801,
+                    804,
+                    807,
+                    810,
+                    813,
+                    816,
+                    819,
+                    822,
+                    825,
+                    828,
+                    831,
+                    834,
+                    836,
+                    839,
+                    842,
+                    845,
+                    848,
+                    851,
+                    854,
+                    856,
+                    859,
+                    862,
+                    865,
+                    868,
+                    870,
+                    873,
+                    876,
+                    879,
+                    882,
+                    885,
+                    888,
+                    890,
+                    893,
+                    896,
+                    899,
+                    901,
+                    904,
+                    907,
+                    910,
+                    912,
+                    915,
+                    918,
+                    921,
+                    924,
+                    927,
+                    930,
+                    932,
+                    935,
+                    938,
+                    941,
+                    944,
+                    946,
+                    949,
+                    951,
+                    954,
+                    957,
+                    960,
+                    963,
+                    966,
+                    969,
+                    971,
+                    974,
+                    977,
+                    980,
+                    983,
+                    986,
+                    989,
+                    992,
+                    994,
+                    997,
+                    1000,
+                    1002,
+                    1005,
+                    1007,
+                    1009,
+                    1012,
+                    1015,
+                    1018,
+                    1021,
+                    1023,
+                    1026,
+                    1029,
+                    1031,
+                    1034,
+                    1037,
+                    1040,
+                    1043,
+                    1045,
+                    1048,
+                    1051,
+                    1054,
+                    1056,
+                    1058,
+                    1060,
+                    1062,
+                    1065,
+                    1068,
+                    1071,
+                    1073,
+                    1075,
+                    1077,
+                    1079,
+                    1082,
+                    1085,
+                    1087,
+                    1090,
+                    1093,
+                    1096,
+                    1099,
+                    1102,
+                    1105,
+                    1108,
+                    1111,
+                    1114,
+                    1116,
+                    1119,
+                    1122,
+                    1125,
+                    1128,
+                    1131,
+                    1133,
+                    1136,
+                    1138,
+                    1140,
+                    1142,
+                    1145,
+                    1148,
+                    1151,
+                    1154,
+                    1156,
+                    1159,
+                    1161,
+                    1164,
+                    1167,
+                    1169,
+                    1172,
+                    1174,
+                    1176,
+                    1179,
+                    1181,
+                    1183,
+                    1186,
+                    1189,
+                    1191,
+                    1193,
+                    1196,
+                    1198,
+                    1201,
+                    1204,
+                    1206,
+                    1209,
+                    1212,
+                    1214,
+                    1216,
+                    1219,
+                    1221,
+                    1223,
+                    1225,
+                    1228,
+                    1231,
+                    1234,
+                    1237,
+                    1239,
+                    1241,
+                    1244,
+                    1247,
+                    1250,
+                    1252,
+                    1254,
+                    1256,
+                    1258,
+                    1260,
+                    1263,
+                    1265,
+                    1268,
+                    1271,
+                    1273,
+                    1276,
+                    1279,
+                    1281,
+                    1283,
+                    1285,
+                    1288,
+                    1290,
+                    1293,
+                    1296,
+                    1299,
+                    1301,
+                    1304,
+                    1307,
+                    1309,
+                    1312,
+                    1314,
+                    1316,
+                    1318,
+                    1320,
+                    1322,
+                    1325,
+                    1328,
+                    1331,
+                    1334,
+                    1337,
+                    1339,
+                    1341
+                ],
+                {
+                    "c": 261,
+                    "o": 262,
+                    "t": 263
+                },
+                134.65,
+                134.71,
+                1741339800,
+                {
+                    "c": 265,
+                    "t": 266
+                },
+                134.03,
+                1741339860,
+                {
+                    "c": 268,
+                    "t": 269
+                },
+                133.37,
+                1741339920,
+                {
+                    "c": 271,
+                    "t": 272
+                },
+                133.1,
+                1741339980,
+                {
+                    "c": 274,
+                    "t": 275
+                },
+                133.71,
+                1741340040,
+                {
+                    "c": 277,
+                    "t": 278
+                },
+                134.065,
+                1741340100,
+                {
+                    "c": 280,
+                    "t": 281
+                },
+                133.915,
+                1741340160,
+                {
+                    "c": 283,
+                    "t": 284
+                },
+                133.54,
+                1741340220,
+                {
+                    "c": 286,
+                    "t": 287
+                },
+                133.305,
+                1741340280,
+                {
+                    "c": 289,
+                    "t": 290
+                },
+                133.24,
+                1741340340,
+                {
+                    "c": 292,
+                    "t": 293
+                },
+                133.72,
+                1741340400,
+                {
+                    "c": 295,
+                    "t": 296
+                },
+                133.58,
+                1741340460,
+                {
+                    "c": 298,
+                    "t": 299
+                },
+                133.645,
+                1741340520,
+                {
+                    "c": 301,
+                    "t": 302
+                },
+                133.265,
+                1741340580,
+                {
+                    "c": 304,
+                    "t": 305
+                },
+                133.08,
+                1741340640,
+                {
+                    "c": 307,
+                    "t": 308
+                },
+                133.61,
+                1741340700,
+                {
+                    "c": 310,
+                    "t": 311
+                },
+                133.55,
+                1741340760,
+                {
+                    "c": 313,
+                    "t": 314
+                },
+                133.69,
+                1741340820,
+                {
+                    "c": 316,
+                    "t": 317
+                },
+                133.77,
+                1741340880,
+                {
+                    "c": 319,
+                    "t": 320
+                },
+                133.51,
+                1741340940,
+                {
+                    "c": 322,
+                    "t": 323
+                },
+                133.52,
+                1741341000,
+                {
+                    "c": 325,
+                    "t": 326
+                },
+                133.9,
+                1741341060,
+                {
+                    "c": 328,
+                    "t": 329
+                },
+                134.124,
+                1741341120,
+                {
+                    "c": 331,
+                    "t": 332
+                },
+                134.37,
+                1741341180,
+                {
+                    "c": 334,
+                    "t": 335
+                },
+                134.2,
+                1741341240,
+                {
+                    "c": 337,
+                    "t": 338
+                },
+                134.18,
+                1741341300,
+                {
+                    "c": 340,
+                    "t": 341
+                },
+                133.87,
+                1741341360,
+                {
+                    "c": 343,
+                    "t": 344
+                },
+                133.85,
+                1741341420,
+                {
+                    "c": 346,
+                    "t": 347
+                },
+                133.477,
+                1741341480,
+                {
+                    "c": 349,
+                    "t": 350
+                },
+                133.59,
+                1741341540,
+                {
+                    "c": 283,
+                    "t": 352
+                },
+                1741341600,
+                {
+                    "c": 354,
+                    "t": 355
+                },
+                133.995,
+                1741341660,
+                {
+                    "c": 357,
+                    "t": 358
+                },
+                134.305,
+                1741341720,
+                {
+                    "c": 360,
+                    "t": 361
+                },
+                134.51,
+                1741341780,
+                {
+                    "c": 363,
+                    "t": 364
+                },
+                134.57,
+                1741341840,
+                {
+                    "c": 366,
+                    "t": 367
+                },
+                134.22,
+                1741341900,
+                {
+                    "c": 369,
+                    "t": 370
+                },
+                134.185,
+                1741341960,
+                {
+                    "c": 372,
+                    "t": 373
+                },
+                134.39,
+                1741342020,
+                {
+                    "c": 375,
+                    "t": 376
+                },
+                134.27,
+                1741342080,
+                {
+                    "c": 378,
+                    "t": 379
+                },
+                134.36,
+                1741342140,
+                {
+                    "c": 381,
+                    "t": 382
+                },
+                134.369,
+                1741342200,
+                {
+                    "c": 384,
+                    "t": 385
+                },
+                134.21,
+                1741342260,
+                {
+                    "c": 387,
+                    "t": 388
+                },
+                134.16,
+                1741342320,
+                {
+                    "c": 390,
+                    "t": 391
+                },
+                133.83,
+                1741342380,
+                {
+                    "c": 393,
+                    "t": 394
+                },
+                133.94,
+                1741342440,
+                {
+                    "c": 396,
+                    "t": 397
+                },
+                133.95,
+                1741342500,
+                {
+                    "c": 399,
+                    "t": 400
+                },
+                134.01,
+                1741342560,
+                {
+                    "c": 402,
+                    "t": 403
+                },
+                133.68,
+                1741342620,
+                {
+                    "c": 405,
+                    "t": 406
+                },
+                133.795,
+                1741342680,
+                {
+                    "c": 283,
+                    "t": 408
+                },
+                1741342740,
+                {
+                    "c": 410,
+                    "t": 411
+                },
+                133.605,
+                1741342800,
+                {
+                    "c": 413,
+                    "t": 414
+                },
+                133.4,
+                1741342860,
+                {
+                    "c": 416,
+                    "t": 417
+                },
+                133.47,
+                1741342920,
+                {
+                    "c": 419,
+                    "t": 420
+                },
+                133.625,
+                1741342980,
+                {
+                    "c": 422,
+                    "t": 423
+                },
+                133.745,
+                1741343040,
+                {
+                    "c": 425,
+                    "t": 426
+                },
+                133.555,
+                1741343100,
+                {
+                    "c": 428,
+                    "t": 429
+                },
+                133.545,
+                1741343160,
+                {
+                    "c": 319,
+                    "t": 431
+                },
+                1741343220,
+                {
+                    "c": 433,
+                    "t": 434
+                },
+                133.22,
+                1741343280,
+                {
+                    "c": 436,
+                    "t": 437
+                },
+                133.21,
+                1741343340,
+                {
+                    "c": 439,
+                    "t": 440
+                },
+                133.15,
+                1741343400,
+                {
+                    "c": 442,
+                    "t": 443
+                },
+                132.92,
+                1741343460,
+                {
+                    "c": 445,
+                    "t": 446
+                },
+                132.565,
+                1741343520,
+                {
+                    "c": 448,
+                    "t": 449
+                },
+                132.58,
+                1741343580,
+                {
+                    "c": 451,
+                    "t": 452
+                },
+                132.46,
+                1741343640,
+                {
+                    "c": 454,
+                    "t": 455
+                },
+                132.27,
+                1741343700,
+                {
+                    "c": 457,
+                    "t": 458
+                },
+                132.17,
+                1741343760,
+                {
+                    "c": 460,
+                    "t": 461
+                },
+                131.87,
+                1741343820,
+                {
+                    "c": 463,
+                    "t": 464
+                },
+                131.79,
+                1741343880,
+                {
+                    "c": 466,
+                    "t": 467
+                },
+                131.709,
+                1741343940,
+                {
+                    "c": 469,
+                    "t": 470
+                },
+                131.445,
+                1741344000,
+                {
+                    "c": 472,
+                    "t": 473
+                },
+                131.58,
+                1741344060,
+                {
+                    "c": 475,
+                    "t": 476
+                },
+                131.71,
+                1741344120,
+                {
+                    "c": 478,
+                    "t": 479
+                },
+                131.92,
+                1741344180,
+                {
+                    "c": 481,
+                    "t": 482
+                },
+                131.91,
+                1741344240,
+                {
+                    "c": 457,
+                    "t": 484
+                },
+                1741344300,
+                {
+                    "c": 486,
+                    "t": 487
+                },
+                132.03,
+                1741344360,
+                {
+                    "c": 489,
+                    "t": 490
+                },
+                132,
+                1741344420,
+                {
+                    "c": 492,
+                    "t": 493
+                },
+                132.28,
+                1741344480,
+                {
+                    "c": 495,
+                    "t": 496
+                },
+                132.66,
+                1741344540,
+                {
+                    "c": 498,
+                    "t": 499
+                },
+                132.215,
+                1741344600,
+                {
+                    "c": 501,
+                    "t": 502
+                },
+                131.93,
+                1741344660,
+                {
+                    "c": 504,
+                    "t": 505
+                },
+                132.115,
+                1741344720,
+                {
+                    "c": 507,
+                    "t": 508
+                },
+                132.046,
+                1741344780,
+                {
+                    "c": 510,
+                    "t": 511
+                },
+                132.11,
+                1741344840,
+                {
+                    "c": 513,
+                    "t": 514
+                },
+                132.14,
+                1741344900,
+                {
+                    "c": 516,
+                    "t": 517
+                },
+                132.31,
+                1741344960,
+                {
+                    "c": 519,
+                    "t": 520
+                },
+                132.21,
+                1741345020,
+                {
+                    "c": 522,
+                    "t": 523
+                },
+                132.4,
+                1741345080,
+                {
+                    "c": 525,
+                    "t": 526
+                },
+                132.37,
+                1741345140,
+                {
+                    "c": 528,
+                    "t": 529
+                },
+                132.32,
+                1741345200,
+                {
+                    "c": 531,
+                    "t": 532
+                },
+                132.405,
+                1741345260,
+                {
+                    "c": 534,
+                    "t": 535
+                },
+                132.39,
+                1741345320,
+                {
+                    "c": 537,
+                    "t": 538
+                },
+                132.48,
+                1741345380,
+                {
+                    "c": 540,
+                    "t": 541
+                },
+                132.57,
+                1741345440,
+                {
+                    "c": 448,
+                    "t": 543
+                },
+                1741345500,
+                {
+                    "c": 545,
+                    "t": 546
+                },
+                132.67,
+                1741345560,
+                {
+                    "c": 548,
+                    "t": 549
+                },
+                132.79,
+                1741345620,
+                {
+                    "c": 551,
+                    "t": 552
+                },
+                132.685,
+                1741345680,
+                {
+                    "c": 554,
+                    "t": 555
+                },
+                132.84,
+                1741345740,
+                {
+                    "c": 557,
+                    "t": 558
+                },
+                132.71,
+                1741345800,
+                {
+                    "c": 560,
+                    "t": 561
+                },
+                132.81,
+                1741345860,
+                {
+                    "c": 563,
+                    "t": 564
+                },
+                132.705,
+                1741345920,
+                {
+                    "c": 551,
+                    "t": 566
+                },
+                1741345980,
+                {
+                    "c": 568,
+                    "t": 569
+                },
+                132.525,
+                1741346040,
+                {
+                    "c": 528,
+                    "t": 571
+                },
+                1741346100,
+                {
+                    "c": 573,
+                    "t": 574
+                },
+                132.2,
+                1741346160,
+                {
+                    "c": 576,
+                    "t": 577
+                },
+                132.18,
+                1741346220,
+                {
+                    "c": 489,
+                    "t": 579
+                },
+                1741346280,
+                {
+                    "c": 581,
+                    "t": 582
+                },
+                131.854,
+                1741346340,
+                {
+                    "c": 460,
+                    "t": 584
+                },
+                1741346400,
+                {
+                    "c": 586,
+                    "t": 587
+                },
+                131.96,
+                1741346460,
+                {
+                    "c": 589,
+                    "t": 590
+                },
+                131.845,
+                1741346520,
+                {
+                    "c": 592,
+                    "t": 593
+                },
+                131.62,
+                1741346580,
+                {
+                    "c": 595,
+                    "t": 596
+                },
+                131.418,
+                1741346640,
+                {
+                    "c": 598,
+                    "t": 599
+                },
+                131.119,
+                1741346700,
+                {
+                    "c": 601,
+                    "t": 602
+                },
+                130.99,
+                1741346760,
+                {
+                    "c": 604,
+                    "t": 605
+                },
+                131.26,
+                1741346820,
+                {
+                    "c": 607,
+                    "t": 608
+                },
+                131.28,
+                1741346880,
+                {
+                    "c": 607,
+                    "t": 610
+                },
+                1741346940,
+                {
+                    "c": 612,
+                    "t": 613
+                },
+                131.29,
+                1741347000,
+                {
+                    "c": 615,
+                    "t": 616
+                },
+                131.32,
+                1741347060,
+                {
+                    "c": 618,
+                    "t": 619
+                },
+                131.1,
+                1741347120,
+                {
+                    "c": 621,
+                    "t": 622
+                },
+                131.387,
+                1741347180,
+                {
+                    "c": 624,
+                    "t": 625
+                },
+                131.36,
+                1741347240,
+                {
+                    "c": 627,
+                    "t": 628
+                },
+                131.3,
+                1741347300,
+                {
+                    "c": 618,
+                    "t": 630
+                },
+                1741347360,
+                {
+                    "c": 632,
+                    "t": 633
+                },
+                131.09,
+                1741347420,
+                {
+                    "c": 635,
+                    "t": 636
+                },
+                131.145,
+                1741347480,
+                {
+                    "c": 638,
+                    "t": 639
+                },
+                131.21,
+                1741347540,
+                {
+                    "c": 641,
+                    "t": 642
+                },
+                131.075,
+                1741347600,
+                {
+                    "c": 644,
+                    "t": 645
+                },
+                130.77,
+                1741347660,
+                {
+                    "c": 647,
+                    "t": 648
+                },
+                130.636,
+                1741347720,
+                {
+                    "c": 650,
+                    "t": 651
+                },
+                130.555,
+                1741347780,
+                {
+                    "c": 653,
+                    "t": 654
+                },
+                130.84,
+                1741347840,
+                {
+                    "c": 656,
+                    "t": 657
+                },
+                130.61,
+                1741347900,
+                {
+                    "c": 659,
+                    "t": 660
+                },
+                130.71,
+                1741347960,
+                {
+                    "c": 662,
+                    "t": 663
+                },
+                130.47,
+                1741348020,
+                {
+                    "c": 665,
+                    "t": 666
+                },
+                130.505,
+                1741348080,
+                {
+                    "c": 668,
+                    "t": 669
+                },
+                130.645,
+                1741348140,
+                {
+                    "c": 671,
+                    "t": 672
+                },
+                130.59,
+                1741348200,
+                {
+                    "c": 674,
+                    "t": 675
+                },
+                130.612,
+                1741348260,
+                {
+                    "c": 677,
+                    "t": 678
+                },
+                130.575,
+                1741348320,
+                {
+                    "c": 680,
+                    "t": 681
+                },
+                130.495,
+                1741348380,
+                {
+                    "c": 683,
+                    "t": 684
+                },
+                130.53,
+                1741348440,
+                {
+                    "c": 686,
+                    "t": 687
+                },
+                130.73,
+                1741348500,
+                {
+                    "c": 689,
+                    "t": 690
+                },
+                130.765,
+                1741348560,
+                {
+                    "c": 644,
+                    "t": 692
+                },
+                1741348620,
+                {
+                    "c": 694,
+                    "t": 695
+                },
+                130.85,
+                1741348680,
+                {
+                    "c": 697,
+                    "t": 698
+                },
+                130.82,
+                1741348740,
+                {
+                    "c": 700,
+                    "t": 701
+                },
+                131.06,
+                1741348800,
+                {
+                    "c": 703,
+                    "t": 704
+                },
+                130.93,
+                1741348860,
+                {
+                    "c": 706,
+                    "t": 707
+                },
+                131.08,
+                1741348920,
+                {
+                    "c": 709,
+                    "t": 710
+                },
+                131.22,
+                1741348980,
+                {
+                    "c": 712,
+                    "t": 713
+                },
+                131.07,
+                1741349040,
+                {
+                    "c": 715,
+                    "t": 716
+                },
+                131.13,
+                1741349100,
+                {
+                    "c": 718,
+                    "t": 719
+                },
+                130.94,
+                1741349160,
+                {
+                    "c": 721,
+                    "t": 722
+                },
+                130.89,
+                1741349220,
+                {
+                    "c": 721,
+                    "t": 724
+                },
+                1741349280,
+                {
+                    "c": 726,
+                    "t": 727
+                },
+                130.9,
+                1741349340,
+                {
+                    "c": 729,
+                    "t": 730
+                },
+                131.01,
+                1741349400,
+                {
+                    "c": 671,
+                    "t": 732
+                },
+                1741349460,
+                {
+                    "c": 734,
+                    "t": 735
+                },
+                130.7,
+                1741349520,
+                {
+                    "c": 737,
+                    "t": 738
+                },
+                130.83,
+                1741349580,
+                {
+                    "c": 737,
+                    "t": 740
+                },
+                1741349640,
+                {
+                    "c": 694,
+                    "t": 742
+                },
+                1741349700,
+                {
+                    "c": 744,
+                    "t": 745
+                },
+                130.749,
+                1741349760,
+                {
+                    "c": 747,
+                    "t": 748
+                },
+                130.5,
+                1741349820,
+                {
+                    "c": 750,
+                    "t": 751
+                },
+                130.528,
+                1741349880,
+                {
+                    "c": 753,
+                    "t": 754
+                },
+                130.56,
+                1741349940,
+                {
+                    "c": 756,
+                    "t": 757
+                },
+                130.58,
+                1741350000,
+                {
+                    "c": 756,
+                    "t": 759
+                },
+                1741350060,
+                {
+                    "c": 761,
+                    "t": 762
+                },
+                130.78,
+                1741350120,
+                {
+                    "c": 764,
+                    "t": 765
+                },
+                130.68,
+                1741350180,
+                {
+                    "c": 767,
+                    "t": 768
+                },
+                130.86,
+                1741350240,
+                {
+                    "c": 718,
+                    "t": 770
+                },
+                1741350300,
+                {
+                    "c": 772,
+                    "t": 773
+                },
+                130.905,
+                1741350360,
+                {
+                    "c": 775,
+                    "t": 776
+                },
+                131.03,
+                1741350420,
+                {
+                    "c": 778,
+                    "t": 779
+                },
+                130.92,
+                1741350480,
+                {
+                    "c": 781,
+                    "t": 782
+                },
+                130.95,
+                1741350540,
+                {
+                    "c": 784,
+                    "t": 785
+                },
+                130.91,
+                1741350600,
+                {
+                    "c": 767,
+                    "t": 787
+                },
+                1741350660,
+                {
+                    "c": 789,
+                    "t": 790
+                },
+                130.975,
+                1741350720,
+                {
+                    "c": 792,
+                    "t": 793
+                },
+                131.095,
+                1741350780,
+                {
+                    "c": 709,
+                    "t": 795
+                },
+                1741350840,
+                {
+                    "c": 797,
+                    "t": 798
+                },
+                131.165,
+                1741350900,
+                {
+                    "c": 607,
+                    "t": 800
+                },
+                1741350960,
+                {
+                    "c": 802,
+                    "t": 803
+                },
+                131.31,
+                1741351020,
+                {
+                    "c": 805,
+                    "t": 806
+                },
+                131.41,
+                1741351080,
+                {
+                    "c": 808,
+                    "t": 809
+                },
+                131.2,
+                1741351140,
+                {
+                    "c": 811,
+                    "t": 812
+                },
+                131.27,
+                1741351200,
+                {
+                    "c": 814,
+                    "t": 815
+                },
+                131.325,
+                1741351260,
+                {
+                    "c": 817,
+                    "t": 818
+                },
+                131.23,
+                1741351320,
+                {
+                    "c": 820,
+                    "t": 821
+                },
+                131.16,
+                1741351380,
+                {
+                    "c": 823,
+                    "t": 824
+                },
+                131.365,
+                1741351440,
+                {
+                    "c": 826,
+                    "t": 827
+                },
+                131.66,
+                1741351500,
+                {
+                    "c": 829,
+                    "t": 830
+                },
+                131.69,
+                1741351560,
+                {
+                    "c": 832,
+                    "t": 833
+                },
+                131.73,
+                1741351620,
+                {
+                    "c": 826,
+                    "t": 835
+                },
+                1741351680,
+                {
+                    "c": 837,
+                    "t": 838
+                },
+                131.635,
+                1741351740,
+                {
+                    "c": 840,
+                    "t": 841
+                },
+                131.64,
+                1741351800,
+                {
+                    "c": 843,
+                    "t": 844
+                },
+                131.675,
+                1741351860,
+                {
+                    "c": 846,
+                    "t": 847
+                },
+                131.89,
+                1741351920,
+                {
+                    "c": 849,
+                    "t": 850
+                },
+                132.085,
+                1741351980,
+                {
+                    "c": 852,
+                    "t": 853
+                },
+                132.09,
+                1741352040,
+                {
+                    "c": 489,
+                    "t": 855
+                },
+                1741352100,
+                {
+                    "c": 857,
+                    "t": 858
+                },
+                131.785,
+                1741352160,
+                {
+                    "c": 860,
+                    "t": 861
+                },
+                131.545,
+                1741352220,
+                {
+                    "c": 863,
+                    "t": 864
+                },
+                131.155,
+                1741352280,
+                {
+                    "c": 866,
+                    "t": 867
+                },
+                131.24,
+                1741352340,
+                {
+                    "c": 811,
+                    "t": 869
+                },
+                1741352400,
+                {
+                    "c": 871,
+                    "t": 872
+                },
+                131.54,
+                1741352460,
+                {
+                    "c": 874,
+                    "t": 875
+                },
+                131.715,
+                1741352520,
+                {
+                    "c": 877,
+                    "t": 878
+                },
+                131.86,
+                1741352580,
+                {
+                    "c": 880,
+                    "t": 881
+                },
+                132.42,
+                1741352640,
+                {
+                    "c": 883,
+                    "t": 884
+                },
+                132.715,
+                1741352700,
+                {
+                    "c": 886,
+                    "t": 887
+                },
+                132.635,
+                1741352760,
+                {
+                    "c": 568,
+                    "t": 889
+                },
+                1741352820,
+                {
+                    "c": 891,
+                    "t": 892
+                },
+                132.575,
+                1741352880,
+                {
+                    "c": 894,
+                    "t": 895
+                },
+                132.415,
+                1741352940,
+                {
+                    "c": 897,
+                    "t": 898
+                },
+                132.495,
+                1741353000,
+                {
+                    "c": 573,
+                    "t": 900
+                },
+                1741353060,
+                {
+                    "c": 902,
+                    "t": 903
+                },
+                132.35,
+                1741353120,
+                {
+                    "c": 905,
+                    "t": 906
+                },
+                132.3,
+                1741353180,
+                {
+                    "c": 908,
+                    "t": 909
+                },
+                132.34,
+                1741353240,
+                {
+                    "c": 534,
+                    "t": 911
+                },
+                1741353300,
+                {
+                    "c": 913,
+                    "t": 914
+                },
+                132.44,
+                1741353360,
+                {
+                    "c": 916,
+                    "t": 917
+                },
+                132.55,
+                1741353420,
+                {
+                    "c": 919,
+                    "t": 920
+                },
+                132.61,
+                1741353480,
+                {
+                    "c": 922,
+                    "t": 923
+                },
+                132.64,
+                1741353540,
+                {
+                    "c": 925,
+                    "t": 926
+                },
+                132.724,
+                1741353600,
+                {
+                    "c": 928,
+                    "t": 929
+                },
+                132.53,
+                1741353660,
+                {
+                    "c": 886,
+                    "t": 931
+                },
+                1741353720,
+                {
+                    "c": 933,
+                    "t": 934
+                },
+                132.56,
+                1741353780,
+                {
+                    "c": 936,
+                    "t": 937
+                },
+                132.505,
+                1741353840,
+                {
+                    "c": 939,
+                    "t": 940
+                },
+                132.43,
+                1741353900,
+                {
+                    "c": 942,
+                    "t": 943
+                },
+                132.455,
+                1741353960,
+                {
+                    "c": 540,
+                    "t": 945
+                },
+                1741354020,
+                {
+                    "c": 947,
+                    "t": 948
+                },
+                132.605,
+                1741354080,
+                {
+                    "c": 537,
+                    "t": 950
+                },
+                1741354140,
+                {
+                    "c": 952,
+                    "t": 953
+                },
+                132.63,
+                1741354200,
+                {
+                    "c": 955,
+                    "t": 956
+                },
+                132.54,
+                1741354260,
+                {
+                    "c": 958,
+                    "t": 959
+                },
+                132.75,
+                1741354320,
+                {
+                    "c": 961,
+                    "t": 962
+                },
+                132.8,
+                1741354380,
+                {
+                    "c": 964,
+                    "t": 965
+                },
+                132.777,
+                1741354440,
+                {
+                    "c": 967,
+                    "t": 968
+                },
+                132.82,
+                1741354500,
+                {
+                    "c": 442,
+                    "t": 970
+                },
+                1741354560,
+                {
+                    "c": 972,
+                    "t": 973
+                },
+                133.23,
+                1741354620,
+                {
+                    "c": 975,
+                    "t": 976
+                },
+                133.36,
+                1741354680,
+                {
+                    "c": 978,
+                    "t": 979
+                },
+                133.33,
+                1741354740,
+                {
+                    "c": 981,
+                    "t": 982
+                },
+                133.35,
+                1741354800,
+                {
+                    "c": 984,
+                    "t": 985
+                },
+                133.39,
+                1741354860,
+                {
+                    "c": 987,
+                    "t": 988
+                },
+                133.32,
+                1741354920,
+                {
+                    "c": 990,
+                    "t": 991
+                },
+                133.11,
+                1741354980,
+                {
+                    "c": 972,
+                    "t": 993
+                },
+                1741355040,
+                {
+                    "c": 995,
+                    "t": 996
+                },
+                133.28,
+                1741355100,
+                {
+                    "c": 998,
+                    "t": 999
+                },
+                133.42,
+                1741355160,
+                {
+                    "c": 283,
+                    "t": 1001
+                },
+                1741355220,
+                {
+                    "c": 1003,
+                    "t": 1004
+                },
+                133.48,
+                1741355280,
+                {
+                    "c": 978,
+                    "t": 1006
+                },
+                1741355340,
+                {
+                    "c": 981,
+                    "t": 1008
+                },
+                1741355400,
+                {
+                    "c": 1010,
+                    "t": 1011
+                },
+                133.41,
+                1741355460,
+                {
+                    "c": 1013,
+                    "t": 1014
+                },
+                133.495,
+                1741355520,
+                {
+                    "c": 1016,
+                    "t": 1017
+                },
+                133.535,
+                1741355580,
+                {
+                    "c": 1019,
+                    "t": 1020
+                },
+                133.53,
+                1741355640,
+                {
+                    "c": 319,
+                    "t": 1022
+                },
+                1741355700,
+                {
+                    "c": 1024,
+                    "t": 1025
+                },
+                133.56,
+                1741355760,
+                {
+                    "c": 1027,
+                    "t": 1028
+                },
+                133.615,
+                1741355820,
+                {
+                    "c": 274,
+                    "t": 1030
+                },
+                1741355880,
+                {
+                    "c": 1032,
+                    "t": 1033
+                },
+                133.73,
+                1741355940,
+                {
+                    "c": 1035,
+                    "t": 1036
+                },
+                133.715,
+                1741356000,
+                {
+                    "c": 1038,
+                    "t": 1039
+                },
+                133.82,
+                1741356060,
+                {
+                    "c": 1041,
+                    "t": 1042
+                },
+                133.93,
+                1741356120,
+                {
+                    "c": 316,
+                    "t": 1044
+                },
+                1741356180,
+                {
+                    "c": 1046,
+                    "t": 1047
+                },
+                133.855,
+                1741356240,
+                {
+                    "c": 1049,
+                    "t": 1050
+                },
+                133.78,
+                1741356300,
+                {
+                    "c": 1052,
+                    "t": 1053
+                },
+                133.74,
+                1741356360,
+                {
+                    "c": 425,
+                    "t": 1055
+                },
+                1741356420,
+                {
+                    "c": 1019,
+                    "t": 1057
+                },
+                1741356480,
+                {
+                    "c": 413,
+                    "t": 1059
+                },
+                1741356540,
+                {
+                    "c": 283,
+                    "t": 1061
+                },
+                1741356600,
+                {
+                    "c": 1063,
+                    "t": 1064
+                },
+                133.7,
+                1741356660,
+                {
+                    "c": 1066,
+                    "t": 1067
+                },
+                133.57,
+                1741356720,
+                {
+                    "c": 1069,
+                    "t": 1070
+                },
+                133.62,
+                1741356780,
+                {
+                    "c": 307,
+                    "t": 1072
+                },
+                1741356840,
+                {
+                    "c": 1069,
+                    "t": 1074
+                },
+                1741356900,
+                {
+                    "c": 1024,
+                    "t": 1076
+                },
+                1741356960,
+                {
+                    "c": 410,
+                    "t": 1078
+                },
+                1741357020,
+                {
+                    "c": 1080,
+                    "t": 1081
+                },
+                133.64,
+                1741357080,
+                {
+                    "c": 1083,
+                    "t": 1084
+                },
+                133.65,
+                1741357140,
+                {
+                    "c": 343,
+                    "t": 1086
+                },
+                1741357200,
+                {
+                    "c": 1088,
+                    "t": 1089
+                },
+                133.925,
+                1741357260,
+                {
+                    "c": 1091,
+                    "t": 1092
+                },
+                134.12,
+                1741357320,
+                {
+                    "c": 1094,
+                    "t": 1095
+                },
+                134.28,
+                1741357380,
+                {
+                    "c": 1097,
+                    "t": 1098
+                },
+                134.33,
+                1741357440,
+                {
+                    "c": 1100,
+                    "t": 1101
+                },
+                134.23,
+                1741357500,
+                {
+                    "c": 1103,
+                    "t": 1104
+                },
+                134.24,
+                1741357560,
+                {
+                    "c": 1106,
+                    "t": 1107
+                },
+                134.38,
+                1741357620,
+                {
+                    "c": 1109,
+                    "t": 1110
+                },
+                134.265,
+                1741357680,
+                {
+                    "c": 1112,
+                    "t": 1113
+                },
+                134.355,
+                1741357740,
+                {
+                    "c": 378,
+                    "t": 1115
+                },
+                1741357800,
+                {
+                    "c": 1117,
+                    "t": 1118
+                },
+                134.285,
+                1741357860,
+                {
+                    "c": 1120,
+                    "t": 1121
+                },
+                134.345,
+                1741357920,
+                {
+                    "c": 1123,
+                    "t": 1124
+                },
+                134.225,
+                1741357980,
+                {
+                    "c": 1126,
+                    "t": 1127
+                },
+                134.25,
+                1741358040,
+                {
+                    "c": 1129,
+                    "t": 1130
+                },
+                134.29,
+                1741358100,
+                {
+                    "c": 387,
+                    "t": 1132
+                },
+                1741358160,
+                {
+                    "c": 1134,
+                    "t": 1135
+                },
+                134.145,
+                1741358220,
+                {
+                    "c": 372,
+                    "t": 1137
+                },
+                1741358280,
+                {
+                    "c": 387,
+                    "t": 1139
+                },
+                1741358340,
+                {
+                    "c": 1123,
+                    "t": 1141
+                },
+                1741358400,
+                {
+                    "c": 1143,
+                    "t": 1144
+                },
+                134.14,
+                1741358460,
+                {
+                    "c": 1146,
+                    "t": 1147
+                },
+                134.08,
+                1741358520,
+                {
+                    "c": 1149,
+                    "t": 1150
+                },
+                134.005,
+                1741358580,
+                {
+                    "c": 1152,
+                    "t": 1153
+                },
+                134.015,
+                1741358640,
+                {
+                    "c": 343,
+                    "t": 1155
+                },
+                1741358700,
+                {
+                    "c": 1157,
+                    "t": 1158
+                },
+                133.895,
+                1741358760,
+                {
+                    "c": 393,
+                    "t": 1160
+                },
+                1741358820,
+                {
+                    "c": 1162,
+                    "t": 1163
+                },
+                133.88,
+                1741358880,
+                {
+                    "c": 1165,
+                    "t": 1166
+                },
+                133.84,
+                1741358940,
+                {
+                    "c": 393,
+                    "t": 1168
+                },
+                1741359000,
+                {
+                    "c": 1170,
+                    "t": 1171
+                },
+                133.92,
+                1741359060,
+                {
+                    "c": 1165,
+                    "t": 1173
+                },
+                1741359120,
+                {
+                    "c": 343,
+                    "t": 1175
+                },
+                1741359180,
+                {
+                    "c": 1177,
+                    "t": 1178
+                },
+                133.76,
+                1741359240,
+                {
+                    "c": 1049,
+                    "t": 1180
+                },
+                1741359300,
+                {
+                    "c": 1049,
+                    "t": 1182
+                },
+                1741359360,
+                {
+                    "c": 1184,
+                    "t": 1185
+                },
+                133.865,
+                1741359420,
+                {
+                    "c": 1187,
+                    "t": 1188
+                },
+                133.86,
+                1741359480,
+                {
+                    "c": 405,
+                    "t": 1190
+                },
+                1741359540,
+                {
+                    "c": 274,
+                    "t": 1192
+                },
+                1741359600,
+                {
+                    "c": 1194,
+                    "t": 1195
+                },
+                133.91,
+                1741359660,
+                {
+                    "c": 1162,
+                    "t": 1197
+                },
+                1741359720,
+                {
+                    "c": 1199,
+                    "t": 1200
+                },
+                133.819,
+                1741359780,
+                {
+                    "c": 1202,
+                    "t": 1203
+                },
+                133.8,
+                1741359840,
+                {
+                    "c": 343,
+                    "t": 1205
+                },
+                1741359900,
+                {
+                    "c": 1207,
+                    "t": 1208
+                },
+                133.945,
+                1741359960,
+                {
+                    "c": 1210,
+                    "t": 1211
+                },
+                133.97,
+                1741360020,
+                {
+                    "c": 334,
+                    "t": 1213
+                },
+                1741360080,
+                {
+                    "c": 1126,
+                    "t": 1215
+                },
+                1741360140,
+                {
+                    "c": 1217,
+                    "t": 1218
+                },
+                134.13,
+                1741360200,
+                {
+                    "c": 384,
+                    "t": 1220
+                },
+                1741360260,
+                {
+                    "c": 1129,
+                    "t": 1222
+                },
+                1741360320,
+                {
+                    "c": 387,
+                    "t": 1224
+                },
+                1741360380,
+                {
+                    "c": 1226,
+                    "t": 1227
+                },
+                134,
+                1741360440,
+                {
+                    "c": 1229,
+                    "t": 1230
+                },
+                133.79,
+                1741360500,
+                {
+                    "c": 1232,
+                    "t": 1233
+                },
+                134.06,
+                1741360560,
+                {
+                    "c": 1235,
+                    "t": 1236
+                },
+                133.955,
+                1741360620,
+                {
+                    "c": 384,
+                    "t": 1238
+                },
+                1741360680,
+                {
+                    "c": 375,
+                    "t": 1240
+                },
+                1741360740,
+                {
+                    "c": 1242,
+                    "t": 1243
+                },
+                134.15,
+                1741360800,
+                {
+                    "c": 1245,
+                    "t": 1246
+                },
+                134.19,
+                1741360860,
+                {
+                    "c": 1248,
+                    "t": 1249
+                },
+                134.11,
+                1741360920,
+                {
+                    "c": 396,
+                    "t": 1251
+                },
+                1741360980,
+                {
+                    "c": 325,
+                    "t": 1253
+                },
+                1741361040,
+                {
+                    "c": 1210,
+                    "t": 1255
+                },
+                1741361100,
+                {
+                    "c": 280,
+                    "t": 1257
+                },
+                1741361160,
+                {
+                    "c": 1088,
+                    "t": 1259
+                },
+                1741361220,
+                {
+                    "c": 1261,
+                    "t": 1262
+                },
+                133.935,
+                1741361280,
+                {
+                    "c": 396,
+                    "t": 1264
+                },
+                1741361340,
+                {
+                    "c": 1266,
+                    "t": 1267
+                },
+                134.061,
+                1741361400,
+                {
+                    "c": 1269,
+                    "t": 1270
+                },
+                134.05,
+                1741361460,
+                {
+                    "c": 1041,
+                    "t": 1272
+                },
+                1741361520,
+                {
+                    "c": 1274,
+                    "t": 1275
+                },
+                134.035,
+                1741361580,
+                {
+                    "c": 1277,
+                    "t": 1278
+                },
+                134.105,
+                1741361640,
+                {
+                    "c": 1146,
+                    "t": 1280
+                },
+                1741361700,
+                {
+                    "c": 1210,
+                    "t": 1282
+                },
+                1741361760,
+                {
+                    "c": 1032,
+                    "t": 1284
+                },
+                1741361820,
+                {
+                    "c": 1286,
+                    "t": 1287
+                },
+                133.66,
+                1741361880,
+                {
+                    "c": 410,
+                    "t": 1289
+                },
+                1741361940,
+                {
+                    "c": 1291,
+                    "t": 1292
+                },
+                133.475,
+                1741362000,
+                {
+                    "c": 1294,
+                    "t": 1295
+                },
+                133.49,
+                1741362060,
+                {
+                    "c": 1297,
+                    "t": 1298
+                },
+                133.594,
+                1741362120,
+                {
+                    "c": 292,
+                    "t": 1300
+                },
+                1741362180,
+                {
+                    "c": 1302,
+                    "t": 1303
+                },
+                133.725,
+                1741362240,
+                {
+                    "c": 1305,
+                    "t": 1306
+                },
+                133.805,
+                1741362300,
+                {
+                    "c": 1165,
+                    "t": 1308
+                },
+                1741362360,
+                {
+                    "c": 1310,
+                    "t": 1311
+                },
+                133.99,
+                1741362420,
+                {
+                    "c": 387,
+                    "t": 1313
+                },
+                1741362480,
+                {
+                    "c": 378,
+                    "t": 1315
+                },
+                1741362540,
+                {
+                    "c": 1100,
+                    "t": 1317
+                },
+                1741362600,
+                {
+                    "c": 331,
+                    "t": 1319
+                },
+                1741362660,
+                {
+                    "c": 331,
+                    "t": 1321
+                },
+                1741362720,
+                {
+                    "c": 1323,
+                    "t": 1324
+                },
+                134.26,
+                1741362780,
+                {
+                    "c": 1326,
+                    "t": 1327
+                },
+                134.58,
+                1741362840,
+                {
+                    "c": 1329,
+                    "t": 1330
+                },
+                134.53,
+                1741362900,
+                {
+                    "c": 1332,
+                    "t": 1333
+                },
+                134.365,
+                1741362960,
+                {
+                    "c": 1335,
+                    "t": 1336
+                },
+                134.43,
+                1741363020,
+                {
+                    "c": 1335,
+                    "t": 1338
+                },
+                1741363080,
+                {
+                    "c": 372,
+                    "t": 1340
+                },
+                1741363140,
+                {
+                    "c": 372,
+                    "t": 1342
+                },
+                1741363200,
+                {
+                    "price1w": 1344,
+                    "price1m": 540,
+                    "priceYTD": 805,
+                    "price1y": 1345
+                },
+                138.87,
+                163.87,
+                "fmp"
+            ],
+            "uses": {
+                "search_params": [
+                    "cache-bust"
+                ],
+                "params": [
+                    "symbol"
+                ]
+            }
+        }
+    ]
+}

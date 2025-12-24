@@ -1,0 +1,431 @@
+{
+    "type": "data",
+    "nodes": [
+      {
+        "type": "data",
+        "data": [
+          {
+            "session": -1,
+            "cookies": 1,
+            "loc": 11,
+            "theme": -1,
+            "hideNewsSources": 15,
+            "ab": 16
+          },
+          [
+            2,
+            5,
+            8
+          ],
+          {
+            "name": 3,
+            "value": 4
+          },
+          "_ga_C83MWM65QF",
+          "GS1.1.1695719710.2.1.1695719773.0.0.0",
+          {
+            "name": 6,
+            "value": 7
+          },
+          "_ga",
+          "GA1.1.1985740954.1694588654",
+          {
+            "name": 9,
+            "value": 10
+          },
+          "_ga_ZVM14ND8J8",
+          "GS1.1.1728801502.9.1.1728801774.0.0.0",
+          {
+            "co": 12,
+            "isUS": 13,
+            "isEU": 14,
+            "isCA": 13
+          },
+          "GR",
+          false,
+          true,
+          [],
+          {}
+        ],
+        "uses": {},
+        "slash": "always"
+      },
+      {
+        "type": "data",
+        "data": [
+          {
+            "info": 1
+          },
+          {
+            "type": 2,
+            "symbol": 3,
+            "ticker": 4,
+            "name": 5,
+            "nameFull": 6,
+            "exchange": 7,
+            "baseurl": 8,
+            "quote": 9,
+            "state": 36,
+            "archived": 37,
+            "notice": 38,
+            "ipoDate": 39,
+            "cik": 40,
+            "id": 41,
+            "curr": 42,
+            "stream": 15,
+            "uid": 34,
+            "template": 44,
+            "features": 45
+          },
+          "stocks",
+          "aapl",
+          "AAPL",
+          "Apple",
+          "Apple Inc.",
+          "NASDAQ",
+          "/stocks/aapl",
+          {
+            "c": 10,
+            "cdr": 11,
+            "cl": 12,
+            "cp": 13,
+            "days": 14,
+            "e": 15,
+            "ec": 16,
+            "ecp": 17,
+            "ep": 18,
+            "epd": 18,
+            "es": 19,
+            "ets": 20,
+            "eu": 21,
+            "ex": 7,
+            "exp": 22,
+            "h": 23,
+            "h52": 24,
+            "l": 25,
+            "l52": 26,
+            "mc": 27,
+            "ms": 28,
+            "o": 29,
+            "p": 30,
+            "pd": 30,
+            "symbol": 3,
+            "td": 31,
+            "ts": 32,
+            "u": 33,
+            "uid": 34,
+            "v": 35
+          },
+          -1.49,
+          -1,
+          229.04,
+          -0.65,
+          0,
+          true,
+          -0.15,
+          -0.07,
+          227.4,
+          "After-hours",
+          1728691192102,
+          "Oct 11, 2024, 7:59 PM EDT",
+          1728893700000,
+          229.41,
+          237.23,
+          227.34,
+          164.08,
+          3443880691000,
+          "closed",
+          229.3,
+          227.55,
+          "2024-10-11",
+          1728676801000,
+          "Oct 11, 2024, 4:00 PM",
+          "stocks/AAPL",
+          30817675,
+          "normal",
+          false,
+          null,
+          "1980-12-12",
+          "0000320193",
+          "recC21YRS88bfCq3t",
+          {
+            "dividend": 43,
+            "financial": 43,
+            "main": 43,
+            "price": 43
+          },
+          "USD",
+          "Standard",
+          {
+            "chart": 15,
+            "dividend": 15,
+            "employees": 15,
+            "financials": 15,
+            "forecast": 15,
+            "history": 15,
+            "market_cap": 15,
+            "metrics": 15,
+            "revenue": 15
+          }
+        ],
+        "uses": {
+          "params": [
+            "symbol"
+          ]
+        }
+      },
+      {
+        "type": "data",
+        "data": [
+          {
+            "profile": 1,
+            "logo": 16,
+            "description": 17,
+            "contact": 18,
+            "details": 23,
+            "executives": 34,
+            "filings": 65
+          },
+          {
+            "name": 2,
+            "country": 3,
+            "founded": 4,
+            "ipoDate": 5,
+            "industry": 6,
+            "sector": 9,
+            "employees": 12,
+            "ceo": 15
+          },
+          "Apple Inc.",
+          "United States",
+          1977,
+          "1980-12-12",
+          {
+            "value": 7,
+            "url": 8
+          },
+          "Consumer Electronics",
+          "stocks/industry/consumer-electronics",
+          {
+            "value": 10,
+            "url": 11
+          },
+          "Technology",
+          "stocks/sector/technology",
+          {
+            "value": 13,
+            "url": 14
+          },
+          161000,
+          "stocks/aapl/employees",
+          "Timothy Cook",
+          true,
+          "<p>Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide.</p><p>The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories comprising AirPods, Apple TV, Apple Watch, Beats products, and HomePod.</p><p>It also provides AppleCare support and cloud services; and operates various platforms, including the App Store that allow customers to discover and download applications and digital content, such as books, music, video, games, and podcasts.</p><p>In addition, the company offers various services, such as Apple Arcade, a game subscription service; Apple Fitness+, a personalized fitness service; Apple Music, which offers users a curated listening experience with on-demand radio stations; Apple News+, a subscription news and magazine service; Apple TV+, which offers exclusive original content; Apple Card, a co-branded credit card; and Apple Pay, a cashless payment service, as well as licenses its intellectual property.</p><p>The company serves consumers, and small and mid-sized businesses; and the education, enterprise, and government markets.</p><p>It distributes third-party applications for its products through the App Store. The company also sells its products through its retail and online stores, and direct sales force; and third-party cellular network carriers, wholesalers, retailers, and resellers.</p><p>Apple Inc. was founded in 1976 and is headquartered in Cupertino, California.</p>",
+          {
+            "address": 19,
+            "phone": 20,
+            "website": 21,
+            "domain": 22
+          },
+          "One Apple Park Way<br>Cupertino, California 95014<br>United States",
+          "408 996 1010",
+          "https://www.apple.com",
+          "apple.com",
+          {
+            "symbol": 24,
+            "exchange": 25,
+            "fiscalYear": 26,
+            "currency": 27,
+            "ipoPrice": 28,
+            "cik": 29,
+            "cusip": 30,
+            "isin": 31,
+            "eid": 32,
+            "sic": 33
+          },
+          "AAPL",
+          "NASDAQ",
+          "October - September",
+          "USD",
+          null,
+          "0000320193",
+          "037833100",
+          "US0378331005",
+          "94-2404110",
+          "3571",
+          [
+            35,
+            38,
+            41,
+            44,
+            47,
+            50,
+            53,
+            56,
+            59,
+            62
+          ],
+          {
+            "Name": 36,
+            "Title": 37
+          },
+          "Timothy D. Cook",
+          "Chief Executive Officer and Director",
+          {
+            "Name": 39,
+            "Title": 40
+          },
+          "Luca Maestri",
+          "Chief Financial Officer and Senior Vice President",
+          {
+            "Name": 42,
+            "Title": 43
+          },
+          "Jeffrey E. Williams",
+          "Chief Operating Officer",
+          {
+            "Name": 45,
+            "Title": 46
+          },
+          "Katherine L. Adams",
+          "Senior Vice President, General Counsel and Secretary",
+          {
+            "Name": 48,
+            "Title": 49
+          },
+          "Deirdre O'Brien",
+          "Senior Vice President of Retail",
+          {
+            "Name": 51,
+            "Title": 52
+          },
+          "Chris Kondo",
+          "Senior Director of Corporate Accounting",
+          {
+            "Name": 54,
+            "Title": 55
+          },
+          "James Wilson",
+          "Chief Technology Officer",
+          {
+            "Name": 57,
+            "Title": 58
+          },
+          "Suhasini Chandramouli",
+          "Director of Investor Relations",
+          {
+            "Name": 60,
+            "Title": 61
+          },
+          "Greg Joswiak",
+          "Senior Vice President of Worldwide Marketing",
+          {
+            "Name": 63,
+            "Title": 64
+          },
+          "Adrian Perica",
+          "Head of Corporate Development",
+          [
+            66,
+            71,
+            74,
+            76,
+            78,
+            80,
+            85,
+            88,
+            91,
+            94
+          ],
+          {
+            "date": 67,
+            "type": 68,
+            "path": 69,
+            "title": 70
+          },
+          "Oct 4, 2024",
+          "144",
+          "320193/000195824424005135/xsl144X01/primary_doc.xml",
+          "Filing",
+          {
+            "date": 72,
+            "type": 68,
+            "path": 73,
+            "title": 70
+          },
+          "Oct 2, 2024",
+          "320193/000195004724007542/xsl144X01/primary_doc.xml",
+          {
+            "date": 72,
+            "type": 68,
+            "path": 75,
+            "title": 70
+          },
+          "320193/000197314124000479/xsl144X01/primary_doc.xml",
+          {
+            "date": 72,
+            "type": 68,
+            "path": 77,
+            "title": 70
+          },
+          "320193/000195917324006827/xsl144X01/primary_doc.xml",
+          {
+            "date": 72,
+            "type": 68,
+            "path": 79,
+            "title": 70
+          },
+          "320193/000197314124000478/xsl144X01/primary_doc.xml",
+          {
+            "date": 81,
+            "type": 82,
+            "path": 83,
+            "title": 84
+          },
+          "Sep 10, 2024",
+          "8-K",
+          "320193/000114036124040659/ef20035718_8k.htm",
+          "Current Report",
+          {
+            "date": 86,
+            "type": 82,
+            "path": 87,
+            "title": 84
+          },
+          "Aug 26, 2024",
+          "320193/000114036124038601/ny20033611x3_8k.htm",
+          {
+            "date": 89,
+            "type": 82,
+            "path": 90,
+            "title": 84
+          },
+          "Aug 23, 2024",
+          "320193/000114036124038403/ny20033611x2_8k.htm",
+          {
+            "date": 92,
+            "type": 68,
+            "path": 93,
+            "title": 70
+          },
+          "Aug 5, 2024",
+          "320193/000195004724005824/xsl144X01/primary_doc.xml",
+          {
+            "date": 95,
+            "type": 96,
+            "path": 97,
+            "title": 98
+          },
+          "Aug 2, 2024",
+          "10-Q",
+          "320193/000032019324000081/aapl-20240629.htm",
+          "Quarterly Report"
+        ],
+        "uses": {
+          "params": [
+            "symbol"
+          ]
+        }
+      }
+    ]
+  }
