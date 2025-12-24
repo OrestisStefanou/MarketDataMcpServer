@@ -1,6 +1,6 @@
-# MarketDataMcpServer (market_data_mcp_server)
+# MarketDataMcpServer
 
-market_data_mcp_server is a Model Context Protocol (MCP) server that provides comprehensive market data for stocks, ETFs, cryptocurrencies, and economic indicators. It leverages multiple data providers like Alpha Vantage and CoinGecko to offer high-quality financial information to AI models.
+MarketDataMcpServer is a Model Context Protocol (MCP) server that provides comprehensive market data for stocks, ETFs, cryptocurrencies, and economic indicators. It leverages multiple data providers like Alpha Vantage and CoinGecko to offer high-quality financial information to AI models.
 
 ## Features
 
