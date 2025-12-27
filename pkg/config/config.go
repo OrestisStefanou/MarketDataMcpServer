@@ -40,10 +40,8 @@ type Config struct {
 }
 
 func LoadConfig() (Config, error) {
-	err := godotenv.Load()
-	if err != nil {
-		return Config{}, err
-	}
+	// Load .env file if it exists, but don't fail if it's missing
+	_ = godotenv.Load()
 
 	cacheTtl, err := strconv.Atoi(getEnv("CACHE_TTL", "3600"))
 	if err != nil {

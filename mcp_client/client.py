@@ -8,7 +8,9 @@ from datetime import datetime, timedelta
 
 
 # HTTP server
-client = Client("http://127.0.0.1:8080/mcp")
+#client = Client("https://marketdatamcpserver-production.up.railway.app/mcp")
+client = Client("http://localhost:8080/mcp")
+
 
 async def main():
     async with client:
@@ -22,13 +24,26 @@ async def main():
         five_days_ago = now - timedelta(days=5)
         
         result = await client.call_tool(
-            name="getStockOverview", 
+            name="updateUserContext", 
             arguments={
-                'stock_symbol': "AAPL",
+                'user_id': "orestis_user_id",
+                "user_profile": {
+                    "first_name": "Orestis",
+                    "last_name": "Stefanou",
+                    "age": "28",
+                    "risk_tolerance": "high",
+                },
+                "user_portfolio":[]
             }
         )
+        # result = await client.call_tool(
+        #     name="getUserContext", 
+        #     arguments={
+        #         'user_id': "orestis_user_id",
+        #     }               
+        # )
+        print(result.structured_content)
 
-        print(result.data)
         
 
 asyncio.run(main())
