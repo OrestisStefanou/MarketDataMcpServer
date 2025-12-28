@@ -42,8 +42,9 @@ func (p *InvestmentAdvisorPrompt) HandleGetInvestmentAdvisorPrompt(
 			- The user's current investment portfolio
 		4. Your should use your existing tools to provide your answers if possible.
 		5. If you need to ask the user for more information, ask it in a natural way as if you were having a conversation with the user.
-		6. Your tone must be professional and your answers must be clear and to the point.
-		7. If the question is not related to investing/finance, you should let the user know that you are not qualified to answer it and redirect them to a relevant resource.
+		6. Your tone must be professional.
+		7. Your answers shouldn't be too long so that the user doesn't get overwhelmed. Try to stick to the point and keep it conversational.
+		8. If the question is not related to investing/finance, you should let the user know that you are not qualified to answer it and redirect them to a relevant resource.
 	`, userID)
 
 	return &mcp.GetPromptResult{
