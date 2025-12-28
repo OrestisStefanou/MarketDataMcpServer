@@ -27,12 +27,26 @@ func (m *LoggingMiddleware) ToolMiddleware(next server.ToolHandlerFunc) server.T
 		result, err := next(ctx, req)
 
 		duration := time.Since(start)
+
 		if err != nil {
-			m.logger.Printf("Tool call failed: session=%s tool=%s duration=%v error=%v",
-				"0", req.Params.Name, duration, err)
+			m.logger.Printf("Tool call failed (protocol error): tool=%s duration=%v error=%v",
+				req.Params.Name, duration, err)
+		} else if result.IsError {
+			var errorMsg string
+			if len(result.Content) > 0 {
+				if textContent, ok := mcp.AsTextContent(result.Content[0]); ok {
+					errorMsg = textContent.Text
+				} else {
+					errorMsg = "Non-text content in error result"
+				}
+			} else {
+				errorMsg = "Empty error result content"
+			}
+			m.logger.Printf("Tool call failed (tool error): tool=%s args=%v duration=%v error=%s",
+				req.Params.Name, req.Params.Arguments, duration, errorMsg)
 		} else {
-			m.logger.Printf("Tool call completed: session=%s tool=%s duration=%v",
-				"0", req.Params.Name, duration)
+			m.logger.Printf("Tool call completed (success): tool=%s args=%v duration=%v",
+				req.Params.Name, req.Params.Arguments, duration)
 		}
 
 		return result, err
