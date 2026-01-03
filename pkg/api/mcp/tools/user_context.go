@@ -30,6 +30,8 @@ type UserContextResponse struct {
 	UserID        string                       `json:"user_id"`
 	UserProfile   map[string]any               `json:"user_profile" jsonschema_description:"General information about the user"`
 	UserPortfolio []UserPortfolioHoldingSchema `json:"user_portfolio"`
+	CreatedAt     string                       `json:"created_at" jsonschema_description:"When the user context was created, ISO 8601 format"`
+	UpdatedAt     string                       `json:"updated_at" jsonschema_description:"When the user context was last updated, ISO 8601 format"`
 }
 
 type GetUserContextTool struct {
@@ -67,6 +69,8 @@ func (t *GetUserContextTool) HandleGetUserContext(ctx context.Context, req mcp.C
 		UserID:        userContext.UserID,
 		UserProfile:   userContext.UserProfile,
 		UserPortfolio: portfolio,
+		CreatedAt:     userContext.CreatedAt,
+		UpdatedAt:     userContext.UpdatedAt,
 	}
 
 	return response, nil
@@ -162,6 +166,8 @@ func (t *UpdateUserContextTool) HandleUpdateUserContext(ctx context.Context, req
 		UserID:        updatedUserContext.UserID,
 		UserProfile:   updatedUserContext.UserProfile,
 		UserPortfolio: portfolio,
+		CreatedAt:     updatedUserContext.CreatedAt,
+		UpdatedAt:     updatedUserContext.UpdatedAt,
 	}
 
 	return response, nil
