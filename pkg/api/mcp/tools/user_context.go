@@ -19,11 +19,34 @@ type GetUserContextRequest struct {
 }
 
 type UserPortfolioHoldingSchema struct {
-	AssetClass          string  `json:"asset_class" jsonschema_description:"Asset class of the holding(stock, etf, crypto etc.)"`
+	AssetClass          string  `json:"asset_class" jsonschema_description:"Asset class of the holding. Valid values are: stock, etf, crypto, mutual_fund, bond, cash, real_estate, private_equity, commodities"`
 	Symbol              string  `json:"symbol" jsonschema_description:"Symbol of the holding"`
 	Name                string  `json:"name" jsonschema_description:"Name of the holding"`
 	Quantity            float64 `json:"quantity" jsonschema_description:"Quantity of the holding(zero value means not known/given)"`
 	PortfolioPercentage float64 `json:"portfolio_percentage" jsonschema_description:"Portfolio percentage of the holding(zero value means not known/given, 20 means 20%)"`
+}
+
+func (u UserPortfolioHoldingSchema) Validate() error {
+	if u.AssetClass == "" {
+		return fmt.Errorf("asset_class is required")
+	}
+	if u.Symbol == "" && u.Name == "" {
+		return fmt.Errorf("you must define either symbol or name for all portfolio holdings")
+	}
+
+	if u.AssetClass != "stock" && u.AssetClass != "etf" && u.AssetClass != "crypto" && u.AssetClass != "mutual_fund" && u.AssetClass != "bond" && u.AssetClass != "cash" && u.AssetClass != "real_estate" && u.AssetClass != "private_equity" && u.AssetClass != "commodities" {
+		return fmt.Errorf("asset_class valid values are: stock, etf, crypto, mutual_fund, bond, cash, real_estate, private_equity, commodities")
+	}
+
+	if u.Quantity < 0 {
+		return fmt.Errorf("quantity must be a non-negative number")
+	}
+
+	if u.PortfolioPercentage < 0 || u.PortfolioPercentage > 100 {
+		return fmt.Errorf("portfolio_percentage must be between 0 and 100")
+	}
+
+	return nil
 }
 
 type UserContextResponse struct {
@@ -103,14 +126,8 @@ func (t *UpdateUserContextTool) HandleUpdateUserContext(ctx context.Context, req
 
 	// Validate portfolio holdings
 	for _, holding := range args.UserPortfolio {
-		if holding.AssetClass == "" {
-			return UserContextResponse{}, fmt.Errorf("asset_class is required for all portfolio holdings")
-		}
-		if holding.AssetClass != "stock" && holding.AssetClass != "etf" && holding.AssetClass != "crypto" {
-			return UserContextResponse{}, fmt.Errorf("asset_class valid values are: stock, etf, crypto")
-		}
-		if holding.Symbol == "" && holding.Name == "" {
-			return UserContextResponse{}, fmt.Errorf("you must define either symbol or name for all portfolio holdings")
+		if err := holding.Validate(); err != nil {
+			return UserContextResponse{}, err
 		}
 	}
 
