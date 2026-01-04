@@ -3,9 +3,15 @@ package domain
 type AssetClass string
 
 const (
-	Stock  AssetClass = "stock"
-	ETF    AssetClass = "etf"
-	Crypto AssetClass = "crypto"
+	Stock         AssetClass = "stock"
+	ETF           AssetClass = "etf"
+	Crypto        AssetClass = "crypto"
+	MutualFund    AssetClass = "mutual_fund"
+	Bond          AssetClass = "bond"
+	Cash          AssetClass = "cash"
+	RealEstate    AssetClass = "real_estate"
+	PrivateEquity AssetClass = "private_equity"
+	Commodities   AssetClass = "commodities"
 )
 
 type UserPortfolioHolding struct {
