@@ -23,9 +23,9 @@ async def main():
         five_days_ago = now - timedelta(days=5)
         
         result = await client.call_tool(
-            name="getUserContext", 
+            name="getStockOverview", 
             arguments={
-                'user_id': "orestis_user_id",
+                'stock_symbol': "AAPL",
             }               
         )
         print(result.structured_content)

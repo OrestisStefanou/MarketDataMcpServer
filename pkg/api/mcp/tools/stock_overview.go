@@ -96,7 +96,7 @@ type PriceSchema struct {
 
 type HistoricalPerformanceSchema struct {
 	Period           string  `json:"period" jsonschema_description:"Time period (1d, 5d, 1m, 6m, 1y, 5y)"`
-	PercentageChange float64 `json:"percentage_change" jsonschema_description:"Percentage change over the period"`
+	PercentageChange float64 `json:"percentage_change" jsonschema_description:"Percentage(10 means 10%) change over the period"`
 }
 
 type GetStockOverviewResponse struct {
