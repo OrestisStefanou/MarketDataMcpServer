@@ -127,6 +127,7 @@ func main() {
 	searchCryptocurrenciesTool, _ := tools.NewSearchCryptocurrenciesTool(cryptoService)
 	getCryptocurrencyDataByIdTool, _ := tools.NewGetCryptocurrencyDataByIdTool(cryptoService)
 	getCryptocurrencyNewsTool, _ := tools.NewGetCryptocurrencyNewsTool(cryptoService)
+	calculateInvestmentFutureValueTool, _ := tools.NewCalculateInvestmentFutureValueTool()
 
 	// Add tools
 	mcpServer.AddTool(
@@ -212,6 +213,11 @@ func main() {
 	mcpServer.AddTool(
 		getCryptocurrencyNewsTool.GetTool(),
 		mcp.NewStructuredToolHandler(getCryptocurrencyNewsTool.HandleGetCryptocurrencyNews),
+	)
+
+	mcpServer.AddTool(
+		calculateInvestmentFutureValueTool.GetTool(),
+		mcp.NewStructuredToolHandler(calculateInvestmentFutureValueTool.HandleCalculateInvestmentFutureValue),
 	)
 
 	// Set up prompts
