@@ -26,4 +26,6 @@ type UserContext struct {
 	UserID        string
 	UserProfile   map[string]any
 	UserPortfolio []UserPortfolioHolding
+	CreatedAt     string // ISO 8601 format
+	UpdatedAt     string // ISO 8601 format
 }

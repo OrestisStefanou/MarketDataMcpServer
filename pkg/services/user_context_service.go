@@ -4,6 +4,7 @@ import (
 	"errors"
 	"market_data_mcp_server/pkg/domain"
 	market_data_mcp_serverErr "market_data_mcp_server/pkg/errors"
+	"time"
 )
 
 type UserContextRepository interface {
@@ -49,14 +50,18 @@ func (s *UserContextService) CreateUserContext(userContext domain.UserContext) e
 		return market_data_mcp_serverErr.UserContextAlreadyExistsError{UserID: dbUserContext.UserID}
 	}
 
-	// TODO: Check if symbols are valid and if duplicates exist
+	userContext.CreatedAt = time.Now().Format(time.RFC3339)
+
 	return s.userContextRepository.InsertUserContext(userContext)
 }
 
 func (s *UserContextService) UpdateUserContext(userContext domain.UserContext) error {
-	_, err := s.userContextRepository.GetUserContext(userContext.UserID)
+	dbUserContext, err := s.userContextRepository.GetUserContext(userContext.UserID)
 	if err != nil { // user context not found error is covered here
 		return err
 	}
+
+	userContext.CreatedAt = dbUserContext.CreatedAt
+	userContext.UpdatedAt = time.Now().Format(time.RFC3339)
 	return s.userContextRepository.UpdateUserContext(userContext)
 }
