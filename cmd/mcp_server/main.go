@@ -4,34 +4,19 @@ import (
 	"context"
 	"log"
 	alphavantage "market_data_mcp_server/pkg/alpha_vantage"
-	"market_data_mcp_server/pkg/api/mcp/prompts"
 	"market_data_mcp_server/pkg/api/mcp/tools"
 	coingecko "market_data_mcp_server/pkg/coin_gecko"
 	"market_data_mcp_server/pkg/config"
 	"market_data_mcp_server/pkg/marketDataScraper"
-	"market_data_mcp_server/pkg/repositories"
 	"market_data_mcp_server/pkg/services"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
 
-	"github.com/dgraph-io/badger/v4"
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	"go.mongodb.org/mongo-driver/v2/mongo"
-	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
-
-func initMongoClient(uri string) (*mongo.Client, error) {
-	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
-	opts := options.Client().ApplyURI(uri).SetServerAPIOptions(serverAPI)
-	client, err := mongo.Connect(opts)
-	if err != nil {
-		return nil, err
-	}
-	return client, nil
-}
 
 func main() {
 	conf, _ := config.LoadConfig()
@@ -52,52 +37,9 @@ func main() {
 		server.WithToolHandlerMiddleware(loggingMW.ToolMiddleware),
 	)
 
-	var (
-		userContextRepository services.UserContextRepository
-		mongoClient           *mongo.Client
-		err                   error
-	)
-
-	// Create Mongo client only once if needed
-	if conf.DatabaseProvider == config.MONGO_DB {
-		mongoClient, err = initMongoClient(conf.MongoDBConf.Uri)
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer func() {
-			if err = mongoClient.Disconnect(context.TODO()); err != nil {
-				log.Fatal(err)
-			}
-		}()
-	}
-
 	// Setup cache and data services
 	cache, _ := services.NewBadgerCacheService()
 	dataService := marketDataScraper.NewMarketDataScraperWithCache(cache, conf)
-	// User context repository
-	switch conf.DatabaseProvider {
-	case config.BADGER_DB:
-		db, err := badger.Open(badger.DefaultOptions(conf.BadgerDbPath))
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer db.Close()
-
-		userContextRepository, err = repositories.NewUserContextRepository(db)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-	case config.MONGO_DB:
-		userContextRepository, err = repositories.NewUserContextMongoRepo(
-			mongoClient,
-			conf.MongoDBConf.DBName,
-			conf.MongoDBConf.UserContextColletionName,
-		)
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
 
 	alphaVantageClient, _ := alphavantage.NewAlphaVantageClientWithCache(conf.AlphaVantageApiKey, cache, conf.AlphaVantageCacheTtl)
 	coinGeckoClient, _ := coingecko.NewCoinGeckoClientWithCache(conf.CoinGeckoApiKey, cache, conf.CoinGeckoCacheTtl)
@@ -106,7 +48,6 @@ func main() {
 	tickerService, _ := services.NewTickerService(dataService)
 	etfService, _ := services.NewEtfService(dataService)
 	superInvestorService, _ := services.NewSuperInvestorService(dataService)
-	userContextService, _ := services.NewUserContextService(userContextRepository)
 	cryptoService, _ := services.NewCryptoService(coinGeckoClient, alphaVantageClient)
 
 	// Setup tools
@@ -120,8 +61,6 @@ func main() {
 	getSectorStocksTool, _ := tools.NewGetSectorStocksTool(dataService)
 	getStockOverviewTool, _ := tools.NewGetStockOverviewTool(dataService)
 	getStockFinancialsTool, _ := tools.NewGetStockFinancialsTool(dataService)
-	getUserContextTool, _ := tools.NewGetUserContextTool(userContextService)
-	updateUserContextTool, _ := tools.NewUpdateUserContextTool(userContextService)
 	getEconomicIndicatorTimeSeriesTool, _ := tools.NewGetEconomicIndicatorTimeSeriesTool(alphaVantageClient)
 	getCommodityTimeSeriesTool, _ := tools.NewGetCommodityTimeSeriesTool(alphaVantageClient)
 	searchCryptocurrenciesTool, _ := tools.NewSearchCryptocurrenciesTool(cryptoService)
@@ -181,16 +120,6 @@ func main() {
 	)
 
 	mcpServer.AddTool(
-		getUserContextTool.GetTool(),
-		mcp.NewStructuredToolHandler(getUserContextTool.HandleGetUserContext),
-	)
-
-	mcpServer.AddTool(
-		updateUserContextTool.GetTool(),
-		mcp.NewStructuredToolHandler(updateUserContextTool.HandleUpdateUserContext),
-	)
-
-	mcpServer.AddTool(
 		getEconomicIndicatorTimeSeriesTool.GetTool(),
 		mcp.NewStructuredToolHandler(getEconomicIndicatorTimeSeriesTool.HandleGetEconomicIndicatorTimeSeries),
 	)
@@ -218,15 +147,6 @@ func main() {
 	mcpServer.AddTool(
 		calculateInvestmentFutureValueTool.GetTool(),
 		mcp.NewStructuredToolHandler(calculateInvestmentFutureValueTool.HandleCalculateInvestmentFutureValue),
-	)
-
-	// Set up prompts
-	investmentAdvisorPrompt := prompts.NewInvestmentAdvisorPrompt()
-
-	// Add prompts
-	mcpServer.AddPrompt(
-		investmentAdvisorPrompt.GetPrompt(),
-		investmentAdvisorPrompt.HandleGetInvestmentAdvisorPrompt,
 	)
 
 	// Start the server
