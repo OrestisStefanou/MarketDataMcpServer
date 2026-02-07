@@ -10,8 +10,6 @@ MarketDataMcpServer is a Model Context Protocol (MCP) server that provides compr
 - **Super Investor Insights**: Track institutional "Super Investors" and their portfolios.
 - **Economic Indicators**: Access time series data for key economic indicators (GDP, Inflation, etc.) and commodities (Oil, Gas, etc.).
 - **Market Intelligence**: Get the latest market news and sector performances.
-- **User Context Management**: Store and retrieve user-specific financial context for personalized advice.
-- **Investment Advisor Prompt**: A specialized prompt to guide AI models in financial analysis.
 
 ## Prerequisites
 
@@ -28,15 +26,6 @@ The server is configured via environment variables. Create a `.env` file in the 
 # API Keys
 ALPHA_VANTAGE_API_KEY=your_alpha_vantage_key
 COIN_GECKO_API_KEY=your_coin_gecko_key
-
-# Database (BADGER or MONGO_DB)
-DATABASE_PROVIDER=BADGER
-BADGER_DB_PATH=badger.db
-
-# MongoDB (if DATABASE_PROVIDER=MONGO_DB)
-MONGO_DB_URI=mongodb://localhost:27017
-MONGO_DB_NAME=market_data_mcp_server
-MONGO_DB_USER_CONTEXT_COLLECTION_NAME=user_context
 
 # Cache TTL (in seconds)
 CACHE_TTL=3600
@@ -82,8 +71,6 @@ make build_mcp_server
 | `get_sector_stocks` | Get the top stocks for a specific sector. |
 | `get_stock_overview` | Get a comprehensive overview of a company (valuation, growth, etc.). |
 | `get_stock_financials` | Get financial statements (Income Statement, Balance Sheet, Cash Flow). |
-| `get_user_context` | Retrieve stored user financial context. |
-| `update_user_context` | Update the user's financial context (preferences, portfolio, etc.). |
 | `get_economic_indicator_time_series` | Get historical data for economic indicators (e.g., GDP, Inflation). |
 | `get_commodity_time_series` | Get historical data for commodities (e.g., Crude Oil, Natural Gas). |
 | `search_cryptocurrencies` | Search for cryptocurrencies on CoinGecko. |
