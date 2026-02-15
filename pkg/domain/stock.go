@@ -37,3 +37,19 @@ type Ticker struct {
 	Symbol      string
 	CompanyName string
 }
+
+type EarningsCallTranscript struct {
+	Speaker   string
+	Title     string
+	Content   string
+	Sentiment string
+}
+
+type Quarter string
+
+const (
+	Q1Quarter Quarter = "Q1"
+	Q2Quarter Quarter = "Q2"
+	Q3Quarter Quarter = "Q3"
+	Q4Quarter Quarter = "Q4"
+)

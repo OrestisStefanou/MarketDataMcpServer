@@ -77,6 +77,8 @@ make build_mcp_server
 | `get_cryptocurrency_data_by_id` | Get detailed real-time data for a specific cryptocurrency. |
 | `get_cryptocurrency_news` | Get the latest news related to cryptocurrencies. |
 | `calculate_investment_future_value` | Calculate the future value of an investment based on initial amount, annual return, and years. |
+| `getEarningsCallTranscript` | Get the earnings call transcript of the stock with the given symbol, year, and quarter. |
+
 
 ## Available Prompts
 

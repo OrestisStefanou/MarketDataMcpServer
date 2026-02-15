@@ -434,3 +434,82 @@ func (t *GetStockFinancialsTool) GetTool() mcp.Tool {
 		mcp.WithOutputSchema[GetStockFinancialsResponse](),
 	)
 }
+
+type GetEarningsCallTranscriptRequest struct {
+	StockSymbol string         `json:"stock_symbol" jsonschema_description:"Symbol of the stock to get data for"`
+	Year        int            `json:"year" jsonschema_description:"Year of the earnings call transcript"`
+	Quarter     domain.Quarter `json:"quarter" jsonschema_description:"Quarter of the earnings call transcript" jsonschema:"enum=Q1,enum=Q2,enum=Q3,enum=Q4"`
+}
+
+type GetEarningsCallTranscriptResponse struct {
+	Symbol                  string                   `json:"symbol" jsonschema_description:"Symbol of the stock"`
+	Year                    int                      `json:"year" jsonschema_description:"Year of the earnings call transcript"`
+	Quarter                 domain.Quarter           `json:"quarter" jsonschema_description:"Quarter of the earnings call transcript"`
+	EarningsCallTranscripts []EarningsCallTranscript `json:"earnings_call_transcripts" jsonschema_description:"Earnings call transcripts of the stock"`
+}
+
+type EarningsCallTranscript struct {
+	Speaker   string `json:"speaker" jsonschema_description:"Speaker of the earnings call transcript"`
+	Title     string `json:"title" jsonschema_description:"Title of the earnings call transcript"`
+	Content   string `json:"content" jsonschema_description:"Content of the earnings call transcript"`
+	Sentiment string `json:"sentiment" jsonschema_description:"Sentiment of the earnings call transcript"`
+}
+
+type EarningsCallTranscriptService interface {
+	GetEarningsCallTranscript(symbol string, year int, quarter domain.Quarter) ([]domain.EarningsCallTranscript, error)
+}
+
+type GetEarningsCallTranscriptTool struct {
+	earningsCallTranscriptService EarningsCallTranscriptService
+}
+
+func NewGetEarningsCallTranscriptTool(earningsCallTranscriptService EarningsCallTranscriptService) (*GetEarningsCallTranscriptTool, error) {
+	if earningsCallTranscriptService == nil {
+		return nil, fmt.Errorf("earningsCallTranscriptService is required")
+	}
+	return &GetEarningsCallTranscriptTool{earningsCallTranscriptService: earningsCallTranscriptService}, nil
+}
+
+func (t *GetEarningsCallTranscriptTool) HandleGetEarningsCallTranscript(ctx context.Context, req mcp.CallToolRequest, args GetEarningsCallTranscriptRequest) (GetEarningsCallTranscriptResponse, error) {
+	if args.StockSymbol == "" {
+		return GetEarningsCallTranscriptResponse{}, fmt.Errorf("stock_symbol is required")
+	}
+
+	if args.Year == 0 {
+		return GetEarningsCallTranscriptResponse{}, fmt.Errorf("year is required")
+	}
+
+	if args.Quarter == "" {
+		return GetEarningsCallTranscriptResponse{}, fmt.Errorf("quarter is required")
+	}
+
+	earningsCallTranscripts, err := t.earningsCallTranscriptService.GetEarningsCallTranscript(args.StockSymbol, args.Year, args.Quarter)
+	if err != nil {
+		return GetEarningsCallTranscriptResponse{}, err
+	}
+
+	earningsCallTranscriptsResponse := make([]EarningsCallTranscript, 0)
+	for _, earningsCallTranscript := range earningsCallTranscripts {
+		earningsCallTranscriptsResponse = append(earningsCallTranscriptsResponse, EarningsCallTranscript{
+			Speaker:   earningsCallTranscript.Speaker,
+			Title:     earningsCallTranscript.Title,
+			Content:   earningsCallTranscript.Content,
+			Sentiment: earningsCallTranscript.Sentiment,
+		})
+	}
+
+	return GetEarningsCallTranscriptResponse{
+		Symbol:                  args.StockSymbol,
+		Year:                    args.Year,
+		Quarter:                 args.Quarter,
+		EarningsCallTranscripts: earningsCallTranscriptsResponse,
+	}, nil
+}
+
+func (t *GetEarningsCallTranscriptTool) GetTool() mcp.Tool {
+	return mcp.NewTool("getEarningsCallTranscript",
+		mcp.WithDescription("Get the earnings call transcript of the stock with the given symbol."),
+		mcp.WithInputSchema[GetEarningsCallTranscriptRequest](),
+		mcp.WithOutputSchema[GetEarningsCallTranscriptResponse](),
+	)
+}

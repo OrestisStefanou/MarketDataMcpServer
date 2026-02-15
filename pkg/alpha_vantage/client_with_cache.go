@@ -177,3 +177,27 @@ func (c *AlphaVantageClientWithCache) GetCryptocurrencyNews(symbol string) ([]do
 
 	return newsArticles, nil
 }
+
+func (c *AlphaVantageClientWithCache) GetEarningsCallTranscript(symbol string, year int, quarter domain.Quarter) ([]domain.EarningsCallTranscript, error) {
+	// Check if the data is in the cache
+	var earningsCallTranscript []domain.EarningsCallTranscript
+
+	key := fmt.Sprintf("earnings_call_transcript_%s_%d_%s", symbol, year, quarter)
+	err := c.cache.Get(key, &earningsCallTranscript)
+	if err == nil {
+		return earningsCallTranscript, nil
+	}
+
+	// If not in cache, get from API
+	alphaVantageClient := AlphaVantageClient{apiKey: c.apiKey}
+
+	earningsCallTranscript, err = alphaVantageClient.GetEarningsCallTranscript(symbol, year, quarter)
+	if err != nil {
+		return nil, err
+	}
+
+	// Set in cache
+	c.cache.Set(key, earningsCallTranscript, time.Duration(c.cacheTtlSeconds)*time.Second)
+
+	return earningsCallTranscript, nil
+}

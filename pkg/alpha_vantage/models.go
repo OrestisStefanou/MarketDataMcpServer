@@ -76,3 +76,16 @@ type TickerSentiment struct {
 	TickerSentimentScore string `json:"ticker_sentiment_score"`
 	TickerSentimentLabel string `json:"ticker_sentiment_label"`
 }
+
+type EarningsCallTranscript struct {
+	Speaker   string `json:"speaker"`
+	Title     string `json:"title"`
+	Content   string `json:"content"`
+	Sentiment string `json:"sentiment"`
+}
+
+type GetEarningsCallTranscriptResponse struct {
+	Symbol     string                   `json:"symbol"`
+	Quarter    string                   `json:"quarter"`
+	Transcript []EarningsCallTranscript `json:"transcript"`
+}
