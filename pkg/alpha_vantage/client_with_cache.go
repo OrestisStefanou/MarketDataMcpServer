@@ -201,3 +201,23 @@ func (c *AlphaVantageClientWithCache) GetEarningsCallTranscript(symbol string, y
 
 	return earningsCallTranscript, nil
 }
+
+func (c *AlphaVantageClientWithCache) GetInsiderTransactions(symbol string) ([]domain.InsiderTransaction, error) {
+	var insiderTransactions []domain.InsiderTransaction
+
+	key := fmt.Sprintf("insider_transactions_%s", symbol)
+	err := c.cache.Get(key, &insiderTransactions)
+	if err == nil {
+		return insiderTransactions, nil
+	}
+
+	alphaVantageClient := AlphaVantageClient{apiKey: c.apiKey}
+	insiderTransactions, err = alphaVantageClient.GetInsiderTransactions(symbol)
+	if err != nil {
+		return nil, err
+	}
+
+	c.cache.Set(key, insiderTransactions, time.Duration(c.cacheTtlSeconds)*time.Second)
+
+	return insiderTransactions, nil
+}

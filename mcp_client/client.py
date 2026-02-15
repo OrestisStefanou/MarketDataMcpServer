@@ -23,11 +23,10 @@ async def main():
         five_days_ago = now - timedelta(days=5)
         
         result = await client.call_tool(
-            name="getEarningsCallTranscript", 
+            name="getInsiderTransactions", 
             arguments={
-                'stock_symbol': "AAPL",
-                'year': 2026,
-                'quarter': "Q2",
+                'stock_symbol': "AAAAPL",
+                'year': 2025,
             }               
         )
         print(result.structured_content)
