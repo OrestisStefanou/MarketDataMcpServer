@@ -89,3 +89,18 @@ type GetEarningsCallTranscriptResponse struct {
 	Quarter    string                   `json:"quarter"`
 	Transcript []EarningsCallTranscript `json:"transcript"`
 }
+
+type InsiderTransaction struct {
+	TransactionDate       string `json:"transaction_date"`
+	Ticker                string `json:"ticker"`
+	Executive             string `json:"executive"`
+	ExecutiveTitle        string `json:"executive_title"`
+	SecurityType          string `json:"security_type"`
+	AcquisitionOrDisposal string `json:"acquisition_or_disposal"`
+	Shares                string `json:"shares"`
+	SharePrice            string `json:"share_price"`
+}
+
+type GetInsiderTransactionsResponse struct {
+	Data []InsiderTransaction `json:"data"`
+}

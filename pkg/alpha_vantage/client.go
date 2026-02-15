@@ -7,6 +7,7 @@ import (
 	"market_data_mcp_server/pkg/errors"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 )
 
@@ -657,4 +658,72 @@ func (c *AlphaVantageClient) GetEarningsCallTranscript(symbol string, year int, 
 	}
 
 	return earningsCallTranscript, nil
+}
+
+func (c *AlphaVantageClient) GetInsiderTransactions(symbol string) ([]domain.InsiderTransaction, error) {
+	requestUrl, err := url.Parse(alphaVantageBaseURL)
+	if err != nil {
+		return nil, &errors.HTTPError{
+			StatusCode: 0,
+			Message:    fmt.Sprintf("failed to parse base URL: %v", err),
+		}
+	}
+
+	q := requestUrl.Query()
+	q.Set("function", "INSIDER_TRANSACTIONS")
+	q.Set("symbol", symbol)
+	q.Set("apikey", c.apiKey)
+	requestUrl.RawQuery = q.Encode()
+
+	req, err := http.NewRequest("GET", requestUrl.String(), nil)
+	if err != nil {
+		return nil, &errors.HTTPError{
+			StatusCode: 0,
+			Message:    fmt.Sprintf("failed to create HTTP request: %v", err),
+		}
+	}
+
+	httpClient := &http.Client{}
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		return nil, &errors.HTTPError{
+			StatusCode: 0,
+			Message:    fmt.Sprintf("failed to send HTTP request: %v", err),
+		}
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, &errors.HTTPError{
+			StatusCode: resp.StatusCode,
+			Message:    resp.Status,
+		}
+	}
+
+	var apiResponse GetInsiderTransactionsResponse
+	if err := json.NewDecoder(resp.Body).Decode(&apiResponse); err != nil {
+		return nil, &errors.JSONMarshalError{
+			Message: "failed to decode JSON response",
+			Err:     err,
+		}
+	}
+
+	var insiderTransactions []domain.InsiderTransaction
+	for _, transaction := range apiResponse.Data {
+		shares, _ := strconv.ParseFloat(transaction.Shares, 64)
+		sharePrice, _ := strconv.ParseFloat(transaction.SharePrice, 64)
+
+		insiderTransactions = append(insiderTransactions, domain.InsiderTransaction{
+			TransactionDate:       transaction.TransactionDate,
+			Ticker:                transaction.Ticker,
+			Executive:             transaction.Executive,
+			ExecutiveTitle:        transaction.ExecutiveTitle,
+			SecurityType:          transaction.SecurityType,
+			AcquisitionOrDisposal: transaction.AcquisitionOrDisposal,
+			Shares:                shares,
+			SharePrice:            sharePrice,
+		})
+	}
+
+	return insiderTransactions, nil
 }
