@@ -67,6 +67,7 @@ func main() {
 	getCryptocurrencyDataByIdTool, _ := tools.NewGetCryptocurrencyDataByIdTool(cryptoService)
 	getCryptocurrencyNewsTool, _ := tools.NewGetCryptocurrencyNewsTool(cryptoService)
 	calculateInvestmentFutureValueTool, _ := tools.NewCalculateInvestmentFutureValueTool()
+	getEarningsCallTranscriptTool, _ := tools.NewGetEarningsCallTranscriptTool(alphaVantageClient)
 
 	// Add tools
 	mcpServer.AddTool(
@@ -147,6 +148,11 @@ func main() {
 	mcpServer.AddTool(
 		calculateInvestmentFutureValueTool.GetTool(),
 		mcp.NewStructuredToolHandler(calculateInvestmentFutureValueTool.HandleCalculateInvestmentFutureValue),
+	)
+
+	mcpServer.AddTool(
+		getEarningsCallTranscriptTool.GetTool(),
+		mcp.NewStructuredToolHandler(getEarningsCallTranscriptTool.HandleGetEarningsCallTranscript),
 	)
 
 	// Start the server

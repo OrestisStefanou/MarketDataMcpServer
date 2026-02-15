@@ -596,3 +596,65 @@ func (c *AlphaVantageClient) GetCryptocurrencyNews(symbol string) ([]domain.News
 
 	return newsArticles, nil
 }
+
+func (c *AlphaVantageClient) GetEarningsCallTranscript(symbol string, year int, quarter domain.Quarter) ([]domain.EarningsCallTranscript, error) {
+	requestUrl, err := url.Parse(alphaVantageBaseURL)
+	if err != nil {
+		return nil, &errors.HTTPError{
+			StatusCode: 0,
+			Message:    fmt.Sprintf("failed to parse base URL: %v", err),
+		}
+	}
+
+	q := requestUrl.Query()
+	q.Set("function", "EARNINGS_CALL_TRANSCRIPT")
+	q.Set("symbol", symbol)
+	q.Set("quarter", fmt.Sprintf("%d%s", year, quarter))
+	q.Set("apikey", c.apiKey)
+	requestUrl.RawQuery = q.Encode()
+
+	req, err := http.NewRequest("GET", requestUrl.String(), nil)
+	if err != nil {
+		return nil, &errors.HTTPError{
+			StatusCode: 0,
+			Message:    fmt.Sprintf("failed to create HTTP request: %v", err),
+		}
+	}
+
+	httpClient := &http.Client{}
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		return nil, &errors.HTTPError{
+			StatusCode: 0,
+			Message:    fmt.Sprintf("failed to send HTTP request: %v", err),
+		}
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, &errors.HTTPError{
+			StatusCode: resp.StatusCode,
+			Message:    resp.Status,
+		}
+	}
+
+	var apiResponse GetEarningsCallTranscriptResponse
+	if err := json.NewDecoder(resp.Body).Decode(&apiResponse); err != nil {
+		return nil, &errors.JSONMarshalError{
+			Message: "failed to decode JSON response",
+			Err:     err,
+		}
+	}
+
+	var earningsCallTranscript []domain.EarningsCallTranscript
+	for _, transcript := range apiResponse.Transcript {
+		earningsCallTranscript = append(earningsCallTranscript, domain.EarningsCallTranscript{
+			Speaker:   transcript.Speaker,
+			Title:     transcript.Title,
+			Content:   transcript.Content,
+			Sentiment: transcript.Sentiment,
+		})
+	}
+
+	return earningsCallTranscript, nil
+}
