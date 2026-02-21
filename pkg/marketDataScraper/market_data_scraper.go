@@ -110,6 +110,10 @@ func (mds MarketDataScraper) GetHistoricalPrices(ticker string, assetClass domai
 	return scrapeHistoricalPrices(ticker, assetClass, period)
 }
 
+func (mds MarketDataScraper) GetCompanyKpiMetrics(symbol string) (domain.CompanyKpiMetrics, error) {
+	return scrapeCompanyKpiMetrics(symbol)
+}
+
 type MarketDataScraperWithCache struct {
 	cache services.CacheService
 	conf  config.Config
@@ -486,4 +490,23 @@ func (mds MarketDataScraperWithCache) GetHistoricalPrices(ticker string, assetCl
 
 	mds.cache.Set(key, historicalPrices, time.Duration(mds.conf.CacheTtl)*time.Second)
 	return historicalPrices, nil
+}
+
+func (mds MarketDataScraperWithCache) GetCompanyKpiMetrics(symbol string) (domain.CompanyKpiMetrics, error) {
+	// Check if the data is in the cache
+	var companyKpiMetrics domain.CompanyKpiMetrics
+
+	key := fmt.Sprintf("company_kpi_metrics_%s", symbol)
+	err := mds.cache.Get(key, &companyKpiMetrics)
+	if err == nil {
+		return companyKpiMetrics, nil
+	}
+
+	companyKpiMetrics, err = scrapeCompanyKpiMetrics(symbol)
+	if err != nil {
+		return domain.CompanyKpiMetrics{}, err
+	}
+
+	mds.cache.Set(key, companyKpiMetrics, time.Duration(mds.conf.CacheTtl)*time.Second)
+	return companyKpiMetrics, nil
 }

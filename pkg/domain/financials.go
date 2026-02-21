@@ -183,3 +183,24 @@ type FinancialRatios struct {
 	BuybackYield      float64
 	TotalReturn       float64
 }
+
+type KpiMetricValue struct {
+	Year  string
+	Value any
+}
+
+type KpiMetric struct {
+	Title  string
+	Values []KpiMetricValue
+}
+
+type KpiCategory struct {
+	Name    string
+	Metrics []KpiMetric
+}
+
+type CompanyKpiMetrics struct {
+	StockSymbol   string
+	KpiCategories []KpiCategory
+	Metadata      map[string]any
+}
