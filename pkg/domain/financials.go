@@ -185,7 +185,7 @@ type FinancialRatios struct {
 }
 
 type KpiMetricValue struct {
-	Year  string
+	Year  int
 	Value any
 }
 

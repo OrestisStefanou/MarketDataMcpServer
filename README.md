@@ -79,6 +79,7 @@ make build_mcp_server
 | `calculate_investment_future_value` | Calculate the future value of an investment based on initial amount, annual return, and years. |
 | `getEarningsCallTranscript` | Get the earnings call transcript of the stock with the given symbol, year, and quarter. |
 | `getInsiderTransactions` | Get the insider transactions of the stock with the given symbol and year. |
+| `getCompanyKpiMetrics` | Get the KPI metrics(revenue breakdown, revenue by geography etc) of the stock with the given symbol. |
 
 
 ## Available Prompts

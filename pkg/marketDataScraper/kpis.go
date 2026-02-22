@@ -7,6 +7,7 @@ import (
 	"market_data_mcp_server/pkg/domain"
 	"net/http"
 	"reflect"
+	"strconv"
 	"strings"
 )
 
@@ -378,8 +379,9 @@ func scrapeCompanyKpiMetrics(stockSymbol string) (domain.CompanyKpiMetrics, erro
 				if (rv.Kind() == reflect.Ptr || rv.Kind() == reflect.Interface || rv.Kind() == reflect.Slice || rv.Kind() == reflect.Map || rv.Kind() == reflect.Chan || rv.Kind() == reflect.Func) && rv.IsNil() {
 					continue
 				}
+				year, _ := strconv.Atoi(value.Year)
 				metricValues = append(metricValues, domain.KpiMetricValue{
-					Year:  value.Year,
+					Year:  year,
 					Value: value.Value,
 				})
 			}

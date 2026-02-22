@@ -513,3 +513,106 @@ func (t *GetEarningsCallTranscriptTool) GetTool() mcp.Tool {
 		mcp.WithOutputSchema[GetEarningsCallTranscriptResponse](),
 	)
 }
+
+type GetCompanyKpiMetricsRequest struct {
+	StockSymbol string `json:"stock_symbol" jsonschema_description:"Symbol of the stock to get data for"`
+}
+
+type GetCompanyKpiMetricsResponse struct {
+	Symbol               string              `json:"symbol" jsonschema_description:"Symbol of the stock"`
+	KpiMetricsCategories []KpiMetricCategory `json:"kpi_metrics_categories" jsonschema_description:"KPI metrics categories of the stock"`
+}
+
+type KpiMetricCategory struct {
+	Name    string      `json:"name" jsonschema_description:"Name of the KPI metric category"`
+	Metrics []KpiMetric `json:"metrics" jsonschema_description:"Metrics of the KPI metric category"`
+}
+
+type KpiMetric struct {
+	Title  string  `json:"title" jsonschema_description:"Title of the KPI metric"`
+	Values []Value `json:"values" jsonschema_description:"Values of the KPI metric"`
+}
+
+type Value struct {
+	Year  int     `json:"year" jsonschema_description:"Year of the value"`
+	Value float64 `json:"value" jsonschema_description:"Value of the metric"`
+}
+
+type KpiMetricService interface {
+	GetCompanyKpiMetrics(symbol string) (domain.CompanyKpiMetrics, error)
+}
+
+type GetCompanyKpiMetricsTool struct {
+	kpiMetricService KpiMetricService
+}
+
+func NewGetCompanyKpiMetricsTool(kpiMetricService KpiMetricService) (*GetCompanyKpiMetricsTool, error) {
+	if kpiMetricService == nil {
+		return nil, fmt.Errorf("kpiMetricService is required")
+	}
+	return &GetCompanyKpiMetricsTool{kpiMetricService: kpiMetricService}, nil
+}
+
+func (t *GetCompanyKpiMetricsTool) HandleGetCompanyKpiMetrics(ctx context.Context, req mcp.CallToolRequest, args GetCompanyKpiMetricsRequest) (GetCompanyKpiMetricsResponse, error) {
+	if args.StockSymbol == "" {
+		return GetCompanyKpiMetricsResponse{}, fmt.Errorf("stock_symbol is required")
+	}
+
+	companyKpiMetrics, err := t.kpiMetricService.GetCompanyKpiMetrics(args.StockSymbol)
+	if err != nil {
+		return GetCompanyKpiMetricsResponse{}, err
+	}
+
+	// Convert domain.CompanyKpiMetrics to GetCompanyKpiMetricsResponse
+	companyKpiMetricsResponse := GetCompanyKpiMetricsResponse{
+		Symbol: args.StockSymbol,
+	}
+
+	for _, category := range companyKpiMetrics.KpiCategories {
+		kpiCategory := KpiMetricCategory{
+			Name:    category.Name,
+			Metrics: make([]KpiMetric, 0, len(category.Metrics)),
+		}
+
+		for _, metric := range category.Metrics {
+			kpiMetric := KpiMetric{
+				Title:  metric.Title,
+				Values: make([]Value, 0, len(metric.Values)),
+			}
+
+			for _, val := range metric.Values {
+				year := val.Year
+
+				var floatVal float64
+				switch v := val.Value.(type) {
+				case float64:
+					floatVal = v
+				case int:
+					floatVal = float64(v)
+				case int64:
+					floatVal = float64(v)
+				case string:
+					// Attempt to parse string as float if needed, though domain values should ideally be numeric
+					fmt.Sscanf(v, "%f", &floatVal)
+				}
+
+				kpiMetric.Values = append(kpiMetric.Values, Value{
+					Year:  year,
+					Value: floatVal,
+				})
+			}
+			kpiCategory.Metrics = append(kpiCategory.Metrics, kpiMetric)
+		}
+		companyKpiMetricsResponse.KpiMetricsCategories = append(companyKpiMetricsResponse.KpiMetricsCategories, kpiCategory)
+	}
+
+	return companyKpiMetricsResponse, nil
+}
+
+func (t *GetCompanyKpiMetricsTool) GetTool() mcp.Tool {
+	return mcp.NewTool("getCompanyKpiMetrics",
+		mcp.WithDescription("Get the KPI metrics(revenue breakdown, revenue by geography etc) of the stock with the given symbol."),
+		mcp.WithInputSchema[GetCompanyKpiMetricsRequest](),
+		mcp.WithOutputSchema[GetCompanyKpiMetricsResponse](),
+	)
+}
