@@ -23,10 +23,9 @@ async def main():
         five_days_ago = now - timedelta(days=5)
         
         result = await client.call_tool(
-            name="getInsiderTransactions", 
+            name="getCompanyKpiMetrics", 
             arguments={
-                'stock_symbol': "AAAAPL",
-                'year': 2025,
+                'stock_symbol': "SMCI",
             }               
         )
         print(result.structured_content)

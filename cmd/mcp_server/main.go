@@ -69,6 +69,7 @@ func main() {
 	calculateInvestmentFutureValueTool, _ := tools.NewCalculateInvestmentFutureValueTool()
 	getEarningsCallTranscriptTool, _ := tools.NewGetEarningsCallTranscriptTool(alphaVantageClient)
 	getInsiderTransactionsTool, _ := tools.NewGetInsiderTransactionsTool(alphaVantageClient)
+	getCompanyKpiMetricsTool, _ := tools.NewGetCompanyKpiMetricsTool(dataService)
 
 	// Add tools
 	mcpServer.AddTool(
@@ -159,6 +160,11 @@ func main() {
 	mcpServer.AddTool(
 		getInsiderTransactionsTool.GetTool(),
 		mcp.NewStructuredToolHandler(getInsiderTransactionsTool.HandleGetInsiderTransactions),
+	)
+
+	mcpServer.AddTool(
+		getCompanyKpiMetricsTool.GetTool(),
+		mcp.NewStructuredToolHandler(getCompanyKpiMetricsTool.HandleGetCompanyKpiMetrics),
 	)
 
 	// Start the server
