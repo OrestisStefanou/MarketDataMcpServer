@@ -49,6 +49,7 @@ func main() {
 	etfService, _ := services.NewEtfService(dataService)
 	superInvestorService, _ := services.NewSuperInvestorService(dataService)
 	cryptoService, _ := services.NewCryptoService(coinGeckoClient, alphaVantageClient)
+	investingIdeasService, _ := services.NewInvestingIdeasLocalDataService(conf.InvestingIdeasDataPath)
 
 	// Setup tools
 	searchStocksTool, _ := tools.NewStockSearchTool(tickerService)
@@ -70,6 +71,8 @@ func main() {
 	getEarningsCallTranscriptTool, _ := tools.NewGetEarningsCallTranscriptTool(alphaVantageClient)
 	getInsiderTransactionsTool, _ := tools.NewGetInsiderTransactionsTool(alphaVantageClient)
 	getCompanyKpiMetricsTool, _ := tools.NewGetCompanyKpiMetricsTool(dataService)
+	getInvestingIdeasTool, _ := tools.NewGetInvestingIdeasTool(investingIdeasService)
+	getInvestingIdeaStocksTool, _ := tools.NewGetInvestingIdeaStocksTool(investingIdeasService)
 
 	// Add tools
 	mcpServer.AddTool(
@@ -165,6 +168,16 @@ func main() {
 	mcpServer.AddTool(
 		getCompanyKpiMetricsTool.GetTool(),
 		mcp.NewStructuredToolHandler(getCompanyKpiMetricsTool.HandleGetCompanyKpiMetrics),
+	)
+
+	mcpServer.AddTool(
+		getInvestingIdeasTool.GetTool(),
+		mcp.NewStructuredToolHandler(getInvestingIdeasTool.HandleGetInvestingIdeas),
+	)
+
+	mcpServer.AddTool(
+		getInvestingIdeaStocksTool.GetTool(),
+		mcp.NewStructuredToolHandler(getInvestingIdeaStocksTool.HandleGetInvestingIdeaStocks),
 	)
 
 	// Start the server

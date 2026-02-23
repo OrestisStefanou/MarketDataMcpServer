@@ -17,6 +17,9 @@ type Config struct {
 	// CoinGecko configs
 	CoinGeckoApiKey   string
 	CoinGeckoCacheTtl int // The ttl for the coin gecko cache in seconds
+
+	// Investing ideas configs
+	InvestingIdeasDataPath string
 }
 
 func LoadConfig() (Config, error) {
@@ -39,11 +42,12 @@ func LoadConfig() (Config, error) {
 	}
 
 	return Config{
-		CacheTtl:             cacheTtl,
-		AlphaVantageApiKey:   getEnv("ALPHA_VANTAGE_API_KEY", ""),
-		AlphaVantageCacheTtl: alphaVantageCacheTtl,
-		CoinGeckoApiKey:      getEnv("COIN_GECKO_API_KEY", ""),
-		CoinGeckoCacheTtl:    coinGeckoCacheTtl,
+		CacheTtl:               cacheTtl,
+		AlphaVantageApiKey:     getEnv("ALPHA_VANTAGE_API_KEY", ""),
+		AlphaVantageCacheTtl:   alphaVantageCacheTtl,
+		CoinGeckoApiKey:        getEnv("COIN_GECKO_API_KEY", ""),
+		CoinGeckoCacheTtl:      coinGeckoCacheTtl,
+		InvestingIdeasDataPath: getEnv("INVESTING_IDEAS_DATA_PATH", "static_data/investing_ideas.json"),
 	}, nil
 }
 

@@ -14,6 +14,7 @@ from urllib.parse import (
     urljoin, 
     urlparse,
 )
+import uuid
 
 import requests
 from bs4 import BeautifulSoup
@@ -191,7 +192,12 @@ def main():
         print(f"Scraping companies for {title}")
         companies = scrape_companies(full_url)
 
-        items.append({"title": title, "link": full_url, "companies": companies})
+        items.append({
+            "id": str(uuid.uuid4()),
+            "title": title,
+            "link": full_url,
+            "companies": companies
+        })
 
     # Optional: sort for stable output
     items.sort(key=lambda x: x["title"].lower())
