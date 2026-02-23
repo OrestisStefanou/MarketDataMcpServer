@@ -23,9 +23,9 @@ async def main():
         five_days_ago = now - timedelta(days=5)
         
         result = await client.call_tool(
-            name="getCompanyKpiMetrics", 
+            name="getInvestingIdeaStocks", 
             arguments={
-                'stock_symbol': "SMCI",
+                'idea_id': "5d87f6d2-6fa8-4686-a043-c5ef0c5985ef",
             }               
         )
         print(result.structured_content)
