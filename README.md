@@ -82,8 +82,3 @@ make build_mcp_server
 | `getCompanyKpiMetrics` | Get the KPI metrics(revenue breakdown, revenue by geography etc) of the stock with the given symbol. |
 | `getInvestingIdeas` | Get all investing ideas/themes (e.g. AI, Clean Energy, etc.) |
 | `getInvestingIdeaStocks` | Returns the stocks(company name) for the given investing idea/theme id |
-
-
-## Available Prompts
-
-- `investment_advisor`: Sets up the AI as a professional financial advisor, providing it with the necessary context and constraints to provide safe and accurate analysis.
