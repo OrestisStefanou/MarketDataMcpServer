@@ -80,6 +80,8 @@ make build_mcp_server
 | `getEarningsCallTranscript` | Get the earnings call transcript of the stock with the given symbol, year, and quarter. |
 | `getInsiderTransactions` | Get the insider transactions of the stock with the given symbol and year. |
 | `getCompanyKpiMetrics` | Get the KPI metrics(revenue breakdown, revenue by geography etc) of the stock with the given symbol. |
+| `getInvestingIdeas` | Get all investing ideas/themes (e.g. AI, Clean Energy, etc.) |
+| `getInvestingIdeaStocks` | Returns the stocks(company name) for the given investing idea/theme id |
 
 
 ## Available Prompts
