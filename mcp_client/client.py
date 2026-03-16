@@ -23,9 +23,9 @@ async def main():
         five_days_ago = now - timedelta(days=5)
         
         result = await client.call_tool(
-            name="getInvestingIdeaStocks", 
+            name="getStockOverview", 
             arguments={
-                'idea_id': "5d87f6d2-6fa8-4686-a043-c5ef0c5985ef",
+                'stock_symbol': "VKTX",
             }               
         )
         print(result.structured_content)

@@ -65,7 +65,9 @@ func scrapeFinancialStatementData(url string) ([]map[string]interface{}, error) 
 		if !ok {
 			return []map[string]interface{}{}, errors.New("unexpected index type in fieldIndex")
 		}
-		if fieldIndexFloat < 0 {
+		// If index is out of bounds, we just skip it or keep it as is?
+		// Looking at kpis.go, they check if idx > 0 && idx < len(dataArray)
+		if fieldIndexFloat < 0 || int(fieldIndexFloat) >= len(data) {
 			continue
 		}
 		fieldValues := []interface{}{}
@@ -74,7 +76,12 @@ func scrapeFinancialStatementData(url string) ([]map[string]interface{}, error) 
 			if !ok {
 				return []map[string]interface{}{}, errors.New("unexpected type in field values index")
 			}
-			fieldValues = append(fieldValues, data[int(indexFloat)])
+			idx := int(indexFloat)
+			if idx >= 0 && idx < len(data) {
+				fieldValues = append(fieldValues, data[idx])
+			} else {
+				fieldValues = append(fieldValues, indexFloat)
+			}
 		}
 		statement_data[field] = fieldValues
 	}
