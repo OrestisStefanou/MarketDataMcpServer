@@ -61,22 +61,22 @@ make build_mcp_server
 
 | Tool | Description |
 | --- | --- |
-| `search_stocks` | Search for stock tickers based on keywords. |
-| `search_etfs` | Search for ETFs based on keywords. |
-| `get_etf` | Get detailed information and holdings for a specific ETF. |
-| `get_super_investors` | List tracked institutional super investors. |
-| `get_super_investor_portfolio` | Get the portfolio holdings of a specific super investor. |
-| `get_market_news` | Get the latest global market news. |
-| `get_sectors` | Get a list of market sectors and their performance. |
-| `get_sector_stocks` | Get the top stocks for a specific sector. |
-| `get_stock_overview` | Get a comprehensive overview of a company (valuation, growth, etc.). |
-| `get_stock_financials` | Get financial statements (Income Statement, Balance Sheet, Cash Flow). |
-| `get_economic_indicator_time_series` | Get historical data for economic indicators (e.g., GDP, Inflation). |
-| `get_commodity_time_series` | Get historical data for commodities (e.g., Crude Oil, Natural Gas). |
-| `search_cryptocurrencies` | Search for cryptocurrencies on CoinGecko. |
-| `get_cryptocurrency_data_by_id` | Get detailed real-time data for a specific cryptocurrency. |
-| `get_cryptocurrency_news` | Get the latest news related to cryptocurrencies. |
-| `calculate_investment_future_value` | Calculate the future value of an investment based on initial amount, annual return, and years. |
+| `stockSearch` | Search for stock tickers based on keywords. |
+| `etfSearch` | Search for ETFs based on keywords. |
+| `getETF` | Get detailed information and holdings for a specific ETF. |
+| `getSuperInvestors` | List tracked institutional super investors. |
+| `getSuperInvestorPortfolio` | Get the portfolio holdings of a specific super investor. |
+| `getMarketNews` | Get the latest global market news. |
+| `getSectors` | Get a list of market sectors and their performance. |
+| `getSectorStocks` | Get the top stocks for a specific sector. |
+| `getStockOverview` | Get a comprehensive overview of a company (valuation, growth, etc.). |
+| `getStockFinancials` | Get financial statements (Income Statement, Balance Sheet, Cash Flow). |
+| `getEconomicIndicatorTimeSeries` | Get historical data for economic indicators (e.g., GDP, Inflation). |
+| `getCommodityTimeSeries` | Get historical data for commodities (e.g., Crude Oil, Natural Gas). |
+| `searchCryptocurrencies` | Search for cryptocurrencies on CoinGecko. |
+| `getCryptocurrencyDataById` | Get detailed real-time data for a specific cryptocurrency. |
+| `getCryptocurrencyNews` | Get the latest news related to cryptocurrencies. |
+| `calculateInvestmentFutureValue` | Calculate the future value of an investment based on initial amount, annual return, and years. |
 | `getEarningsCallTranscript` | Get the earnings call transcript of the stock with the given symbol, year, and quarter. |
 | `getInsiderTransactions` | Get the insider transactions of the stock with the given symbol and year. |
 | `getCompanyKpiMetrics` | Get the KPI metrics(revenue breakdown, revenue by geography etc) of the stock with the given symbol. |
