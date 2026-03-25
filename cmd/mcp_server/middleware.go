@@ -24,6 +24,15 @@ func (m *LoggingMiddleware) ToolMiddleware(next server.ToolHandlerFunc) server.T
 
 		m.logger.Printf("Tool call started: tool=%s with args=%v", req.Params.Name, req.Params.Arguments)
 
+		defer func() {
+			if r := recover(); r != nil {
+				duration := time.Since(start)
+				m.logger.Printf("Tool call PANICKED: tool=%s args=%v duration=%v panic=%v",
+					req.Params.Name, req.Params.Arguments, duration, r)
+				panic(r) // Re-panic so server.WithRecovery() can catch it and return an error to the client
+			}
+		}()
+
 		result, err := next(ctx, req)
 
 		duration := time.Since(start)

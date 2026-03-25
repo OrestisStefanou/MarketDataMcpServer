@@ -23,9 +23,11 @@ async def main():
         five_days_ago = now - timedelta(days=5)
         
         result = await client.call_tool(
-            name="getStockOverview", 
+            name="getEconomicIndicatorTimeSeries", 
             arguments={
-                'stock_symbol': "VKTX",
+                'indicator_name': "Inflation",
+                "limit": 5,
+                #"treasury_yield_maturity": "5Y"
             }               
         )
         print(result.structured_content)

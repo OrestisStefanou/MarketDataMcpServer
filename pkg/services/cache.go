@@ -2,6 +2,7 @@ package services
 
 import (
 	"encoding/json"
+	"os"
 	"time"
 
 	badger "github.com/dgraph-io/badger/v4"
@@ -18,6 +19,11 @@ type BadgerCacheService struct {
 }
 
 func NewBadgerCacheService() (*BadgerCacheService, error) {
+	// Remove any existing cache.db directory
+	if err := os.RemoveAll("cache.db"); err != nil {
+		return nil, err
+	}
+
 	db, err := badger.Open(badger.DefaultOptions("cache.db"))
 	if err != nil {
 		return nil, err
