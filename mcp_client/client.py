@@ -23,10 +23,10 @@ async def main():
         five_days_ago = now - timedelta(days=5)
         
         result = await client.call_tool(
-            name="getEconomicIndicatorTimeSeries", 
+            name="getMarketNews", 
             arguments={
-                'indicator_name': "Inflation",
-                "limit": 5,
+                #'indicator_name': "Inflation",
+                #"limit": 5,
                 #"treasury_yield_maturity": "5Y"
             }               
         )
