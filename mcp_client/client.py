@@ -28,6 +28,7 @@ async def main():
                 #'indicator_name': "Inflation",
                 #"limit": 5,
                 #"treasury_yield_maturity": "5Y"
+                "stock_symbol": "SHEL"
             }               
         )
         print(result.structured_content)

@@ -215,7 +215,7 @@ def validate_get_investing_idea_stocks(data):
     return validate_list_field(data, "stocks")
 
 
-STOCK_SYMBOLS = ["MSFT", "VRTX", "JPM", "BRK.B", "CAT", "TSLA", "LIN", "GOOGL", "WELL", "SHELL", "WMT", "NEE"]
+STOCK_SYMBOLS = ["MSFT", "VRTX", "JPM", "BRK.B", "CAT", "TSLA", "LIN", "GOOGL", "WELL", "SHEL", "WMT", "NEE"]
 ETF_SYMBOLS = ["VOO", "IEMG", "SLV", "EWJ"]
 
 
