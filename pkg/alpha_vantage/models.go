@@ -104,3 +104,32 @@ type InsiderTransaction struct {
 type GetInsiderTransactionsResponse struct {
 	Data []InsiderTransaction `json:"data"`
 }
+
+type CurrencyCode string
+
+const (
+	AED CurrencyCode = "AED"
+	USD CurrencyCode = "USD"
+	EUR CurrencyCode = "EUR"
+	GBP CurrencyCode = "GBP"
+	JPY CurrencyCode = "JPY"
+	CHF CurrencyCode = "CHF"
+	CAD CurrencyCode = "CAD"
+	AUD CurrencyCode = "AUD"
+)
+
+type RealtimeCurrencyExchangeRate struct {
+	FromCurrencyCode string `json:"1. From_Currency Code"`
+	FromCurrencyName string `json:"2. From_Currency Name"`
+	ToCurrencyCode   string `json:"3. To_Currency Code"`
+	ToCurrencyName   string `json:"4. To_Currency Name"`
+	ExchangeRate     string `json:"5. Exchange Rate"`
+	LastRefreshed    string `json:"6. Last Refreshed"`
+	TimeZone         string `json:"7. Time Zone"`
+	BidPrice         string `json:"8. Bid Price"`
+	AskPrice         string `json:"9. Ask Price"`
+}
+
+type CurrencyExchangeRateResponse struct {
+	RealtimeCurrencyExchangeRate RealtimeCurrencyExchangeRate `json:"Realtime Currency Exchange Rate"`
+}

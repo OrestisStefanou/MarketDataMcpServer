@@ -727,3 +727,143 @@ func (c *AlphaVantageClient) GetInsiderTransactions(symbol string) ([]domain.Ins
 
 	return insiderTransactions, nil
 }
+
+func mapDomainCurrencyToAlphaVantageCurrency(c domain.Currency) (CurrencyCode, error) {
+	switch c {
+	case domain.AED:
+		return AED, nil
+	case domain.USD:
+		return USD, nil
+	case domain.EUR:
+		return EUR, nil
+	case domain.GBP:
+		return GBP, nil
+	case domain.JPY:
+		return JPY, nil
+	case domain.CHF:
+		return CHF, nil
+	case domain.CAD:
+		return CAD, nil
+	case domain.AUD:
+		return AUD, nil
+	default:
+		return "", fmt.Errorf("unsupported currency: %s", string(c))
+	}
+}
+
+func mapAlphaVantageCurrencyToDomainCurrency(c string) (domain.Currency, error) {
+	switch CurrencyCode(c) {
+	case AED:
+		return domain.AED, nil
+	case USD:
+		return domain.USD, nil
+	case EUR:
+		return domain.EUR, nil
+	case GBP:
+		return domain.GBP, nil
+	case JPY:
+		return domain.JPY, nil
+	case CHF:
+		return domain.CHF, nil
+	case CAD:
+		return domain.CAD, nil
+	case AUD:
+		return domain.AUD, nil
+	default:
+		return "", fmt.Errorf("unsupported currency code from api: %s", c)
+	}
+}
+
+func (c *AlphaVantageClient) GetCurrencyExchangeRate(fromCurrency domain.Currency, toCurrency domain.Currency) (domain.CurrencyExchangeRate, error) {
+	avFromCurrency, err := mapDomainCurrencyToAlphaVantageCurrency(fromCurrency)
+	if err != nil {
+		return domain.CurrencyExchangeRate{}, err
+	}
+
+	avToCurrency, err := mapDomainCurrencyToAlphaVantageCurrency(toCurrency)
+	if err != nil {
+		return domain.CurrencyExchangeRate{}, err
+	}
+
+	// Build URL with query parameters
+	requestUrl, err := url.Parse(alphaVantageBaseURL)
+	if err != nil {
+		return domain.CurrencyExchangeRate{}, &errors.HTTPError{
+			StatusCode: 0,
+			Message:    fmt.Sprintf("failed to parse base URL: %v", err),
+		}
+	}
+
+	q := requestUrl.Query()
+	q.Set("function", "CURRENCY_EXCHANGE_RATE")
+	q.Set("from_currency", string(avFromCurrency))
+	q.Set("to_currency", string(avToCurrency))
+	q.Set("apikey", c.apiKey)
+	requestUrl.RawQuery = q.Encode()
+
+	// Create HTTP request
+	req, err := http.NewRequest("GET", requestUrl.String(), nil)
+	if err != nil {
+		return domain.CurrencyExchangeRate{}, &errors.HTTPError{
+			StatusCode: 0,
+			Message:    fmt.Sprintf("failed to create HTTP request: %v", err),
+		}
+	}
+
+	// Send the request
+	httpClient := &http.Client{}
+	resp, err := httpClient.Do(req)
+	if err != nil {
+		return domain.CurrencyExchangeRate{}, &errors.HTTPError{
+			StatusCode: 0,
+			Message:    fmt.Sprintf("failed to send HTTP request: %v", err),
+		}
+	}
+	defer resp.Body.Close()
+
+	// Check if the request was successful
+	if resp.StatusCode != http.StatusOK {
+		return domain.CurrencyExchangeRate{}, &errors.HTTPError{
+			StatusCode: resp.StatusCode,
+			Message:    resp.Status,
+		}
+	}
+
+	// Parse JSON response
+	var apiResponse CurrencyExchangeRateResponse
+	if err := json.NewDecoder(resp.Body).Decode(&apiResponse); err != nil {
+		return domain.CurrencyExchangeRate{}, &errors.JSONMarshalError{
+			Message: "failed to decode JSON response",
+			Err:     err,
+		}
+	}
+
+	if apiResponse.RealtimeCurrencyExchangeRate.ExchangeRate == "" {
+		return domain.CurrencyExchangeRate{}, fmt.Errorf("API response is missing exchange rate data, might be an error from API")
+	}
+
+	// Convert rate to float64
+	rate, err := strconv.ParseFloat(apiResponse.RealtimeCurrencyExchangeRate.ExchangeRate, 64)
+	if err != nil {
+		return domain.CurrencyExchangeRate{}, fmt.Errorf("failed to parse exchange rate: %v", err)
+	}
+
+	resFromCurrency, err := mapAlphaVantageCurrencyToDomainCurrency(apiResponse.RealtimeCurrencyExchangeRate.FromCurrencyCode)
+	if err != nil {
+		return domain.CurrencyExchangeRate{}, err
+	}
+
+	resToCurrency, err := mapAlphaVantageCurrencyToDomainCurrency(apiResponse.RealtimeCurrencyExchangeRate.ToCurrencyCode)
+	if err != nil {
+		return domain.CurrencyExchangeRate{}, err
+	}
+
+	return domain.CurrencyExchangeRate{
+		FromCurrency:     resFromCurrency,
+		FromCurrencyName: domain.CurrencyName(apiResponse.RealtimeCurrencyExchangeRate.FromCurrencyName),
+		ToCurrency:       resToCurrency,
+		ToCurrencyName:   domain.CurrencyName(apiResponse.RealtimeCurrencyExchangeRate.ToCurrencyName),
+		Rate:             rate,
+	}, nil
+}
+

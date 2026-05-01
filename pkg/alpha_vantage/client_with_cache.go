@@ -221,3 +221,23 @@ func (c *AlphaVantageClientWithCache) GetInsiderTransactions(symbol string) ([]d
 
 	return insiderTransactions, nil
 }
+
+func (c *AlphaVantageClientWithCache) GetCurrencyExchangeRate(fromCurrency domain.Currency, toCurrency domain.Currency) (domain.CurrencyExchangeRate, error) {
+	var currencyExchangeRate domain.CurrencyExchangeRate
+
+	key := fmt.Sprintf("currency_exchange_rate_%s_%s", fromCurrency, toCurrency)
+	err := c.cache.Get(key, &currencyExchangeRate)
+	if err == nil {
+		return currencyExchangeRate, nil
+	}
+
+	alphaVantageClient := AlphaVantageClient{apiKey: c.apiKey}
+	currencyExchangeRate, err = alphaVantageClient.GetCurrencyExchangeRate(fromCurrency, toCurrency)
+	if err != nil {
+		return domain.CurrencyExchangeRate{}, err
+	}
+
+	c.cache.Set(key, currencyExchangeRate, time.Duration(c.cacheTtlSeconds)*time.Second)
+
+	return currencyExchangeRate, nil
+}
