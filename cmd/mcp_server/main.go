@@ -73,6 +73,7 @@ func main() {
 	getCompanyKpiMetricsTool, _ := tools.NewGetCompanyKpiMetricsTool(dataService)
 	getInvestingIdeasTool, _ := tools.NewGetInvestingIdeasTool(investingIdeasService)
 	getInvestingIdeaStocksTool, _ := tools.NewGetInvestingIdeaStocksTool(investingIdeasService)
+	getCurrencyExchangeRateTool, _ := tools.NewGetCurrencyExchangeRateTool(alphaVantageClient)
 
 	// Add tools
 	mcpServer.AddTool(
@@ -178,6 +179,11 @@ func main() {
 	mcpServer.AddTool(
 		getInvestingIdeaStocksTool.GetTool(),
 		mcp.NewStructuredToolHandler(getInvestingIdeaStocksTool.HandleGetInvestingIdeaStocks),
+	)
+
+	mcpServer.AddTool(
+		getCurrencyExchangeRateTool.GetTool(),
+		mcp.NewStructuredToolHandler(getCurrencyExchangeRateTool.HandleGetCurrencyExchangeRate),
 	)
 
 	// Start the server

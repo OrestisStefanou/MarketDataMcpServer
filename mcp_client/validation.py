@@ -215,6 +215,10 @@ def validate_get_investing_idea_stocks(data):
     return validate_list_field(data, "stocks")
 
 
+def validate_get_currency_exchange_rate(data):
+    return validate_fields(data, ["from_currency", "from_currency_name", "to_currency", "to_currency_name", "rate"])
+
+
 STOCK_SYMBOLS = ["MSFT", "VRTX", "JPM", "BRK.B", "CAT", "TSLA", "LIN", "GOOGL", "WELL", "SHEL", "WMT", "NEE"]
 ETF_SYMBOLS = ["VOO", "IEMG", "SLV", "EWJ"]
 
@@ -365,6 +369,13 @@ async def main():
         else:
             # Skip with a note if no ideas available
             print(f"{RED}[SKIP] getInvestingIdeaStocks - no investing ideas available{RESET}")
+
+        # 24. getCurrencyExchangeRate
+        await call_tool(
+            "getCurrencyExchangeRate",
+            {"from_currency": "EUR", "to_currency": "USD"},
+            validate_get_currency_exchange_rate,
+        )
 
 
 asyncio.run(main())
