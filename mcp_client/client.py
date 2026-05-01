@@ -23,12 +23,13 @@ async def main():
         five_days_ago = now - timedelta(days=5)
         
         result = await client.call_tool(
-            name="getMarketNews", 
+            name="getCurrencyExchangeRate", 
             arguments={
                 #'indicator_name': "Inflation",
                 #"limit": 5,
                 #"treasury_yield_maturity": "5Y"
-                "stock_symbol": "SHEL"
+                "from_currency": "EUR",
+                "to_currency": "USD"
             }               
         )
         print(result.structured_content)

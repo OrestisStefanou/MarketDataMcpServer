@@ -26,6 +26,17 @@ const (
 	AustralianDollar         CurrencyName = "Australian Dollar"
 )
 
+var CurrencyCodeToNameMap = map[Currency]CurrencyName{
+	AED: UnitedArabEmiratesDirham,
+	USD: UnitedStatesDollar,
+	EUR: Euro,
+	GBP: BritishPound,
+	JPY: JapaneseYen,
+	CHF: SwissFranc,
+	CAD: CanadianDollar,
+	AUD: AustralianDollar,
+}
+
 type CurrencyExchangeRate struct {
 	FromCurrency     Currency     `json:"from_currency"`
 	FromCurrencyName CurrencyName `json:"from_currency_name"`
