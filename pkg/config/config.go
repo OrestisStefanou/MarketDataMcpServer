@@ -8,6 +8,7 @@ import (
 )
 
 type Config struct {
+	Port     string
 	CacheTtl int // The ttl for the cache in seconds
 
 	// Alpha Vantage configs
@@ -42,6 +43,7 @@ func LoadConfig() (Config, error) {
 	}
 
 	return Config{
+		Port:                   getEnv("PORT", "8080"),
 		CacheTtl:               cacheTtl,
 		AlphaVantageApiKey:     getEnv("ALPHA_VANTAGE_API_KEY", ""),
 		AlphaVantageCacheTtl:   alphaVantageCacheTtl,

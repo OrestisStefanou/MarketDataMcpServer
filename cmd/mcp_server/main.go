@@ -187,10 +187,10 @@ func main() {
 	)
 
 	// Start the server
-	startWithGracefulShutdown(mcpServer)
+	startWithGracefulShutdown(mcpServer, conf.Port)
 }
 
-func startWithGracefulShutdown(mcpServer *server.MCPServer) {
+func startWithGracefulShutdown(mcpServer *server.MCPServer, port string) {
 	// Setup signal handling
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, os.Interrupt, syscall.SIGTERM)
@@ -200,7 +200,7 @@ func startWithGracefulShutdown(mcpServer *server.MCPServer) {
 	// Start server in goroutine
 	go func() {
 		httpServer = server.NewStreamableHTTPServer(mcpServer)
-		if err := httpServer.Start(":8080"); err != nil {
+		if err := httpServer.Start(":" + port); err != nil {
 			log.Printf("Server error: %v", err)
 		}
 	}()
