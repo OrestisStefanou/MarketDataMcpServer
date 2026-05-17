@@ -15,10 +15,11 @@ type SearchEtfRequest struct {
 }
 
 type EtfSearchResultSchema struct {
-	Symbol     string  `json:"symbol" jsonschema_description:"ETF symbol"`
-	EtfName    string  `json:"etf_name" jsonschema_description:"ETF name"`
-	AssetClass string  `json:"asset_class" jsonschema_description:"ETF asset class"`
-	Aum        float32 `json:"aum" jsonschema_description:"ETF assets under management"`
+	Symbol       string  `json:"symbol" jsonschema_description:"ETF symbol"`
+	EtfName      string  `json:"etf_name" jsonschema_description:"ETF name"`
+	AssetClass   string  `json:"asset_class" jsonschema_description:"ETF asset class"`
+	Aum          float32 `json:"aum" jsonschema_description:"ETF assets under management"`
+	ExpenseRatio float32 `json:"expense_ratio" jsonschema_description:"ETF annual expense ratio"`
 }
 
 type EtfSearchResultsResponse struct {
@@ -63,7 +64,13 @@ func (t *SearchEtfTool) HandleSearchEtfs(ctx context.Context, req mcp.CallToolRe
 		}
 		response.SearchResults = append(
 			response.SearchResults,
-			EtfSearchResultSchema{Symbol: e.Symbol, EtfName: e.Name, AssetClass: e.AssetClass, Aum: e.Aum},
+			EtfSearchResultSchema{
+				Symbol:       e.Symbol,
+				EtfName:      e.Name,
+				AssetClass:   e.AssetClass,
+				Aum:          e.Aum,
+				ExpenseRatio: e.ExpenseRatio,
+			},
 		)
 	}
 

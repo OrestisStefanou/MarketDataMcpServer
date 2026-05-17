@@ -5,6 +5,7 @@ import (
 	"market_data_mcp_server/pkg/config"
 	"market_data_mcp_server/pkg/domain"
 	"market_data_mcp_server/pkg/services"
+	"strings"
 	"time"
 )
 
@@ -91,9 +92,9 @@ func (mds MarketDataScraper) GetStockNews(symbol string) ([]domain.NewsArticle, 
 	return scrapeStockNews(symbol)
 }
 
-// GetTickers returns a list of Tickers(stock symbol and company name)
-func (mds MarketDataScraper) GetTickers() ([]domain.Ticker, error) {
-	return scrapeStockList()
+// GetTickers returns a list of Tickers(stock symbol and company name) matching the search query
+func (mds MarketDataScraper) GetTickers(query string) ([]domain.Ticker, error) {
+	return scrapeStockSearch(query)
 }
 
 // GetSuperInvestors returns a list of SuperInvestors (Name)
@@ -413,18 +414,17 @@ func (mds MarketDataScraperWithCache) GetStockNews(symbol string) ([]domain.News
 	return stockNews, nil
 }
 
-// GetTickers returns a list of Tickers(stock symbol and company name)
-func (mds MarketDataScraperWithCache) GetTickers() ([]domain.Ticker, error) {
-	// Check if the data is in the cache
+// GetTickers returns a list of Tickers(stock symbol and company name) matching the search query
+func (mds MarketDataScraperWithCache) GetTickers(query string) ([]domain.Ticker, error) {
 	var tickers []domain.Ticker
 
-	key := "tickers"
+	key := fmt.Sprintf("tickers_%s", strings.ToLower(query))
 	err := mds.cache.Get(key, &tickers)
 	if err == nil {
 		return tickers, nil
 	}
 
-	tickers, err = scrapeStockList()
+	tickers, err = scrapeStockSearch(query)
 	if err != nil {
 		return nil, err
 	}

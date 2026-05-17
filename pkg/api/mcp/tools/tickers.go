@@ -9,7 +9,7 @@ import (
 )
 
 type SearchStocksRequest struct {
-	SearchString string `json:"search_string,omitempty" jsonschema_description:"Search string query"`
+	SearchString string `json:"search_string" jsonschema_description:"Search string query (required)" jsonschema:"required"`
 	Limit        int    `json:"limit,omitempty" jsonschema_description:"Maximum results" jsonschema:"minimum=1,default=100"`
 }
 

@@ -6,7 +6,7 @@ GREEN = "\033[92m"
 RED = "\033[91m"
 RESET = "\033[0m"
 
-client = Client("http://localhost:8080/mcp")
+client = Client("http://localhost:8082/mcp")
 
 
 def print_success(tool_name: str, params: dict):

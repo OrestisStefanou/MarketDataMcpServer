@@ -23,12 +23,12 @@ async def main():
         five_days_ago = now - timedelta(days=5)
         
         result = await client.call_tool(
-            name="getPolymarketEventOdds", 
+            name="stockSearch", 
             arguments={
                 #'indicator_name': "Inflation",
                 #"limit": 5,
                 #"treasury_yield_maturity": "5Y"
-                "event_query": "PSG wins the Champions league final.",
+                "search_string": "Apple",
             }               
         )
         print(result.structured_content)

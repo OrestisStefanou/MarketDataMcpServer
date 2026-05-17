@@ -1,10 +1,11 @@
 package domain
 
 type Etf struct {
-	Symbol     string
-	Name       string
-	AssetClass string
-	Aum        float32
+	Symbol       string
+	Name         string
+	AssetClass   string
+	Aum          float32
+	ExpenseRatio float32
 }
 
 type EtfHolding struct {

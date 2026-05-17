@@ -2,44 +2,47 @@ package marketDataScraper
 
 import (
 	"encoding/json"
+	"fmt"
 	"market_data_mcp_server/pkg/domain"
 	"net/http"
+	"net/url"
 )
 
-func scrapeStockList() ([]domain.Ticker, error) {
-	url := "https://stockanalysis.com/api/screener/s/f?m=s&s=asc&c=s,n&i=stocks"
+func scrapeStockSearch(query string) ([]domain.Ticker, error) {
+	endpoint := fmt.Sprintf("https://stockanalysis.com/api/search?q=%s", url.QueryEscape(query))
 
-	resp, err := http.Get(url)
+	resp, err := http.Get(endpoint)
 	if err != nil {
 		return []domain.Ticker{}, err
 	}
 	defer resp.Body.Close()
 
-	// Define an anonymous struct to match the JSON structure
+	if resp.StatusCode != http.StatusOK {
+		return []domain.Ticker{}, fmt.Errorf("Call to stock search failed with status: %d", resp.StatusCode)
+	}
+
 	var apiResponse struct {
 		Status int `json:"status"`
-		Data   struct {
-			Data []struct {
-				S string `json:"s"`
-				N string `json:"n"`
-			} `json:"data"`
-			ResultsCount int `json:"resultsCount"`
+		Data   []struct {
+			S string `json:"s"`
+			T string `json:"t"`
+			N string `json:"n"`
 		} `json:"data"`
 	}
 
-	err = json.NewDecoder(resp.Body).Decode(&apiResponse)
-	if err != nil {
+	if err := json.NewDecoder(resp.Body).Decode(&apiResponse); err != nil {
 		return []domain.Ticker{}, err
 	}
 
-	tickers := make([]domain.Ticker, 0, len(apiResponse.Data.Data))
-	for _, tickerData := range apiResponse.Data.Data {
-		ticker := domain.Ticker{
-			Symbol:      tickerData.S,
-			CompanyName: tickerData.N,
+	tickers := make([]domain.Ticker, 0, len(apiResponse.Data))
+	for _, row := range apiResponse.Data {
+		if row.T != "s" {
+			continue
 		}
-		tickers = append(tickers, ticker)
+		tickers = append(tickers, domain.Ticker{
+			Symbol:      row.S,
+			CompanyName: row.N,
+		})
 	}
-
 	return tickers, nil
 }
