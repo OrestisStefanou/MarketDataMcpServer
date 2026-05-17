@@ -10,6 +10,7 @@ MarketDataMcpServer is a Model Context Protocol (MCP) server that provides compr
 - **Super Investor Insights**: Track institutional "Super Investors" and their portfolios.
 - **Economic Indicators**: Access time series data for key economic indicators (GDP, Inflation, etc.) and commodities (Oil, Gas, etc.).
 - **Market Intelligence**: Get the latest market news and sector performances.
+- **Prediction Markets**: Search Polymarket for events by free-text query and get current implied odds for their markets.
 
 ## Prerequisites
 
@@ -31,7 +32,10 @@ COIN_GECKO_API_KEY=your_coin_gecko_key
 CACHE_TTL=3600
 ALPHA_VANTAGE_CACHE_TTL=3600
 COIN_GECKO_CACHE_TTL=3600
+POLYMARKET_CACHE_TTL=300
 ```
+
+> Note: Polymarket's Gamma API is open and does not require an API key.
 
 ## Getting Started
 
@@ -82,3 +86,5 @@ make build_mcp_server
 | `getCompanyKpiMetrics` | Get the KPI metrics(revenue breakdown, revenue by geography etc) of the stock with the given symbol. |
 | `getInvestingIdeas` | Get all investing ideas/themes (e.g. AI, Clean Energy, etc.) |
 | `getInvestingIdeaStocks` | Returns the stocks(company name) for the given investing idea/theme id |
+| `getCurrencyExchangeRate` | Get the exchange rate between two currencies (USD, EUR, GBP, JPY, CHF, CAD, AUD, AED). |
+| `getPolymarketEventOdds` | Search Polymarket for prediction-market events matching a free-text query and return matching events with their markets and implied outcome probabilities. |
