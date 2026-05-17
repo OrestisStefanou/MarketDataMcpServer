@@ -219,6 +219,25 @@ def validate_get_currency_exchange_rate(data):
     return validate_fields(data, ["from_currency", "from_currency_name", "to_currency", "to_currency_name", "rate"])
 
 
+def validate_get_polymarket_event_odds(data):
+    err = validate_list_field(data, "events")
+    if err:
+        return err
+    if data["events"]:
+        event = data["events"][0]
+        err = validate_fields(event, ["id", "slug", "title", "source", "markets"])
+        if err:
+            return err
+        if event["markets"]:
+            market = event["markets"][0]
+            err = validate_fields(market, ["question", "outcomes"])
+            if err:
+                return err
+            if market["outcomes"]:
+                return validate_fields(market["outcomes"][0], ["name", "probability"])
+    return None
+
+
 STOCK_SYMBOLS = ["MSFT", "VRTX", "JPM", "BRK.B", "CAT", "TSLA", "LIN", "GOOGL", "WELL", "SHEL", "WMT", "NEE"]
 ETF_SYMBOLS = ["VOO", "IEMG", "SLV", "EWJ"]
 
@@ -375,6 +394,13 @@ async def main():
             "getCurrencyExchangeRate",
             {"from_currency": "EUR", "to_currency": "USD"},
             validate_get_currency_exchange_rate,
+        )
+
+        # 25. getPolymarketEventOdds
+        await call_tool(
+            "getPolymarketEventOdds",
+            {"event_query": "election", "limit": 3},
+            validate_get_polymarket_event_odds,
         )
 
 

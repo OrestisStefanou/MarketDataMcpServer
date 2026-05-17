@@ -8,6 +8,7 @@ import (
 	coingecko "market_data_mcp_server/pkg/coin_gecko"
 	"market_data_mcp_server/pkg/config"
 	"market_data_mcp_server/pkg/marketDataScraper"
+	"market_data_mcp_server/pkg/polymarket"
 	"market_data_mcp_server/pkg/services"
 	"os"
 	"os/signal"
@@ -43,6 +44,7 @@ func main() {
 
 	alphaVantageClient, _ := alphavantage.NewAlphaVantageClientWithCache(conf.AlphaVantageApiKey, cache, conf.AlphaVantageCacheTtl)
 	coinGeckoClient, _ := coingecko.NewCoinGeckoClientWithCache(conf.CoinGeckoApiKey, cache, conf.CoinGeckoCacheTtl)
+	polymarketClient, _ := polymarket.NewPolymarketClientWithCache(cache, conf.PolymarketCacheTtl)
 
 	// Set up services
 	tickerService, _ := services.NewTickerService(dataService)
@@ -74,6 +76,7 @@ func main() {
 	getInvestingIdeasTool, _ := tools.NewGetInvestingIdeasTool(investingIdeasService)
 	getInvestingIdeaStocksTool, _ := tools.NewGetInvestingIdeaStocksTool(investingIdeasService)
 	getCurrencyExchangeRateTool, _ := tools.NewGetCurrencyExchangeRateTool(alphaVantageClient)
+	getPolymarketEventOddsTool, _ := tools.NewGetPolymarketEventOddsTool(polymarketClient)
 
 	// Add tools
 	mcpServer.AddTool(
@@ -184,6 +187,11 @@ func main() {
 	mcpServer.AddTool(
 		getCurrencyExchangeRateTool.GetTool(),
 		mcp.NewStructuredToolHandler(getCurrencyExchangeRateTool.HandleGetCurrencyExchangeRate),
+	)
+
+	mcpServer.AddTool(
+		getPolymarketEventOddsTool.GetTool(),
+		mcp.NewStructuredToolHandler(getPolymarketEventOddsTool.HandleGetPolymarketEventOdds),
 	)
 
 	// Start the server

@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 
 
 # HTTP server
-client = Client("http://localhost:8080/mcp")
+client = Client("http://localhost:8082/mcp")
 
 
 async def main():
@@ -23,13 +23,12 @@ async def main():
         five_days_ago = now - timedelta(days=5)
         
         result = await client.call_tool(
-            name="getCurrencyExchangeRate", 
+            name="getPolymarketEventOdds", 
             arguments={
                 #'indicator_name': "Inflation",
                 #"limit": 5,
                 #"treasury_yield_maturity": "5Y"
-                "from_currency": "EUR",
-                "to_currency": "USD"
+                "event_query": "PSG wins the Champions league final.",
             }               
         )
         print(result.structured_content)
