@@ -19,6 +19,9 @@ type Config struct {
 	CoinGeckoApiKey   string
 	CoinGeckoCacheTtl int // The ttl for the coin gecko cache in seconds
 
+	// Polymarket configs
+	PolymarketCacheTtl int // The ttl for the polymarket cache in seconds
+
 	// Investing ideas configs
 	InvestingIdeasDataPath string
 }
@@ -42,6 +45,11 @@ func LoadConfig() (Config, error) {
 		coinGeckoCacheTtl = 3600
 	}
 
+	polymarketCacheTtl, err := strconv.Atoi(getEnv("POLYMARKET_CACHE_TTL", "300"))
+	if err != nil {
+		polymarketCacheTtl = 300
+	}
+
 	return Config{
 		Port:                   getEnv("PORT", "8080"),
 		CacheTtl:               cacheTtl,
@@ -49,6 +57,7 @@ func LoadConfig() (Config, error) {
 		AlphaVantageCacheTtl:   alphaVantageCacheTtl,
 		CoinGeckoApiKey:        getEnv("COIN_GECKO_API_KEY", ""),
 		CoinGeckoCacheTtl:      coinGeckoCacheTtl,
+		PolymarketCacheTtl:     polymarketCacheTtl,
 		InvestingIdeasDataPath: getEnv("INVESTING_IDEAS_DATA_PATH", "static_data/investing_ideas.json"),
 	}, nil
 }
