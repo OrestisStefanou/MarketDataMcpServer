@@ -23,12 +23,12 @@ async def main():
         five_days_ago = now - timedelta(days=5)
         
         result = await client.call_tool(
-            name="stockSearch", 
+            name="getETF", 
             arguments={
                 #'indicator_name': "Inflation",
                 #"limit": 5,
                 #"treasury_yield_maturity": "5Y"
-                "search_string": "Apple",
+                "etf_symbol": "VOO",
             }               
         )
         print(result.structured_content)
