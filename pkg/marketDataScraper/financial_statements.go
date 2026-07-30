@@ -43,6 +43,10 @@ func scrapeFinancialStatementData(url string) ([]map[string]interface{}, error) 
 		return []map[string]interface{}{}, errors.New("unexpected structure in 'data'")
 	}
 
+	if len(data) == 0 {
+		return []map[string]interface{}{}, errors.New("empty 'data' array")
+	}
+
 	dataMap, ok := data[0].(map[string]interface{})
 	if !ok {
 		return []map[string]interface{}{}, errors.New("unexpected structure in 'data[0]'")
@@ -51,6 +55,12 @@ func scrapeFinancialStatementData(url string) ([]map[string]interface{}, error) 
 	financialDataIndex, ok := dataMap["financialData"].(float64)
 	if !ok {
 		return []map[string]interface{}{}, errors.New("unexpected structure for 'financialData'")
+	}
+
+	// The payload uses -1 as a sentinel for an absent value, so the index is not
+	// guaranteed to point anywhere inside data.
+	if financialDataIndex < 0 || int(financialDataIndex) >= len(data) {
+		return []map[string]interface{}{}, fmt.Errorf("no financial data in response (financialData index %d)", int(financialDataIndex))
 	}
 
 	// Retrieve data map at financial data index
@@ -70,8 +80,12 @@ func scrapeFinancialStatementData(url string) ([]map[string]interface{}, error) 
 		if fieldIndexFloat < 0 || int(fieldIndexFloat) >= len(data) {
 			continue
 		}
+		indices, ok := data[int(fieldIndexFloat)].([]interface{})
+		if !ok {
+			continue
+		}
 		fieldValues := []interface{}{}
-		for _, index := range data[int(fieldIndexFloat)].([]interface{}) {
+		for _, index := range indices {
 			indexFloat, ok := index.(float64)
 			if !ok {
 				return []map[string]interface{}{}, errors.New("unexpected type in field values index")
@@ -156,7 +170,8 @@ func scrapeCashFlows(symbol string) ([]domain.CashFlow, error) {
 }
 
 func scrapeIncomeStatements(symbol string) ([]domain.IncomeStatement, error) {
-	url := fmt.Sprintf("https://stockanalysis.com/stocks/%s/financials/__data.json?p=quarterly", symbol)
+	// /financials/ now serves the "overview" statement, which carries no financialData
+	url := fmt.Sprintf("https://stockanalysis.com/stocks/%s/financials/income-statement/__data.json?p=quarterly", symbol)
 	incomeStatementData, err := scrapeFinancialStatementData(url)
 	if err != nil {
 		return []domain.IncomeStatement{}, err

@@ -55,38 +55,44 @@ type StockForecastSchema struct {
 }
 
 type FinancialRatiosSchema struct {
-	Datekey           string  `json:"datekey" jsonschema_description:"Date key"`
+	Datekey           string  `json:"datekey" jsonschema_description:"Period end date (YYYY-MM-DD)"`
 	FiscalYear        string  `json:"fiscal_year" jsonschema_description:"Fiscal year"`
 	FiscalQuarter     string  `json:"fiscal_quarter" jsonschema_description:"Fiscal quarter"`
-	Marketcap         float64 `json:"marketcap" jsonschema_description:"Market capitalization (zero value means not known)"`
-	MarketCapGrowth   float64 `json:"market_cap_growth" jsonschema_description:"Market cap growth percentage (zero value means not known)"`
+	Marketcap         float64 `json:"marketcap" jsonschema_description:"Market capitalisation (zero value means not known)"`
 	Ev                float64 `json:"ev" jsonschema_description:"Enterprise value (zero value means not known)"`
-	LastClosePrice    float64 `json:"last_close_price" jsonschema_description:"Last close price (zero value means not known)"`
-	Pe                float64 `json:"pe" jsonschema_description:"Price-to-earnings ratio (zero value means not known)"`
-	Ps                float64 `json:"ps" jsonschema_description:"Price-to-sales ratio (zero value means not known)"`
-	Pb                float64 `json:"pb" jsonschema_description:"Price-to-book ratio (zero value means not known)"`
-	Pfcf              float64 `json:"pfcf" jsonschema_description:"Price-to-free-cash-flow ratio (zero value means not known)"`
-	Pocf              float64 `json:"pocf" jsonschema_description:"Price-to-operating-cash-flow ratio (zero value means not known)"`
+	LastCloseRatios   float64 `json:"last_close_price" jsonschema_description:"Last close price for the period (zero value means not known)"`
+	Pe                float64 `json:"pe" jsonschema_description:"Price to earnings ratio (zero value means not known)"`
+	PeForward         float64 `json:"pe_forward" jsonschema_description:"Forward price to earnings ratio (zero value means not known)"`
+	PegRatio          float64 `json:"peg_ratio" jsonschema_description:"Price/earnings to growth ratio (zero value means not known)"`
+	Ps                float64 `json:"ps" jsonschema_description:"Price to sales ratio (zero value means not known)"`
+	Pb                float64 `json:"pb" jsonschema_description:"Price to book ratio (zero value means not known)"`
+	PtbvRatio         float64 `json:"ptbv_ratio" jsonschema_description:"Price to tangible book value ratio (zero value means not known)"`
+	Pfcf              float64 `json:"pfcf" jsonschema_description:"Price to free cash flow ratio (zero value means not known)"`
+	Pocf              float64 `json:"pocf" jsonschema_description:"Price to operating cash flow ratio (zero value means not known)"`
 	EvRevenue         float64 `json:"ev_revenue" jsonschema_description:"Enterprise value to revenue ratio (zero value means not known)"`
 	EvEbitda          float64 `json:"ev_ebitda" jsonschema_description:"Enterprise value to EBITDA ratio (zero value means not known)"`
 	EvEbit            float64 `json:"ev_ebit" jsonschema_description:"Enterprise value to EBIT ratio (zero value means not known)"`
 	EvFcf             float64 `json:"ev_fcf" jsonschema_description:"Enterprise value to free cash flow ratio (zero value means not known)"`
-	DebtEquity        float64 `json:"debt_equity" jsonschema_description:"Debt-to-equity ratio (zero value means not known)"`
-	DebtEbitda        float64 `json:"debt_ebitda" jsonschema_description:"Debt-to-EBITDA ratio (zero value means not known)"`
-	DebtFcf           float64 `json:"debt_fcf" jsonschema_description:"Debt-to-free-cash-flow ratio (zero value means not known)"`
-	AssetTurnover     float64 `json:"asset_turnover" jsonschema_description:"Asset turnover ratio (zero value means not known)"`
-	InventoryTurnover float64 `json:"inventory_turnover" jsonschema_description:"Inventory turnover ratio (zero value means not known)"`
-	QuickRatio        float64 `json:"quick_ratio" jsonschema_description:"Quick ratio (acid-test ratio) (zero value means not known)"`
+	DebtEquity        float64 `json:"debt_equity" jsonschema_description:"Debt to equity ratio (zero value means not known)"`
+	DebtEbitda        float64 `json:"debt_ebitda" jsonschema_description:"Debt to EBITDA ratio (zero value means not known)"`
+	DebtFcf           float64 `json:"debt_fcf" jsonschema_description:"Debt to free cash flow ratio (zero value means not known)"`
+	NetDebtEquity     float64 `json:"net_debt_equity" jsonschema_description:"Net debt to equity ratio (zero value means not known)"`
+	NetDebtEbitda     float64 `json:"net_debt_ebitda" jsonschema_description:"Net debt to EBITDA ratio (zero value means not known)"`
+	NetDebtFcf        float64 `json:"net_debt_fcf" jsonschema_description:"Net debt to free cash flow ratio (zero value means not known)"`
+	AssetTurnover     float64 `json:"asset_turnover" jsonschema_description:"Asset turnover (zero value means not known)"`
+	InventoryTurnover float64 `json:"inventory_turnover" jsonschema_description:"Inventory turnover (zero value means not known)"`
+	QuickRatio        float64 `json:"quick_ratio" jsonschema_description:"Quick ratio (zero value means not known)"`
 	CurrentRatio      float64 `json:"current_ratio" jsonschema_description:"Current ratio (zero value means not known)"`
-	Roe               float64 `json:"roe" jsonschema_description:"Return on equity percentage (zero value means not known)"`
-	Roa               float64 `json:"roa" jsonschema_description:"Return on assets percentage (zero value means not known)"`
-	Roic              float64 `json:"roic" jsonschema_description:"Return on invested capital percentage (zero value means not known)"`
-	EarningsYield     float64 `json:"earnings_yield" jsonschema_description:"Earnings yield percentage (zero value means not known)"`
-	FcfYield          float64 `json:"fcf_yield" jsonschema_description:"Free cash flow yield percentage (zero value means not known)"`
-	DividendYield     float64 `json:"dividend_yield" jsonschema_description:"Dividend yield percentage (zero value means not known)"`
-	PayoutRatio       float64 `json:"payout_ratio" jsonschema_description:"Dividend payout ratio percentage (zero value means not known)"`
-	BuybackYield      float64 `json:"buyback_yield" jsonschema_description:"Share buyback yield percentage (zero value means not known)"`
-	TotalReturn       float64 `json:"total_return" jsonschema_description:"Total return percentage (zero value means not known)"`
+	Roe               float64 `json:"roe" jsonschema_description:"Return on equity, as a fraction (0.25 means 25%) (zero value means not known)"`
+	Roa               float64 `json:"roa" jsonschema_description:"Return on assets, as a fraction (0.25 means 25%) (zero value means not known)"`
+	Roic              float64 `json:"roic" jsonschema_description:"Return on invested capital, as a fraction (0.25 means 25%) (zero value means not known)"`
+	Roce              float64 `json:"roce" jsonschema_description:"Return on capital employed, as a fraction (0.25 means 25%) (zero value means not known)"`
+	EarningsYield     float64 `json:"earnings_yield" jsonschema_description:"Earnings yield, as a fraction (0.25 means 25%) (zero value means not known)"`
+	FcfYield          float64 `json:"fcf_yield" jsonschema_description:"Free cash flow yield, as a fraction (0.25 means 25%) (zero value means not known)"`
+	DividendYield     float64 `json:"dividend_yield" jsonschema_description:"Dividend yield, as a fraction (0.25 means 25%) (zero value means not known)"`
+	PayoutRatio       float64 `json:"payout_ratio" jsonschema_description:"Dividend payout ratio, as a fraction (0.25 means 25%) (zero value means not known)"`
+	BuybackYield      float64 `json:"buyback_yield" jsonschema_description:"Buyback yield, as a fraction (0.25 means 25%) (zero value means not known)"`
+	TotalReturn       float64 `json:"total_return" jsonschema_description:"Total return, as a fraction (0.25 means 25%) (zero value means not known)"`
 }
 
 type PriceSchema struct {
@@ -199,12 +205,14 @@ func (t *GetStockOverviewTool) HandleGetStockOverview(ctx context.Context, req m
 				FiscalYear:        ratio.FiscalYear,
 				FiscalQuarter:     ratio.FiscalQuarter,
 				Marketcap:         ratio.Marketcap,
-				MarketCapGrowth:   ratio.MarketCapGrowth,
 				Ev:                ratio.Ev,
-				LastClosePrice:    ratio.LastCloseRatios,
+				LastCloseRatios:   ratio.LastCloseRatios,
 				Pe:                ratio.Pe,
+				PeForward:         ratio.PeForward,
+				PegRatio:          ratio.PegRatio,
 				Ps:                ratio.Ps,
 				Pb:                ratio.Pb,
+				PtbvRatio:         ratio.PtbvRatio,
 				Pfcf:              ratio.Pfcf,
 				Pocf:              ratio.Pocf,
 				EvRevenue:         ratio.EvRevenue,
@@ -214,6 +222,9 @@ func (t *GetStockOverviewTool) HandleGetStockOverview(ctx context.Context, req m
 				DebtEquity:        ratio.DebtEquity,
 				DebtEbitda:        ratio.DebtEbitda,
 				DebtFcf:           ratio.DebtFcf,
+				NetDebtEquity:     ratio.NetDebtEquity,
+				NetDebtEbitda:     ratio.NetDebtEbitda,
+				NetDebtFcf:        ratio.NetDebtFcf,
 				AssetTurnover:     ratio.AssetTurnover,
 				InventoryTurnover: ratio.InventoryTurnover,
 				QuickRatio:        ratio.QuickRatio,
@@ -221,6 +232,7 @@ func (t *GetStockOverviewTool) HandleGetStockOverview(ctx context.Context, req m
 				Roe:               ratio.Roe,
 				Roa:               ratio.Roa,
 				Roic:              ratio.Roic,
+				Roce:              ratio.Roce,
 				EarningsYield:     ratio.EarningsYield,
 				FcfYield:          ratio.FcfYield,
 				DividendYield:     ratio.DividendYield,
