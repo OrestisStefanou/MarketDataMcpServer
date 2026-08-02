@@ -13,8 +13,8 @@ type CurrencyExchangeService interface {
 }
 
 type GetCurrencyExchangeRateRequest struct {
-	FromCurrency string `json:"from_currency" jsonschema_description:"Currency code of the currency to convert from" jsonschema:"enum=AED,enum=USD,enum=EUR,enum=GBP,enum=JPY,enum=CHF,enum=CAD,enum=AUD" jsonschema_required:"true"`
-	ToCurrency   string `json:"to_currency" jsonschema_description:"Currency code of the currency to convert to" jsonschema:"enum=AED,enum=USD,enum=EUR,enum=GBP,enum=JPY,enum=CHF,enum=CAD,enum=AUD" jsonschema_required:"true"`
+	FromCurrency string `json:"from_currency" jsonschema_description:"Currency code of the currency to convert from" jsonschema:"enum=USD,enum=EUR,enum=GBP,enum=JPY,enum=CHF,enum=CAD,enum=AUD" jsonschema_required:"true"`
+	ToCurrency   string `json:"to_currency" jsonschema_description:"Currency code of the currency to convert to" jsonschema:"enum=USD,enum=EUR,enum=GBP,enum=JPY,enum=CHF,enum=CAD,enum=AUD" jsonschema_required:"true"`
 }
 
 type GetCurrencyExchangeRateResponse struct {

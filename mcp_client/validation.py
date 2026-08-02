@@ -39,6 +39,21 @@ def validate_fields(data: dict, required_fields: list[str]) -> str | None:
     return None
 
 
+async def call_tool_expect_failure(tool_name: str, params: dict):
+    """For inputs the server must reject. A silent success here is the bug."""
+    await asyncio.sleep(1)
+    try:
+        result = await client.call_tool(name=tool_name, arguments=params)
+    except Exception:
+        print_success(tool_name, params)
+        return
+    data = result.structured_content
+    if data is None or result.is_error:
+        print_success(tool_name, params)
+        return
+    print_failure(tool_name, params, f"expected the call to fail, got {data}")
+
+
 async def call_tool(tool_name: str, params: dict, validator):
     await asyncio.sleep(1)
     try:
@@ -141,18 +156,61 @@ def validate_get_stock_financials(data):
     return validate_fields(data, ["symbol", "balance_sheets", "income_statements", "cash_flows"])
 
 
-def validate_get_economic_indicator_time_series(data):
+def validate_time_series_entries(data: dict, limit: int | None) -> str | None:
+    """Shared checks for the FRED-backed time series tools."""
+    entries = data["data"]
+    if not entries:
+        return "field 'data' is empty"
+    if limit is not None and len(entries) > limit:
+        return f"returned {len(entries)} entries for a limit of {limit}"
+
+    err = validate_fields(entries[0], ["date", "value"])
+    if err:
+        return err
+
+    # FRED publishes ascending dates but the tools present newest first. Getting this
+    # backwards would silently serve the oldest observations.
+    dates = [entry["date"] for entry in entries]
+    if dates != sorted(dates, reverse=True):
+        return f"entries are not newest first: {dates[:5]}"
+
+    for entry in entries:
+        try:
+            float(entry["value"])
+        except (TypeError, ValueError):
+            return f"value {entry['value']!r} is not numeric"
+    return None
+
+
+def validate_get_economic_indicator_time_series(data, limit=None, value_range=None):
     err = validate_fields(data, ["indicator_name", "interval", "unit"])
     if err:
         return err
-    return validate_list_field(data, "data")
+    err = validate_list_field(data, "data")
+    if err:
+        return err
+    err = validate_time_series_entries(data, limit)
+    if err:
+        return err
+
+    # Guards against an index-vs-percent regression: CPI is published as an index around
+    # 330, but this tool has always returned an inflation rate.
+    if value_range is not None:
+        low, high = value_range
+        newest = float(data["data"][0]["value"])
+        if not low <= newest <= high:
+            return f"newest value {newest} is outside the expected range {low} to {high}"
+    return None
 
 
-def validate_get_commodity_time_series(data):
+def validate_get_commodity_time_series(data, limit=None):
     err = validate_fields(data, ["commodity_name", "interval", "unit"])
     if err:
         return err
-    return validate_list_field(data, "data")
+    err = validate_list_field(data, "data")
+    if err:
+        return err
+    return validate_time_series_entries(data, limit)
 
 
 def validate_search_cryptocurrencies(data):
@@ -172,6 +230,10 @@ def validate_get_cryptocurrency_news(data):
     err = validate_list_field(data, "news")
     if err:
         return err
+    # matched_symbol distinguishes real coverage from the general-news fallback. Without it
+    # the two are indistinguishable to the caller.
+    if "matched_symbol" not in data:
+        return "missing field 'matched_symbol'"
     if data["news"]:
         return validate_fields(data["news"][0], ["url", "title"])
     return None
@@ -179,13 +241,6 @@ def validate_get_cryptocurrency_news(data):
 
 def validate_calculate_investment_future_value(data):
     return validate_fields(data, ["future_value"])
-
-
-def validate_get_earnings_call_transcript(data):
-    err = validate_fields(data, ["symbol", "year", "quarter"])
-    if err:
-        return err
-    return validate_list_field(data, "earnings_call_transcripts")
 
 
 def validate_get_insider_transactions(data):
@@ -202,21 +257,19 @@ def validate_get_company_kpi_metrics(data):
     return validate_list_field(data, "kpi_metrics_categories")
 
 
-def validate_get_investing_ideas(data):
-    err = validate_list_field(data, "investing_ideas")
+def validate_get_currency_exchange_rate(data, expected_rate=None):
+    err = validate_fields(data, ["from_currency", "from_currency_name", "to_currency", "to_currency_name", "rate"])
     if err:
         return err
-    if data["investing_ideas"]:
-        return validate_fields(data["investing_ideas"][0], ["idea_id", "title"])
+
+    # Frankfurter omits an unsupported symbol rather than erroring, so a rate of 0 is the
+    # shape a missed presence check takes.
+    rate = float(data["rate"])
+    if rate <= 0:
+        return f"rate {rate} is not a usable exchange rate"
+    if expected_rate is not None and abs(rate - expected_rate) > 1e-9:
+        return f"expected a rate of {expected_rate}, got {rate}"
     return None
-
-
-def validate_get_investing_idea_stocks(data):
-    return validate_list_field(data, "stocks")
-
-
-def validate_get_currency_exchange_rate(data):
-    return validate_fields(data, ["from_currency", "from_currency_name", "to_currency", "to_currency_name", "rate"])
 
 
 def validate_get_polymarket_event_odds(data):
@@ -240,11 +293,51 @@ def validate_get_polymarket_event_odds(data):
 
 STOCK_SYMBOLS = ["MSFT", "VRTX", "JPM", "BRK.B", "CAT", "TSLA", "LIN", "GOOGL", "WELL", "SHEL", "WMT", "NEE"]
 ETF_SYMBOLS = ["VOO", "IEMG", "SLV", "EWJ"]
+TREASURY_MATURITIES = ["3m", "2Y", "5Y", "10Y", "30Y"]
+COMMODITIES = ["CrudeOil", "NaturalGas", "Copper", "Aluminum", "Wheat", "Corn", "Sugar", "Coffee"]
+
+# Every series id is looked up in a map, so a typo in any single one is an otherwise silent
+# 404. The same goes for a tool that fails to register.
+EXPECTED_TOOLS = {
+    "calculateInvestmentFutureValue",
+    "etfSearch",
+    "getCommodityTimeSeries",
+    "getCompanyKpiMetrics",
+    "getCryptocurrencyDataById",
+    "getCryptocurrencyNews",
+    "getCurrencyExchangeRate",
+    "getETF",
+    "getEconomicIndicatorTimeSeries",
+    "getInsiderTransactions",
+    "getMarketNews",
+    "getPolymarketEventOdds",
+    "getSectorStocks",
+    "getSectors",
+    "getStockFinancials",
+    "getStockOverview",
+    "getSuperInvestorPortfolio",
+    "getSuperInvestors",
+    "searchCryptocurrencies",
+    "stockSearch",
+}
+
+
+async def validate_tool_set():
+    tools = {tool.name for tool in await client.list_tools()}
+    missing = EXPECTED_TOOLS - tools
+    unexpected = tools - EXPECTED_TOOLS
+    if missing or unexpected:
+        print_failure("list_tools", {}, f"missing={sorted(missing)} unexpected={sorted(unexpected)}")
+    else:
+        print_success("list_tools", {"count": len(tools)})
 
 
 async def main():
     async with client:
         await client.ping()
+
+        # 0. the registered tool set
+        await validate_tool_set()
 
         # 1. stockSearch
         await call_tool("stockSearch", {"search_string": "Microsoft", "limit": 5}, validate_stock_search)
@@ -307,35 +400,55 @@ async def main():
                 validate_get_stock_financials,
             )
 
-        # 12. getEconomicIndicatorTimeSeries - Inflation
+        # 12. getEconomicIndicatorTimeSeries - Inflation must be a rate, not a CPI index
         await call_tool(
             "getEconomicIndicatorTimeSeries",
             {"indicator_name": "Inflation", "limit": 5},
-            validate_get_economic_indicator_time_series,
+            lambda data: validate_get_economic_indicator_time_series(data, limit=5, value_range=(-20, 20)),
         )
 
-        # 13. getEconomicIndicatorTimeSeries - TreasuryYield
-        await call_tool(
-            "getEconomicIndicatorTimeSeries",
-            {"indicator_name": "TreasuryYield", "treasury_yield_maturity": "10Y", "limit": 5},
-            validate_get_economic_indicator_time_series,
-        )
+        # 13. getEconomicIndicatorTimeSeries - the remaining indicators
+        for indicator in ["InterestRate", "UnemploymentRate", "RealGDP"]:
+            value_range = (0, 100) if indicator != "RealGDP" else None
+            await call_tool(
+                "getEconomicIndicatorTimeSeries",
+                {"indicator_name": indicator, "limit": 5},
+                lambda data, value_range=value_range: validate_get_economic_indicator_time_series(
+                    data, limit=5, value_range=value_range
+                ),
+            )
 
-        # 14. getCommodityTimeSeries
+        # 14. getEconomicIndicatorTimeSeries - every treasury maturity
+        for maturity in TREASURY_MATURITIES:
+            await call_tool(
+                "getEconomicIndicatorTimeSeries",
+                {"indicator_name": "TreasuryYield", "treasury_yield_maturity": maturity, "limit": 5},
+                lambda data: validate_get_economic_indicator_time_series(data, limit=5, value_range=(0, 25)),
+            )
+
+        # 15. getCommodityTimeSeries - every commodity
+        for commodity in COMMODITIES:
+            await call_tool(
+                "getCommodityTimeSeries",
+                {"commodity_name": commodity, "limit": 5},
+                lambda data: validate_get_commodity_time_series(data, limit=5),
+            )
+
+        # A limit larger than the series must clamp rather than panic.
         await call_tool(
             "getCommodityTimeSeries",
-            {"commodity_name": "CrudeOil", "limit": 5},
+            {"commodity_name": "Copper", "limit": 100000},
             validate_get_commodity_time_series,
         )
 
-        # 15. searchCryptocurrencies
+        # 16. searchCryptocurrencies
         crypto_data = await call_tool(
             "searchCryptocurrencies",
             {"search_query": "Bitcoin", "limit": 5},
             validate_search_cryptocurrencies,
         )
 
-        # 16. getCryptocurrencyDataById - use id from searchCryptocurrencies result
+        # 17. getCryptocurrencyDataById - use id from searchCryptocurrencies result
         crypto_id = "bitcoin"
         if crypto_data and crypto_data.get("results"):
             crypto_id = crypto_data["results"][0]["id"]
@@ -345,58 +458,52 @@ async def main():
             validate_get_cryptocurrency_data_by_id,
         )
 
-        # 17. getCryptocurrencyNews - BTC and ETH
-        for symbol in ["BTC", "ETH"]:
+        # 18. getCryptocurrencyNews - ZZZQQQ exercises the general-news fallback
+        for symbol in ["BTC", "ETH", "SOL", "ADA", "ZZZQQQ"]:
             await call_tool("getCryptocurrencyNews", {"symbol": symbol}, validate_get_cryptocurrency_news)
 
-        # 18. calculateInvestmentFutureValue
+        # 19. calculateInvestmentFutureValue
         await call_tool(
             "calculateInvestmentFutureValue",
             {"initial_investment": 10000.0, "annual_return": 8.0, "years": 10},
             validate_calculate_investment_future_value,
         )
 
-        # 19. getEarningsCallTranscript
-        await call_tool(
-            "getEarningsCallTranscript",
-            {"stock_symbol": "MSFT", "year": 2024, "quarter": "Q1"},
-            validate_get_earnings_call_transcript,
-        )
+        # 20. getInsiderTransactions - including a share class written with a dot
+        for symbol in ["TSLA", "BRK.B"]:
+            await call_tool(
+                "getInsiderTransactions",
+                {"stock_symbol": symbol, "year": 2024},
+                validate_get_insider_transactions,
+            )
 
-        # 20. getInsiderTransactions
-        await call_tool(
-            "getInsiderTransactions",
-            {"stock_symbol": "TSLA", "year": 2024},
-            validate_get_insider_transactions,
-        )
+        # A year older than the EDGAR submissions index must say so, not return an empty list.
+        await call_tool_expect_failure("getInsiderTransactions", {"stock_symbol": "TSLA", "year": 1999})
 
         # 21. getCompanyKpiMetrics - all stock symbols
         for symbol in STOCK_SYMBOLS:
             await call_tool("getCompanyKpiMetrics", {"stock_symbol": symbol}, validate_get_company_kpi_metrics)
 
-        # 22. getInvestingIdeas
-        investing_ideas_data = await call_tool("getInvestingIdeas", {}, validate_get_investing_ideas)
-
-        # 23. getInvestingIdeaStocks - use idea_id from getInvestingIdeas result
-        if investing_ideas_data and investing_ideas_data.get("investing_ideas"):
-            idea_id = investing_ideas_data["investing_ideas"][0]["idea_id"]
-            await call_tool(
-                "getInvestingIdeaStocks",
-                {"idea_id": idea_id},
-                validate_get_investing_idea_stocks,
-            )
-        else:
-            # Skip with a note if no ideas available
-            print(f"{RED}[SKIP] getInvestingIdeaStocks - no investing ideas available{RESET}")
-
-        # 24. getCurrencyExchangeRate
+        # 22. getCurrencyExchangeRate
         await call_tool(
             "getCurrencyExchangeRate",
             {"from_currency": "EUR", "to_currency": "USD"},
             validate_get_currency_exchange_rate,
         )
 
-        # 25. getPolymarketEventOdds
+        # A currency against itself never reaches the API.
+        await call_tool(
+            "getCurrencyExchangeRate",
+            {"from_currency": "USD", "to_currency": "USD"},
+            lambda data: validate_get_currency_exchange_rate(data, expected_rate=1.0),
+        )
+
+        # AED was dropped along with Alpha Vantage: the ECB does not publish it.
+        await call_tool_expect_failure(
+            "getCurrencyExchangeRate", {"from_currency": "AED", "to_currency": "USD"}
+        )
+
+        # 23. getPolymarketEventOdds
         await call_tool(
             "getPolymarketEventOdds",
             {"event_query": "election", "limit": 3},

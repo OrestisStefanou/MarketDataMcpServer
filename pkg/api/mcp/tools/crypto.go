@@ -11,7 +11,7 @@ import (
 type CryptoDataService interface {
 	SearchCryptocurrencies(query string) ([]domain.Cryptocurrency, error)
 	GetCryptocurrencyDataById(id string) (domain.CryptocurrencyData, error)
-	GetCryptocurrencyNews(symbol string) ([]domain.NewsArticle, error)
+	GetCryptocurrencyNews(symbol string) (domain.CryptocurrencyNews, error)
 }
 
 type SearchCryptocurrenciesRequest struct {
@@ -153,7 +153,8 @@ type GetCryptocurrencyNewsRequest struct {
 }
 
 type GetCryptocurrencyNewsResponse struct {
-	News []NewsArticleSchema `json:"news" jsonschema_description:"A list of crypto news articles"`
+	News          []NewsArticleSchema `json:"news" jsonschema_description:"A list of crypto news articles"`
+	MatchedSymbol bool                `json:"matched_symbol" jsonschema_description:"True when the articles are about the requested cryptocurrency. False means no recent article mentioned it and these are general crypto market news instead, which must not be reported as news about this cryptocurrency."`
 }
 
 type GetCryptocurrencyNewsTool struct {
@@ -173,10 +174,11 @@ func (t *GetCryptocurrencyNewsTool) HandleGetCryptocurrencyNews(ctx context.Cont
 	}
 
 	response := GetCryptocurrencyNewsResponse{
-		News: make([]NewsArticleSchema, 0, len(news)),
+		News:          make([]NewsArticleSchema, 0, len(news.Articles)),
+		MatchedSymbol: news.MatchedSymbol,
 	}
 
-	for _, article := range news {
+	for _, article := range news.Articles {
 		response.News = append(response.News, NewsArticleSchema{
 			Url:    article.Url,
 			Image:  article.Image,

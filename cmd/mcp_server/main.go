@@ -3,12 +3,15 @@ package main
 import (
 	"context"
 	"log"
-	alphavantage "market_data_mcp_server/pkg/alpha_vantage"
 	"market_data_mcp_server/pkg/api/mcp/tools"
 	coingecko "market_data_mcp_server/pkg/coin_gecko"
 	"market_data_mcp_server/pkg/config"
+	cryptonewsrss "market_data_mcp_server/pkg/crypto_news_rss"
+	"market_data_mcp_server/pkg/frankfurter"
+	"market_data_mcp_server/pkg/fred"
 	"market_data_mcp_server/pkg/marketDataScraper"
 	"market_data_mcp_server/pkg/polymarket"
+	secedgar "market_data_mcp_server/pkg/sec_edgar"
 	"market_data_mcp_server/pkg/services"
 	"os"
 	"os/signal"
@@ -42,16 +45,18 @@ func main() {
 	cache, _ := services.NewBadgerCacheService()
 	dataService := marketDataScraper.NewMarketDataScraperWithCache(cache, conf)
 
-	alphaVantageClient, _ := alphavantage.NewAlphaVantageClientWithCache(conf.AlphaVantageApiKey, cache, conf.AlphaVantageCacheTtl)
 	coinGeckoClient, _ := coingecko.NewCoinGeckoClientWithCache(conf.CoinGeckoApiKey, cache, conf.CoinGeckoCacheTtl)
 	polymarketClient, _ := polymarket.NewPolymarketClientWithCache(cache, conf.PolymarketCacheTtl)
+	fredClient, _ := fred.NewFredClientWithCache(cache, conf.FredCacheTtl)
+	frankfurterClient, _ := frankfurter.NewFrankfurterClientWithCache(cache, conf.FrankfurterCacheTtl)
+	secEdgarClient, _ := secedgar.NewSecEdgarClientWithCache(conf.SecEdgarUserAgent, cache, conf.SecEdgarCacheTtl)
+	cryptoNewsClient, _ := cryptonewsrss.NewCryptoNewsRssClientWithCache(cache, conf.CryptoNewsCacheTtl)
 
 	// Set up services
 	tickerService, _ := services.NewTickerService(dataService)
 	etfService, _ := services.NewEtfService(dataService)
 	superInvestorService, _ := services.NewSuperInvestorService(dataService)
-	cryptoService, _ := services.NewCryptoService(coinGeckoClient, alphaVantageClient)
-	investingIdeasService, _ := services.NewInvestingIdeasLocalDataService(conf.InvestingIdeasDataPath)
+	cryptoService, _ := services.NewCryptoService(coinGeckoClient, cryptoNewsClient)
 
 	// Setup tools
 	searchStocksTool, _ := tools.NewStockSearchTool(tickerService)
@@ -64,18 +69,15 @@ func main() {
 	getSectorStocksTool, _ := tools.NewGetSectorStocksTool(dataService)
 	getStockOverviewTool, _ := tools.NewGetStockOverviewTool(dataService)
 	getStockFinancialsTool, _ := tools.NewGetStockFinancialsTool(dataService)
-	getEconomicIndicatorTimeSeriesTool, _ := tools.NewGetEconomicIndicatorTimeSeriesTool(alphaVantageClient)
-	getCommodityTimeSeriesTool, _ := tools.NewGetCommodityTimeSeriesTool(alphaVantageClient)
+	getEconomicIndicatorTimeSeriesTool, _ := tools.NewGetEconomicIndicatorTimeSeriesTool(fredClient)
+	getCommodityTimeSeriesTool, _ := tools.NewGetCommodityTimeSeriesTool(fredClient)
 	searchCryptocurrenciesTool, _ := tools.NewSearchCryptocurrenciesTool(cryptoService)
 	getCryptocurrencyDataByIdTool, _ := tools.NewGetCryptocurrencyDataByIdTool(cryptoService)
 	getCryptocurrencyNewsTool, _ := tools.NewGetCryptocurrencyNewsTool(cryptoService)
 	calculateInvestmentFutureValueTool, _ := tools.NewCalculateInvestmentFutureValueTool()
-	getEarningsCallTranscriptTool, _ := tools.NewGetEarningsCallTranscriptTool(alphaVantageClient)
-	getInsiderTransactionsTool, _ := tools.NewGetInsiderTransactionsTool(alphaVantageClient)
+	getInsiderTransactionsTool, _ := tools.NewGetInsiderTransactionsTool(secEdgarClient)
 	getCompanyKpiMetricsTool, _ := tools.NewGetCompanyKpiMetricsTool(dataService)
-	getInvestingIdeasTool, _ := tools.NewGetInvestingIdeasTool(investingIdeasService)
-	getInvestingIdeaStocksTool, _ := tools.NewGetInvestingIdeaStocksTool(investingIdeasService)
-	getCurrencyExchangeRateTool, _ := tools.NewGetCurrencyExchangeRateTool(alphaVantageClient)
+	getCurrencyExchangeRateTool, _ := tools.NewGetCurrencyExchangeRateTool(frankfurterClient)
 	getPolymarketEventOddsTool, _ := tools.NewGetPolymarketEventOddsTool(polymarketClient)
 
 	// Add tools
@@ -160,11 +162,6 @@ func main() {
 	)
 
 	mcpServer.AddTool(
-		getEarningsCallTranscriptTool.GetTool(),
-		mcp.NewStructuredToolHandler(getEarningsCallTranscriptTool.HandleGetEarningsCallTranscript),
-	)
-
-	mcpServer.AddTool(
 		getInsiderTransactionsTool.GetTool(),
 		mcp.NewStructuredToolHandler(getInsiderTransactionsTool.HandleGetInsiderTransactions),
 	)
@@ -172,16 +169,6 @@ func main() {
 	mcpServer.AddTool(
 		getCompanyKpiMetricsTool.GetTool(),
 		mcp.NewStructuredToolHandler(getCompanyKpiMetricsTool.HandleGetCompanyKpiMetrics),
-	)
-
-	mcpServer.AddTool(
-		getInvestingIdeasTool.GetTool(),
-		mcp.NewStructuredToolHandler(getInvestingIdeasTool.HandleGetInvestingIdeas),
-	)
-
-	mcpServer.AddTool(
-		getInvestingIdeaStocksTool.GetTool(),
-		mcp.NewStructuredToolHandler(getInvestingIdeaStocksTool.HandleGetInvestingIdeaStocks),
 	)
 
 	mcpServer.AddTool(

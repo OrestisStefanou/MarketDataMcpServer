@@ -92,6 +92,10 @@ func (t *GetEconomicIndicatorTimeSeriesTool) HandleGetEconomicIndicatorTimeSerie
 	if args.Limit > 0 {
 		limit = args.Limit
 	}
+	// Series lengths vary, and a short one would otherwise panic on the slice below.
+	if limit > len(timeSeries.Data) {
+		limit = len(timeSeries.Data)
+	}
 
 	for _, entry := range timeSeries.Data[:limit] {
 		response.Data = append(response.Data, EconomicIndicatorTimeSeriesEntrySchema{

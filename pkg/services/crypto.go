@@ -11,7 +11,7 @@ type ICryptoDataService interface {
 }
 
 type CryptoNewsSource interface {
-	GetCryptocurrencyNews(symbol string) ([]domain.NewsArticle, error)
+	GetCryptocurrencyNews(symbol string) (domain.CryptocurrencyNews, error)
 }
 
 type CryptoService struct {
@@ -69,6 +69,6 @@ func (s *CryptoService) SearchCryptocurrencies(query string) ([]domain.Cryptocur
 	return searchResults, nil
 }
 
-func (s *CryptoService) GetCryptocurrencyNews(symbol string) ([]domain.NewsArticle, error) {
+func (s *CryptoService) GetCryptocurrencyNews(symbol string) (domain.CryptocurrencyNews, error) {
 	return s.cryptoNewsSource.GetCryptocurrencyNews(symbol)
 }

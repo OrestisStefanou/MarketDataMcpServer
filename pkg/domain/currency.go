@@ -3,7 +3,6 @@ package domain
 type Currency string
 
 const (
-	AED Currency = "AED"
 	USD Currency = "USD"
 	EUR Currency = "EUR"
 	GBP Currency = "GBP"
@@ -16,18 +15,16 @@ const (
 type CurrencyName string
 
 const (
-	UnitedArabEmiratesDirham CurrencyName = "United Arab Emirates Dirham"
-	UnitedStatesDollar       CurrencyName = "United States Dollar"
-	Euro                     CurrencyName = "Euro"
-	BritishPound             CurrencyName = "British Pound"
-	JapaneseYen              CurrencyName = "Japanese Yen"
-	SwissFranc               CurrencyName = "Swiss Franc"
-	CanadianDollar           CurrencyName = "Canadian Dollar"
-	AustralianDollar         CurrencyName = "Australian Dollar"
+	UnitedStatesDollar CurrencyName = "United States Dollar"
+	Euro               CurrencyName = "Euro"
+	BritishPound       CurrencyName = "British Pound"
+	JapaneseYen        CurrencyName = "Japanese Yen"
+	SwissFranc         CurrencyName = "Swiss Franc"
+	CanadianDollar     CurrencyName = "Canadian Dollar"
+	AustralianDollar   CurrencyName = "Australian Dollar"
 )
 
 var CurrencyCodeToNameMap = map[Currency]CurrencyName{
-	AED: UnitedArabEmiratesDirham,
 	USD: UnitedStatesDollar,
 	EUR: Euro,
 	GBP: BritishPound,
