@@ -20,12 +20,15 @@ func NewCoinGeckoClient(apiKey string) (*CoinGeckoClient, error) {
 func (c *CoinGeckoClient) GetCryptocurrenciesList() ([]domain.Cryptocurrency, error) {
 	requestUrl := fmt.Sprintf("%s/coins/list", coinGeckoBaseURL)
 
-	// Add the api key in the header
+	// The api key is optional. CoinGecko serves these endpoints anonymously at a lower
+	// rate limit, so the header is only set when a key is configured.
 	req, err := http.NewRequest("GET", requestUrl, nil)
 	if err != nil {
 		return nil, err
 	}
-	req.Header.Set("x-cg-demo-api-key", c.apiKey)
+	if c.apiKey != "" {
+		req.Header.Set("x-cg-demo-api-key", c.apiKey)
+	}
 
 	// Send the request
 	client := &http.Client{}
@@ -61,12 +64,15 @@ func (c *CoinGeckoClient) GetCryptocurrenciesList() ([]domain.Cryptocurrency, er
 func (c *CoinGeckoClient) GetCryptocurrencyDataById(id string) (domain.CryptocurrencyData, error) {
 	requestUrl := fmt.Sprintf("%s/coins/%s", coinGeckoBaseURL, id)
 
-	// Add the api key in the header
+	// The api key is optional. CoinGecko serves these endpoints anonymously at a lower
+	// rate limit, so the header is only set when a key is configured.
 	req, err := http.NewRequest("GET", requestUrl, nil)
 	if err != nil {
 		return domain.CryptocurrencyData{}, err
 	}
-	req.Header.Set("x-cg-demo-api-key", c.apiKey)
+	if c.apiKey != "" {
+		req.Header.Set("x-cg-demo-api-key", c.apiKey)
+	}
 
 	// Send the request
 	client := &http.Client{}

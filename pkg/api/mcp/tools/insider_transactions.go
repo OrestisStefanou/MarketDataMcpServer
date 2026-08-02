@@ -29,10 +29,16 @@ type GetInsiderTransactionsResponse struct {
 	Symbol              string               `json:"symbol" jsonschema_description:"Symbol of the stock"`
 	Year                int                  `json:"year" jsonschema_description:"Year of the insider transactions"`
 	InsiderTransactions []InsiderTransaction `json:"insider_transactions" jsonschema_description:"Insider transactions of the stock"`
+	FilingsFound        int                  `json:"filings_found" jsonschema_description:"Number of Form 4 filings this company made in the requested year"`
+	FilingsFetched      int                  `json:"filings_fetched" jsonschema_description:"Number of those filings actually read"`
+	Truncated           bool                 `json:"truncated" jsonschema_description:"True when the year held more filings than a single request reads, so these transactions are only the most recent part of the year. Do not describe the year as quiet or complete when this is true."`
 }
 
+// InsiderTransactionsService takes the year because the underlying source stores one filing
+// per transaction batch. Fetching a company's whole history to filter it here would mean
+// hundreds of requests per call.
 type InsiderTransactionsService interface {
-	GetInsiderTransactions(symbol string) ([]domain.InsiderTransaction, error)
+	GetInsiderTransactions(symbol string, year int) (domain.InsiderTransactions, error)
 }
 
 type GetInsiderTransactionsTool struct {
@@ -55,15 +61,17 @@ func (t *GetInsiderTransactionsTool) HandleGetInsiderTransactions(ctx context.Co
 		return GetInsiderTransactionsResponse{}, fmt.Errorf("year is required")
 	}
 
-	insiderTransactions, err := t.insiderTransactionsService.GetInsiderTransactions(args.StockSymbol)
+	insiderTransactions, err := t.insiderTransactionsService.GetInsiderTransactions(args.StockSymbol, args.Year)
 	if err != nil {
 		return GetInsiderTransactionsResponse{}, err
 	}
 
-	// Filter by year
+	// The service already scopes to the year. This is a safety net: a filing window has to
+	// be slightly wider than the year itself, since a December transaction is often filed
+	// in January.
 	var filteredTransactions []domain.InsiderTransaction
 	yearStr := fmt.Sprintf("%d", args.Year)
-	for _, transaction := range insiderTransactions {
+	for _, transaction := range insiderTransactions.Transactions {
 		if strings.HasPrefix(transaction.TransactionDate, yearStr) {
 			filteredTransactions = append(filteredTransactions, transaction)
 		}
@@ -88,6 +96,9 @@ func (t *GetInsiderTransactionsTool) HandleGetInsiderTransactions(ctx context.Co
 		Symbol:              args.StockSymbol,
 		Year:                args.Year,
 		InsiderTransactions: insiderTransactionsResponse,
+		Truncated:           insiderTransactions.Truncated,
+		FilingsFound:        insiderTransactions.FilingsFound,
+		FilingsFetched:      insiderTransactions.FilingsFetched,
 	}, nil
 }
 

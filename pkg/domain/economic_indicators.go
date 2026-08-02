@@ -13,6 +13,7 @@ const (
 type EconomicIndicatorInterval string
 
 const (
+	DailyEconomicIndicatorInterval     EconomicIndicatorInterval = "Daily"
 	MonthlyEconomicIndicatorInterval   EconomicIndicatorInterval = "Monthly"
 	AnnualEconomicIndicatorInterval    EconomicIndicatorInterval = "Annual"
 	QuarterlyEconomicIndicatorInterval EconomicIndicatorInterval = "Quarterly"
