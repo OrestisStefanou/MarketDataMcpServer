@@ -110,7 +110,12 @@ func TestAccountingIdentities(t *testing.T) {
 				{"operating income == gross profit - opex", i.Opinc, i.Gp - i.Opex},
 				{"gross margin == gross profit / revenue", i.GrossMargin, i.Gp / i.Revenue},
 				{"profit margin == to-company net income / revenue", i.ProfitMargin, i.NetincCompany / i.Revenue},
-				{"net income == to-company less minority interest", i.Netinc, i.NetincCompany - i.MinorityInterest},
+				// Upstream reports netinc and netinccmn both already net of minority
+				// interest, and carries the minority interest line separately as a
+				// disclosure rather than as a reconciling item. Verified on xom, whose
+				// netinc and netinccmn are both 14,525m against a minority interest of
+				// -356m. Subtracting it again would double-count.
+				{"net income == to-company net income", i.Netinc, i.NetincCompany},
 				{"free cash flow == operating cash flow + capex", c.Fcf, c.Ncfo + c.Capex},
 			}
 			for _, ch := range checks {

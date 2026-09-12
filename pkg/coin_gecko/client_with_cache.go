@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"market_data_mcp_server/pkg/domain"
 	"market_data_mcp_server/pkg/services"
+	"strings"
 	"time"
 )
 
@@ -67,4 +68,30 @@ func (c *CoinGeckoClientWithCache) GetCryptocurrencyDataById(id string) (domain.
 	}
 
 	return cryptocurrencyData, nil
+}
+
+func (c *CoinGeckoClientWithCache) SearchCryptocurrencies(query string) ([]domain.Cryptocurrency, error) {
+	// Check if the data is in the cache
+	var searchResults []domain.Cryptocurrency
+
+	key := fmt.Sprintf("cryptocurrencies_search_%s", strings.ToLower(query))
+	err := c.cache.Get(key, &searchResults)
+	if err == nil {
+		return searchResults, nil
+	}
+
+	// If not in cache, get from API
+	coinGeckoClient := CoinGeckoClient{apiKey: c.apiKey}
+	searchResults, err = coinGeckoClient.SearchCryptocurrencies(query)
+	if err != nil {
+		return nil, err
+	}
+
+	// Set in cache
+	err = c.cache.Set(key, searchResults, time.Duration(c.cacheTtlSeconds)*time.Second)
+	if err != nil {
+		return nil, err
+	}
+
+	return searchResults, nil
 }
