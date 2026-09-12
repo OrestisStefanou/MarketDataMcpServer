@@ -75,8 +75,18 @@ async def call_tool(tool_name: str, params: dict, validator):
 
 # --- Validators ---
 
-def validate_stock_search(data):
+def validate_limit(data: dict, field: str, limit: int | None) -> str | None:
+    """A limit that returns limit+1 rows is an off-by-one no shape check would catch."""
+    if limit is not None and len(data[field]) > limit:
+        return f"returned {len(data[field])} results for a limit of {limit}"
+    return None
+
+
+def validate_stock_search(data, limit=None):
     err = validate_list_field(data, "search_results")
+    if err:
+        return err
+    err = validate_limit(data, "search_results", limit)
     if err:
         return err
     if data["search_results"]:
@@ -84,8 +94,11 @@ def validate_stock_search(data):
     return None
 
 
-def validate_etf_search(data):
+def validate_etf_search(data, limit=None):
     err = validate_list_field(data, "search_results")
+    if err:
+        return err
+    err = validate_limit(data, "search_results", limit)
     if err:
         return err
     if data["search_results"]:
@@ -139,8 +152,11 @@ def validate_get_sectors(data):
     return None
 
 
-def validate_get_sector_stocks(data):
+def validate_get_sector_stocks(data, limit=None):
     err = validate_list_field(data, "sector_stocks")
+    if err:
+        return err
+    err = validate_limit(data, "sector_stocks", limit)
     if err:
         return err
     if data["sector_stocks"]:
@@ -152,8 +168,35 @@ def validate_get_stock_overview(data):
     return validate_fields(data, ["symbol", "stock_profile", "stock_financial_ratios"])
 
 
-def validate_get_stock_financials(data):
-    return validate_fields(data, ["symbol", "balance_sheets", "income_statements", "cash_flows"])
+# An unmatched json tag in the Go structs unmarshals to zero rather than erroring, so a
+# statement can look complete while its headline lines read 0. These are the lines no
+# going concern reports as zero in a quarter it filed at all.
+REQUIRED_NONZERO = {
+    "balance_sheets": ["assets", "liabilities", "equity", "current_liabilities", "net_ppe", "retearn"],
+    "income_statements": ["revenue", "gross_profit", "opinc", "netinc", "taxexp", "eps_dil"],
+    "cash_flows": ["ncfo", "capex", "net_income_cf", "total_dep_amor_cf"],
+}
+
+
+def validate_get_stock_financials(data, limit=None):
+    err = validate_fields(data, ["symbol", "balance_sheets", "income_statements", "cash_flows"])
+    if err:
+        return err
+
+    for section, fields in REQUIRED_NONZERO.items():
+        statements = data[section]
+        if not statements:
+            return f"field '{section}' is empty"
+        if limit is not None and len(statements) > limit:
+            return f"field '{section}' returned {len(statements)} statements for a limit of {limit}"
+        # Across the returned quarters, not within one: a single quarter may legitimately
+        # post a zero, but a field that is zero in every one of them is a broken mapping.
+        for field in fields:
+            if field not in statements[0]:
+                return f"field '{section}[0]': missing field '{field}'"
+            if all(not s.get(field) for s in statements):
+                return f"field '{section}': '{field}' is zero in all {len(statements)} statements"
+    return None
 
 
 def validate_time_series_entries(data: dict, limit: int | None) -> str | None:
@@ -213,12 +256,24 @@ def validate_get_commodity_time_series(data, limit=None):
     return validate_time_series_entries(data, limit)
 
 
-def validate_search_cryptocurrencies(data):
+def validate_search_cryptocurrencies(data, limit=None, expected_top_id=None):
     err = validate_list_field(data, "results")
     if err:
         return err
-    if data["results"]:
-        return validate_fields(data["results"][0], ["id", "name", "symbol"])
+    err = validate_limit(data, "results", limit)
+    if err:
+        return err
+    if not data["results"]:
+        return "field 'results' is empty"
+    err = validate_fields(data["results"][0], ["id", "name", "symbol"])
+    if err:
+        return err
+
+    # /coins/list carries no market cap rank, so a symbol squatter can outrank the real
+    # asset: a search for "BTC" once returned the memecoin "batcat". Shape checks alone
+    # pass that, and the id then feeds getCryptocurrencyDataById as if it were correct.
+    if expected_top_id is not None and data["results"][0]["id"] != expected_top_id:
+        return f"expected {expected_top_id!r} ranked first, got {data['results'][0]['id']!r}"
     return None
 
 
@@ -340,10 +395,18 @@ async def main():
         await validate_tool_set()
 
         # 1. stockSearch
-        await call_tool("stockSearch", {"search_string": "Microsoft", "limit": 5}, validate_stock_search)
+        await call_tool(
+            "stockSearch",
+            {"search_string": "Microsoft", "limit": 5},
+            lambda data: validate_stock_search(data, limit=5),
+        )
 
         # 2. etfSearch
-        await call_tool("etfSearch", {"search_string": "Vanguard", "limit": 5}, validate_etf_search)
+        await call_tool(
+            "etfSearch",
+            {"search_string": "Vanguard", "limit": 5},
+            lambda data: validate_etf_search(data, limit=5),
+        )
 
         # 3. getETF - all ETF symbols
         for symbol in ETF_SYMBOLS:
@@ -379,7 +442,7 @@ async def main():
         await call_tool(
             "getSectorStocks",
             {"url_name": sector_url_name, "limit": 10},
-            validate_get_sector_stocks,
+            lambda data: validate_get_sector_stocks(data, limit=10),
         )
 
         # 10. getStockOverview - all stock symbols
@@ -397,7 +460,7 @@ async def main():
                     "include_cash_flows": True,
                     "limit": 4,
                 },
-                validate_get_stock_financials,
+                lambda data: validate_get_stock_financials(data, limit=4),
             )
 
         # 12. getEconomicIndicatorTimeSeries - Inflation must be a rate, not a CPI index
@@ -445,7 +508,14 @@ async def main():
         crypto_data = await call_tool(
             "searchCryptocurrencies",
             {"search_query": "Bitcoin", "limit": 5},
-            validate_search_cryptocurrencies,
+            lambda data: validate_search_cryptocurrencies(data, limit=5, expected_top_id="bitcoin"),
+        )
+
+        # The symbol is the query a squatter is most likely to win.
+        await call_tool(
+            "searchCryptocurrencies",
+            {"search_query": "BTC", "limit": 5},
+            lambda data: validate_search_cryptocurrencies(data, limit=5, expected_top_id="bitcoin"),
         )
 
         # 17. getCryptocurrencyDataById - use id from searchCryptocurrencies result

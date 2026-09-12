@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"market_data_mcp_server/pkg/domain"
 	"net/http"
+	"net/url"
 )
 
 const coinGeckoBaseURL = "https://api.coingecko.com/api/v3"
@@ -115,4 +116,46 @@ func (c *CoinGeckoClient) GetCryptocurrencyDataById(id string) (domain.Cryptocur
 	}
 
 	return cryptocurrencyData, nil
+}
+
+// SearchCryptocurrencies delegates to CoinGecko's own search, which ranks by market
+// cap. Scanning /coins/list instead matches unranked symbol squatters first: a query
+// for "btc" hits the memecoin "batcat" long before bitcoin.
+func (c *CoinGeckoClient) SearchCryptocurrencies(query string) ([]domain.Cryptocurrency, error) {
+	requestUrl := fmt.Sprintf("%s/search?query=%s", coinGeckoBaseURL, url.QueryEscape(query))
+
+	req, err := http.NewRequest("GET", requestUrl, nil)
+	if err != nil {
+		return nil, err
+	}
+	if c.apiKey != "" {
+		req.Header.Set("x-cg-demo-api-key", c.apiKey)
+	}
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("failed to search coins: %s", resp.Status)
+	}
+
+	var searchResponse CoinGeckoSearchResponse
+	if err := json.NewDecoder(resp.Body).Decode(&searchResponse); err != nil {
+		return nil, err
+	}
+
+	cryptocurrencies := make([]domain.Cryptocurrency, 0, len(searchResponse.Coins))
+	for _, coin := range searchResponse.Coins {
+		cryptocurrencies = append(cryptocurrencies, domain.Cryptocurrency{
+			Id:     coin.Id,
+			Name:   coin.Name,
+			Symbol: coin.Symbol,
+		})
+	}
+
+	return cryptocurrencies, nil
 }

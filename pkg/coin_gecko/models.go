@@ -40,3 +40,9 @@ type CoinGeckoCoinData struct {
 		MaxSupply   *float64 `json:"max_supply"`
 	} `json:"market_data"`
 }
+
+// CoinGeckoSearchResponse is the /search payload. Its coins are already ordered by
+// market cap rank, which is what keeps a symbol squatter from outranking the real asset.
+type CoinGeckoSearchResponse struct {
+	Coins []CoinGeckoCoin `json:"coins"`
+}

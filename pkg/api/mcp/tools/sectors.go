@@ -109,7 +109,7 @@ func (t *GetSectorStocksTool) HandleGetSectorStocks(ctx context.Context, req mcp
 	response := GetSectorStocksResponse{SectorStocks: make([]SectorStockSchema, 0, len(sectorStocks))}
 
 	for i, sectorStock := range sectorStocks {
-		if i > args.Limit {
+		if i >= args.Limit {
 			break
 		}
 		response.SectorStocks = append(response.SectorStocks, SectorStockSchema{

@@ -59,7 +59,7 @@ func (t *SearchEtfTool) HandleSearchEtfs(ctx context.Context, req mcp.CallToolRe
 	}
 
 	for i, e := range etfs {
-		if i > args.Limit {
+		if i >= args.Limit {
 			break
 		}
 		response.SearchResults = append(
