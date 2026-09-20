@@ -68,9 +68,19 @@ func scrapeHistoricalPrices(ticker string, assetClass domain.AssetClass, period 
 		prices = append(prices, price)
 	}
 
+	if len(prices) == 0 {
+		return domain.HistoricalPrices{}, fmt.Errorf("No historical prices returned for %s over %s", ticker, period)
+	}
+
 	firstPrice := prices[0].ClosePrice
 	lastPrice := prices[len(prices)-1].ClosePrice
-	percentChange := ((lastPrice - firstPrice) / firstPrice) * 100
+
+	// A zero opening price would make the change infinite, which fails to
+	// marshal back out as JSON. Report no change instead.
+	var percentChange float64
+	if firstPrice != 0 {
+		percentChange = ((lastPrice - firstPrice) / firstPrice) * 100
+	}
 
 	return domain.HistoricalPrices{
 		Period:           period,
