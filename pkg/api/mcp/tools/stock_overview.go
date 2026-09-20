@@ -111,6 +111,7 @@ type GetStockOverviewResponse struct {
 	StockProfile          StockProfileSchema            `json:"stock_profile" jsonschema_description:"Some very high level information of the stock company"`
 	StockFinancialRatios  []FinancialRatiosSchema       `json:"stock_financial_ratios" jsonschema_description:"The last quarterly financial ratios of the stock"`
 	StockForecast         StockForecastSchema           `json:"stock_forecast" jsonschema_description:"Financial forecast of the stock provided by analysts"`
+	LatestPrice           PriceSchema                   `json:"latest_price" jsonschema_description:"Most recent close price available, with its date. Prefer this over the last close price in the financial ratios, which is the close at the fiscal period end and can be months stale"`
 	HistoricalPerformance []HistoricalPerformanceSchema `json:"stock_historical_performance" jsonschema_description:"Historical price performance of the stock"`
 }
 
@@ -298,6 +299,7 @@ func (t *GetStockOverviewTool) HandleGetStockOverview(ctx context.Context, req m
 	// Fetch historical performance for multiple periods
 	periods := []domain.Period{domain.Period5D, domain.Period1M, domain.Period6M, domain.Period1Y, domain.Period5Y}
 	performanceList := make([]HistoricalPerformanceSchema, 5)
+	latestPrices := make([]PriceSchema, 5)
 
 	for i, period := range periods {
 		index, performancePeriod := i, period // capture loop variables for goroutines
@@ -322,6 +324,14 @@ func (t *GetStockOverviewTool) HandleGetStockOverview(ctx context.Context, req m
 				Period:           string(histPrices.Period),
 				PercentageChange: histPrices.PercentageChange,
 			}
+			if len(histPrices.Prices) > 0 {
+				// The series is oldest first, so the last entry is the most recent close.
+				latest := histPrices.Prices[len(histPrices.Prices)-1]
+				latestPrices[index] = PriceSchema{
+					Date:       latest.Date.Format(time.RFC3339),
+					ClosePrice: latest.ClosePrice,
+				}
+			}
 			mu.Unlock()
 		}()
 	}
@@ -334,8 +344,31 @@ func (t *GetStockOverviewTool) HandleGetStockOverview(ctx context.Context, req m
 	}
 
 	response.HistoricalPerformance = performanceList
+	response.LatestPrice = mostRecentPrice(latestPrices)
 
 	return response, nil
+}
+
+// mostRecentPrice returns the newest close among the per-period series. Periods
+// that failed to yield any price carry a zero PriceSchema and are skipped.
+func mostRecentPrice(prices []PriceSchema) PriceSchema {
+	var latest PriceSchema
+	var latestDate time.Time
+
+	for _, price := range prices {
+		if price.Date == "" {
+			continue
+		}
+		date, err := time.Parse(time.RFC3339, price.Date)
+		if err != nil {
+			continue
+		}
+		if latest.Date == "" || date.After(latestDate) {
+			latest, latestDate = price, date
+		}
+	}
+
+	return latest
 }
 
 func (t *GetStockOverviewTool) GetTool() mcp.Tool {
