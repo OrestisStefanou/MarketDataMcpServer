@@ -185,7 +185,7 @@ type FinancialRatios struct {
 	FiscalQuarter     string  `json:"fiscalQuarter"`
 	Marketcap         float64 `json:"marketCap"`
 	Ev                float64 `json:"ev"`
-	LastCloseRatios   float64 `json:"lastClosePrice"`
+	LastCloseRatios   float64 `json:"lastCloseRatios"`
 	Pe                float64 `json:"pe"`
 	PeForward         float64 `json:"peForward"`
 	PegRatio          float64 `json:"pegRatio"`
